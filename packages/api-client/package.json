@@ -1,0 +1,17 @@
+{
+  "name": "@ems/api-client",
+  "version": "0.0.1",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "generate": "orval --config orval.config.ts"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "latest"
+  },
+  "devDependencies": {
+    "orval": "latest",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@ems/api-contract",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "lint": "redocly lint openapi.yaml",
+    "generate-types": "openapi-typescript openapi.yaml -o src/generated-types.ts"
+  },
+  "devDependencies": {
+    "@redocly/cli": "latest",
+    "openapi-typescript": "latest"
+  }
+}

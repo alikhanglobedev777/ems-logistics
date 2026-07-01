@@ -1,0 +1,19 @@
+{
+  "name": "ems-logistics",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+  "dev": "turbo dev",
+  "dev:api": "pnpm --filter @ems/api dev",
+  "dev:web": "pnpm --filter @ems/web dev",
+  "build": "turbo build",
+  "typecheck": "turbo typecheck",
+  "lint": "turbo lint",
+  "contract:lint": "pnpm --filter @ems/api-contract lint",
+  "contract:generate": "pnpm --filter @ems/api-client generate"
+},
+  "devDependencies": {
+    "turbo": "latest",
+    "typescript": "latest"
+  }
+}
