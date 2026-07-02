@@ -5,15 +5,19 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "generate-types": "kysely-codegen --out-file src/types.ts"
+    "migrate": "tsx src/migrate.ts",
+    "generate-types": "dotenv -e ../../.env -- kysely-codegen --out-file src/types.ts"
   },
   "dependencies": {
+    "dotenv": "latest",
     "kysely": "latest",
     "pg": "latest"
   },
   "devDependencies": {
     "@types/pg": "latest",
+    "dotenv-cli": "^11.0.0",
     "kysely-codegen": "latest",
+    "tsx": "latest",
     "typescript": "^5.7.3"
   }
 }
