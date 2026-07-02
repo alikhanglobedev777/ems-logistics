@@ -21,6 +21,60 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/cities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get cities list */
+        get: operations["getCities"];
+        put?: never;
+        /** Create city */
+        post: operations["createCity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/stations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get stations list */
+        get: operations["getStations"];
+        put?: never;
+        /** Create station */
+        post: operations["createStation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/stations/{stationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get station by ID */
+        get: operations["getStationById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update station */
+        patch: operations["updateStation"];
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -34,6 +88,72 @@ export interface components {
                 /** Format: date-time */
                 timestamp: string;
             };
+        };
+        City: {
+            /** @example 1 */
+            id: number;
+            /** @example Lahore */
+            name: string;
+            /** @example Punjab */
+            province?: string | null;
+            /** @example Pakistan */
+            country: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        CreateCityRequest: {
+            /** @example Lahore */
+            name: string;
+            /** @example Punjab */
+            province?: string | null;
+            /** @example Pakistan */
+            country?: string;
+        };
+        CityResponse: {
+            data: components["schemas"]["City"];
+        };
+        CitiesListResponse: {
+            data: components["schemas"]["City"][];
+        };
+        Station: {
+            /** @example 1 */
+            id: number;
+            /** @example 1 */
+            cityId: number;
+            /** @example Lahore */
+            cityName: string;
+            /** @example Lahore Main Station */
+            name: string;
+            /** @example LHR-MAIN */
+            code?: string | null;
+            address?: string | null;
+            /** @example 03001234567 */
+            contactPhone?: string | null;
+            /** @example true */
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        CreateStationRequest: {
+            cityId: number;
+            name: string;
+            code?: string | null;
+            address?: string | null;
+            contactPhone?: string | null;
+        };
+        UpdateStationRequest: {
+            cityId?: number;
+            name?: string;
+            code?: string | null;
+            address?: string | null;
+            contactPhone?: string | null;
+            isActive?: boolean;
+        };
+        StationResponse: {
+            data: components["schemas"]["Station"];
+        };
+        StationsListResponse: {
+            data: components["schemas"]["Station"][];
         };
         ErrorResponse: {
             error: {
@@ -73,6 +193,208 @@ export interface operations {
             };
             /** @description Bad request */
             400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getCities: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Cities list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CitiesListResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createCity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCityRequest"];
+            };
+        };
+        responses: {
+            /** @description City created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CityResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getStations: {
+        parameters: {
+            query?: {
+                cityId?: number;
+                isActive?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Stations list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StationsListResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createStation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateStationRequest"];
+            };
+        };
+        responses: {
+            /** @description Station created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StationResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getStationById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                stationId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Station detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StationResponse"];
+                };
+            };
+            /** @description Station not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateStation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                stationId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateStationRequest"];
+            };
+        };
+        responses: {
+            /** @description Station updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StationResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Station not found */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };

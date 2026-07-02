@@ -15,6 +15,8 @@ servers:
 tags:
   - name: Health
     description: API health and status endpoints
+  - name: Cities
+    description: City management
   - name: Stations
     description: Station and branch management
 
@@ -35,6 +37,168 @@ paths:
                 $ref: "#/components/schemas/HealthResponse"
         "400":
           description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /cities:
+    get:
+      tags:
+        - Cities
+      operationId: getCities
+      summary: Get cities list
+      responses:
+        "200":
+          description: Cities list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CitiesListResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    post:
+      tags:
+        - Cities
+      operationId: createCity
+      summary: Create city
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCityRequest"
+      responses:
+        "201":
+          description: City created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CityResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /stations:
+    get:
+      tags:
+        - Stations
+      operationId: getStations
+      summary: Get stations list
+      parameters:
+        - in: query
+          name: cityId
+          schema:
+            type: integer
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Stations list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StationsListResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    post:
+      tags:
+        - Stations
+      operationId: createStation
+      summary: Create station
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateStationRequest"
+      responses:
+        "201":
+          description: Station created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StationResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /stations/{stationId}:
+    get:
+      tags:
+        - Stations
+      operationId: getStationById
+      summary: Get station by ID
+      parameters:
+        - in: path
+          name: stationId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Station detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StationResponse"
+        "404":
+          description: Station not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    patch:
+      tags:
+        - Stations
+      operationId: updateStation
+      summary: Update station
+      parameters:
+        - in: path
+          name: stationId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStationRequest"
+      responses:
+        "200":
+          description: Station updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StationResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Station not found
           content:
             application/json:
               schema:
@@ -69,6 +233,162 @@ components:
             timestamp:
               type: string
               format: date-time
+
+    City:
+      type: object
+      required:
+        - id
+        - name
+        - country
+        - createdAt
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Lahore
+        province:
+          type: string
+          nullable: true
+          example: Punjab
+        country:
+          type: string
+          example: Pakistan
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateCityRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Lahore
+        province:
+          type: string
+          nullable: true
+          example: Punjab
+        country:
+          type: string
+          example: Pakistan
+
+    CityResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/City"
+
+    CitiesListResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/City"
+
+    Station:
+      type: object
+      required:
+        - id
+        - cityId
+        - cityName
+        - name
+        - isActive
+        - createdAt
+      properties:
+        id:
+          type: integer
+          example: 1
+        cityId:
+          type: integer
+          example: 1
+        cityName:
+          type: string
+          example: Lahore
+        name:
+          type: string
+          example: Lahore Main Station
+        code:
+          type: string
+          nullable: true
+          example: LHR-MAIN
+        address:
+          type: string
+          nullable: true
+        contactPhone:
+          type: string
+          nullable: true
+          example: "03001234567"
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateStationRequest:
+      type: object
+      required:
+        - cityId
+        - name
+      properties:
+        cityId:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        contactPhone:
+          type: string
+          nullable: true
+
+    UpdateStationRequest:
+      type: object
+      properties:
+        cityId:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        contactPhone:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+
+    StationResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/Station"
+
+    StationsListResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Station"
 
     ErrorResponse:
       type: object

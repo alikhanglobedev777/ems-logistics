@@ -6,7 +6,17 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export * from './citiesListResponse';
+export * from './city';
+export * from './cityResponse';
+export * from './createCityRequest';
+export * from './createStationRequest';
 export * from './errorResponse';
 export * from './errorResponseError';
+export * from './getStationsParams';
 export * from './healthResponse';
 export * from './healthResponseData';
+export * from './station';
+export * from './stationResponse';
+export * from './stationsListResponse';
+export * from './updateStationRequest';
