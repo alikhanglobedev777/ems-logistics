@@ -2,9 +2,16 @@
   "name": "@ems/api-contract",
   "version": "0.0.1",
   "private": true,
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts"
+    }
+  },
   "scripts": {
     "lint": "redocly lint openapi.yaml",
-    "generate-types": "openapi-typescript openapi.yaml -o src/generated-types.ts"
+    "generate-types": "openapi-typescript openapi.yaml -o src/generated-types.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
     "@redocly/cli": "latest",

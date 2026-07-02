@@ -9,7 +9,22 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export type Numeric = ColumnType<string, number | string, number | string>;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+export interface Agents {
+  commission_type: string;
+  commission_value: Numeric | null;
+  created_at: Generated<Timestamp>;
+  email: string | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  name: string;
+  phone: string;
+  station_id: number | null;
+  updated_at: Generated<Timestamp>;
+}
 
 export interface Cities {
   country: Generated<string>;
@@ -17,6 +32,70 @@ export interface Cities {
   id: Generated<number>;
   name: string;
   province: string | null;
+}
+
+export interface Customers {
+  billing_address: string | null;
+  contact_person: string;
+  created_at: Generated<Timestamp>;
+  customer_type: string;
+  email: string | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  name: string;
+  ntn: string | null;
+  phone: string;
+  strn: string | null;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface Drivers {
+  address: string | null;
+  cnic: string | null;
+  created_at: Generated<Timestamp>;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  license_expiry: Timestamp | null;
+  license_number: string | null;
+  name: string;
+  phone: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface DriverVehicleAssignments {
+  assignment_type: string;
+  created_at: Generated<Timestamp>;
+  driver_id: number;
+  end_date: Timestamp | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  start_date: Timestamp;
+  updated_at: Generated<Timestamp>;
+  vehicle_id: number;
+}
+
+export interface Permissions {
+  created_at: Generated<Timestamp>;
+  description: string | null;
+  group_name: string;
+  id: Generated<number>;
+  key: string;
+  label: string;
+}
+
+export interface RolePermissions {
+  permission_id: number;
+  role_id: number;
+}
+
+export interface Roles {
+  created_at: Generated<Timestamp>;
+  description: string | null;
+  id: Generated<number>;
+  is_system: Generated<boolean>;
+  label: string;
+  name: string;
+  updated_at: Generated<Timestamp>;
 }
 
 export interface Stations {
@@ -30,7 +109,65 @@ export interface Stations {
   name: string;
 }
 
+export interface UserRefreshSessions {
+  created_at: Generated<Timestamp>;
+  expires_at: Timestamp;
+  id: Generated<number>;
+  refresh_token_hash: string;
+  revoked_at: Timestamp | null;
+  user_id: number;
+}
+
+export interface Users {
+  created_at: Generated<Timestamp>;
+  email: string;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  name: string;
+  password_hash: string;
+  phone: string | null;
+  role_id: number;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface Vehicles {
+  created_at: Generated<Timestamp>;
+  current_station_id: number;
+  fitness_expiry: Timestamp | null;
+  fuel_card_number: string | null;
+  id: Generated<number>;
+  insurance_expiry: Timestamp | null;
+  is_active: Generated<boolean>;
+  registration_expiry: Timestamp | null;
+  status: Generated<string>;
+  updated_at: Generated<Timestamp>;
+  vehicle_number: string;
+  vehicle_type_id: number;
+}
+
+export interface VehicleTypes {
+  capacity_tons: Numeric | null;
+  code: string;
+  created_at: Generated<Timestamp>;
+  description: string | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  name: string;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface DB {
+  agents: Agents;
   cities: Cities;
+  customers: Customers;
+  driver_vehicle_assignments: DriverVehicleAssignments;
+  drivers: Drivers;
+  permissions: Permissions;
+  role_permissions: RolePermissions;
+  roles: Roles;
   stations: Stations;
+  user_refresh_sessions: UserRefreshSessions;
+  users: Users;
+  vehicle_types: VehicleTypes;
+  vehicles: Vehicles;
 }

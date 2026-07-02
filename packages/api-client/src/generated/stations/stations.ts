@@ -36,6 +36,8 @@ import type {
 import { customHttpClient } from '../../http-client';
 
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
 
 
 const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
@@ -112,16 +114,16 @@ export const getGetStationsQueryKey = (params?: GetStationsParams,) => {
     }
 
 
-export const getGetStationsQueryOptions = <TData = Awaited<ReturnType<typeof getStations>>, TError = ErrorResponse>(params?: GetStationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStations>>, TError, TData>>, }
+export const getGetStationsQueryOptions = <TData = Awaited<ReturnType<typeof getStations>>, TError = ErrorResponse>(params?: GetStationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStations>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
 ) => {
 
-const {query: queryOptions} = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetStationsQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStations>>> = ({ signal }) => getStations(params, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStations>>> = ({ signal }) => getStations(params, { signal, ...requestOptions });
 
 
 
@@ -141,7 +143,7 @@ export function useGetStations<TData = Awaited<ReturnType<typeof getStations>>, 
           TError,
           Awaited<ReturnType<typeof getStations>>
         > , 'initialData'
-      >, }
+      >, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetStations<TData = Awaited<ReturnType<typeof getStations>>, TError = ErrorResponse>(
@@ -151,11 +153,11 @@ export function useGetStations<TData = Awaited<ReturnType<typeof getStations>>, 
           TError,
           Awaited<ReturnType<typeof getStations>>
         > , 'initialData'
-      >, }
+      >, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetStations<TData = Awaited<ReturnType<typeof getStations>>, TError = ErrorResponse>(
- params?: GetStationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStations>>, TError, TData>>, }
+ params?: GetStationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStations>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
@@ -163,7 +165,7 @@ export function useGetStations<TData = Awaited<ReturnType<typeof getStations>>, 
  */
 
 export function useGetStations<TData = Awaited<ReturnType<typeof getStations>>, TError = ErrorResponse>(
- params?: GetStationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStations>>, TError, TData>>, }
+ params?: GetStationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStations>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -225,15 +227,15 @@ export const createStation = async (createStationRequest: CreateStationRequest, 
 
 
 export const getCreateStationMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createStation>>, TError,{data: CreateStationRequest}, TContext>, }
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createStation>>, TError,{data: CreateStationRequest}, TContext>, request?: SecondParameter<typeof customHttpClient>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createStation>>, TError,{data: CreateStationRequest}, TContext> => {
 
 const mutationKey = ['createStation'];
-const {mutation: mutationOptions} = options ?
+const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
       : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }};
+      : {mutation: { mutationKey, }, request: undefined};
 
 
 
@@ -241,7 +243,7 @@ const {mutation: mutationOptions} = options ?
       const mutationFn: MutationFunction<Awaited<ReturnType<typeof createStation>>, {data: CreateStationRequest}> = (props) => {
           const {data} = props ?? {};
 
-          return  createStation(data,)
+          return  createStation(data,requestOptions)
         }
 
 
@@ -259,7 +261,7 @@ const {mutation: mutationOptions} = options ?
  * @summary Create station
  */
 export const useCreateStation = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createStation>>, TError,{data: CreateStationRequest}, TContext>, }
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createStation>>, TError,{data: CreateStationRequest}, TContext>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createStation>>,
         TError,
@@ -320,16 +322,16 @@ export const getGetStationByIdQueryKey = (stationId: number,) => {
     }
 
 
-export const getGetStationByIdQueryOptions = <TData = Awaited<ReturnType<typeof getStationById>>, TError = ErrorResponse>(stationId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStationById>>, TError, TData>>, }
+export const getGetStationByIdQueryOptions = <TData = Awaited<ReturnType<typeof getStationById>>, TError = ErrorResponse>(stationId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStationById>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
 ) => {
 
-const {query: queryOptions} = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetStationByIdQueryKey(stationId);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStationById>>> = ({ signal }) => getStationById(stationId, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStationById>>> = ({ signal }) => getStationById(stationId, { signal, ...requestOptions });
 
 
 
@@ -349,7 +351,7 @@ export function useGetStationById<TData = Awaited<ReturnType<typeof getStationBy
           TError,
           Awaited<ReturnType<typeof getStationById>>
         > , 'initialData'
-      >, }
+      >, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetStationById<TData = Awaited<ReturnType<typeof getStationById>>, TError = ErrorResponse>(
@@ -359,11 +361,11 @@ export function useGetStationById<TData = Awaited<ReturnType<typeof getStationBy
           TError,
           Awaited<ReturnType<typeof getStationById>>
         > , 'initialData'
-      >, }
+      >, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetStationById<TData = Awaited<ReturnType<typeof getStationById>>, TError = ErrorResponse>(
- stationId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStationById>>, TError, TData>>, }
+ stationId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStationById>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
@@ -371,7 +373,7 @@ export function useGetStationById<TData = Awaited<ReturnType<typeof getStationBy
  */
 
 export function useGetStationById<TData = Awaited<ReturnType<typeof getStationById>>, TError = ErrorResponse>(
- stationId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStationById>>, TError, TData>>, }
+ stationId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStationById>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -439,15 +441,15 @@ export const updateStation = async (stationId: number,
 
 
 export const getUpdateStationMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateStation>>, TError,{stationId: number;data: UpdateStationRequest}, TContext>, }
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateStation>>, TError,{stationId: number;data: UpdateStationRequest}, TContext>, request?: SecondParameter<typeof customHttpClient>}
 ): UseMutationOptions<Awaited<ReturnType<typeof updateStation>>, TError,{stationId: number;data: UpdateStationRequest}, TContext> => {
 
 const mutationKey = ['updateStation'];
-const {mutation: mutationOptions} = options ?
+const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
       : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }};
+      : {mutation: { mutationKey, }, request: undefined};
 
 
 
@@ -455,7 +457,7 @@ const {mutation: mutationOptions} = options ?
       const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateStation>>, {stationId: number;data: UpdateStationRequest}> = (props) => {
           const {stationId,data} = props ?? {};
 
-          return  updateStation(stationId,data,)
+          return  updateStation(stationId,data,requestOptions)
         }
 
 
@@ -473,7 +475,7 @@ const {mutation: mutationOptions} = options ?
  * @summary Update station
  */
 export const useUpdateStation = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateStation>>, TError,{stationId: number;data: UpdateStationRequest}, TContext>, }
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateStation>>, TError,{stationId: number;data: UpdateStationRequest}, TContext>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof updateStation>>,
         TError,

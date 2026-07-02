@@ -4,6 +4,201 @@
  */
 
 export interface paths {
+    "/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register a user */
+        post: operations["register"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Login user */
+        post: operations["login"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get current authenticated user */
+        get: operations["getMe"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Rotate a refresh session and issue new tokens */
+        post: operations["refreshAuth"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Revoke a refresh session */
+        post: operations["logout"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List users */
+        get: operations["getUsers"];
+        put?: never;
+        /** Create a managed user */
+        post: operations["createUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{userId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: components["parameters"]["UserId"];
+            };
+            cookie?: never;
+        };
+        /** Get a user */
+        get: operations["getUserById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update a user */
+        patch: operations["updateUser"];
+        trace?: never;
+    };
+    "/users/{userId}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Activate or deactivate a user */
+        patch: operations["updateUserStatus"];
+        trace?: never;
+    };
+    "/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List roles */
+        get: operations["getRoles"];
+        put?: never;
+        /** Create a role and assign permissions */
+        post: operations["createRole"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/roles/{roleId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: components["parameters"]["RoleId"];
+            };
+            cookie?: never;
+        };
+        /** Get a role */
+        get: operations["getRoleById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update a role and its permissions */
+        patch: operations["updateRole"];
+        trace?: never;
+    };
+    "/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List available permissions */
+        get: operations["getPermissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -75,10 +270,414 @@ export interface paths {
         patch: operations["updateStation"];
         trace?: never;
     };
+    "/vehicle-types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List vehicle types */
+        get: operations["getVehicleTypes"];
+        put?: never;
+        /** Create vehicle type */
+        post: operations["createVehicleType"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/vehicle-types/{vehicleTypeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleTypeId: components["parameters"]["VehicleTypeId"];
+            };
+            cookie?: never;
+        };
+        /** Get vehicle type */
+        get: operations["getVehicleTypeById"];
+        put?: never;
+        post?: never;
+        /** Soft delete vehicle type */
+        delete: operations["deleteVehicleType"];
+        options?: never;
+        head?: never;
+        /** Update vehicle type */
+        patch: operations["updateVehicleType"];
+        trace?: never;
+    };
+    "/vehicles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List vehicles */
+        get: operations["getVehicles"];
+        put?: never;
+        /** Create vehicle */
+        post: operations["createVehicle"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/vehicles/{vehicleId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleId: components["parameters"]["VehicleId"];
+            };
+            cookie?: never;
+        };
+        /** Get vehicle */
+        get: operations["getVehicleById"];
+        put?: never;
+        post?: never;
+        /** Soft delete vehicle */
+        delete: operations["deleteVehicle"];
+        options?: never;
+        head?: never;
+        /** Update vehicle */
+        patch: operations["updateVehicle"];
+        trace?: never;
+    };
+    "/drivers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List drivers */
+        get: operations["getDrivers"];
+        put?: never;
+        /** Create driver */
+        post: operations["createDriver"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/drivers/{driverId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                driverId: components["parameters"]["DriverId"];
+            };
+            cookie?: never;
+        };
+        /** Get driver */
+        get: operations["getDriverById"];
+        put?: never;
+        post?: never;
+        /** Soft delete driver */
+        delete: operations["deleteDriver"];
+        options?: never;
+        head?: never;
+        /** Update driver */
+        patch: operations["updateDriver"];
+        trace?: never;
+    };
+    "/driver-vehicle-assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List driver vehicle assignments */
+        get: operations["getDriverVehicleAssignments"];
+        put?: never;
+        /** Assign driver to vehicle */
+        post: operations["createDriverVehicleAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-vehicle-assignments/{assignmentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignmentId: components["parameters"]["AssignmentId"];
+            };
+            cookie?: never;
+        };
+        /** Get assignment */
+        get: operations["getDriverVehicleAssignmentById"];
+        put?: never;
+        post?: never;
+        /** End assignment */
+        delete: operations["deleteDriverVehicleAssignment"];
+        options?: never;
+        head?: never;
+        /** Update assignment */
+        patch: operations["updateDriverVehicleAssignment"];
+        trace?: never;
+    };
+    "/customers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List customers */
+        get: operations["getCustomers"];
+        put?: never;
+        /** Create customer */
+        post: operations["createCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/customers/{customerId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["parameters"]["CustomerId"];
+            };
+            cookie?: never;
+        };
+        /** Get customer */
+        get: operations["getCustomerById"];
+        put?: never;
+        post?: never;
+        /** Soft delete customer */
+        delete: operations["deleteCustomer"];
+        options?: never;
+        head?: never;
+        /** Update customer */
+        patch: operations["updateCustomer"];
+        trace?: never;
+    };
+    "/agents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List agents */
+        get: operations["getAgents"];
+        put?: never;
+        /** Create agent */
+        post: operations["createAgent"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agents/{agentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentId: components["parameters"]["AgentId"];
+            };
+            cookie?: never;
+        };
+        /** Get agent */
+        get: operations["getAgentById"];
+        put?: never;
+        post?: never;
+        /** Soft delete agent */
+        delete: operations["deleteAgent"];
+        options?: never;
+        head?: never;
+        /** Update agent */
+        patch: operations["updateAgent"];
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        AuthRegisterRequest: {
+            /** @example Ali Khan */
+            name: string;
+            /**
+             * Format: email
+             * @example admin@ems.local
+             */
+            email: string;
+            /** @example 03001234567 */
+            phone?: string | null;
+            /** @example StrongPass123 */
+            password: string;
+            /** @enum {string} */
+            roleName?: "customer";
+        };
+        AuthLoginRequest: {
+            /**
+             * Format: email
+             * @example admin@ems.local
+             */
+            email: string;
+            /** @example StrongPass123 */
+            password: string;
+        };
+        RefreshTokenRequest: {
+            refreshToken: string;
+        };
+        CurrentUser: {
+            /** @example 1 */
+            id: number;
+            /** @example Ali Khan */
+            name: string;
+            /**
+             * Format: email
+             * @example admin@ems.local
+             */
+            email: string;
+            phone?: string | null;
+            /** @example admin */
+            role: string;
+            /** @example Customer */
+            roleLabel?: string;
+            /**
+             * @example [
+             *       "booking.create",
+             *       "trip.dispatch"
+             *     ]
+             */
+            permissions: string[];
+        };
+        AuthResponse: {
+            data: {
+                accessToken: string;
+                refreshToken: string;
+                user: components["schemas"]["CurrentUser"];
+            };
+            /** @example Success */
+            message: string;
+        };
+        MeResponse: {
+            data: components["schemas"]["CurrentUser"];
+            /** @example Success */
+            message: string;
+        };
+        RoleSummary: {
+            id: number;
+            name: string;
+            label: string;
+        };
+        Permission: {
+            id: number;
+            /** @example user.manage */
+            key: string;
+            /** @example Manage */
+            label: string;
+            /** @example User */
+            groupName: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Role: {
+            id: number;
+            /** @example operations_manager */
+            name: string;
+            /** @example Operations Manager */
+            label: string;
+            isSystem: boolean;
+            permissions: components["schemas"]["Permission"][];
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        User: {
+            id: number;
+            name: string;
+            /** Format: email */
+            email: string;
+            phone?: string | null;
+            isActive: boolean;
+            role: components["schemas"]["RoleSummary"];
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateUserRequest: {
+            name: string;
+            /** Format: email */
+            email: string;
+            phone?: string | null;
+            password: string;
+            roleId: number;
+            isActive?: boolean;
+        };
+        UpdateUserRequest: {
+            name?: string;
+            /** Format: email */
+            email?: string;
+            phone?: string | null;
+            password?: string;
+            roleId?: number;
+            isActive?: boolean;
+        };
+        UpdateUserStatusRequest: {
+            isActive: boolean;
+        };
+        CreateRoleRequest: {
+            name: string;
+            label: string;
+            permissionKeys?: string[];
+        };
+        UpdateRoleRequest: {
+            name?: string;
+            label?: string;
+            permissionKeys?: string[];
+        };
+        Pagination: {
+            page: number;
+            limit: number;
+            total: number;
+            totalPages: number;
+        };
+        UserResponse: {
+            data: components["schemas"]["User"];
+            /** @example Success */
+            message: string;
+        };
+        UsersListResponse: {
+            data: components["schemas"]["User"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        RoleResponse: {
+            data: components["schemas"]["Role"];
+            /** @example Success */
+            message: string;
+        };
+        RolesListResponse: {
+            data: components["schemas"]["Role"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        PermissionsListResponse: {
+            data: components["schemas"]["Permission"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        SuccessResponse: {
+            data: Record<string, never> | null;
+            /** @example Success */
+            message: string;
+        };
         HealthResponse: {
             data: {
                 /** @example ok */
@@ -164,15 +763,851 @@ export interface components {
                 details?: string[];
             };
         };
+        /** @enum {string} */
+        VehicleStatus: "available" | "assigned" | "in_transit" | "maintenance" | "breakdown" | "inactive";
+        /** @enum {string} */
+        DriverAssignmentType: "primary" | "temporary";
+        /** @enum {string} */
+        CustomerType: "contracted" | "spot";
+        /** @enum {string} */
+        CommissionType: "fixed" | "percentage" | "manual";
+        VehicleType: {
+            id: number;
+            name: string;
+            code: string;
+            capacityTons?: string | null;
+            description?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateVehicleTypeRequest: {
+            name: string;
+            code: string;
+            capacityTons?: number | null;
+            description?: string | null;
+            isActive?: boolean;
+        };
+        UpdateVehicleTypeRequest: {
+            name?: string;
+            code?: string;
+            capacityTons?: number | null;
+            description?: string | null;
+            isActive?: boolean;
+        };
+        VehicleTypeResponse: {
+            data: components["schemas"]["VehicleType"];
+            message: string;
+        };
+        VehicleTypesListResponse: {
+            data: components["schemas"]["VehicleType"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        Vehicle: {
+            id: number;
+            vehicleNumber: string;
+            vehicleType: components["schemas"]["VehicleType"];
+            currentStation: components["schemas"]["Station"];
+            status: components["schemas"]["VehicleStatus"];
+            fuelCardNumber?: string | null;
+            /** Format: date */
+            registrationExpiry?: string | null;
+            /** Format: date */
+            fitnessExpiry?: string | null;
+            /** Format: date */
+            insuranceExpiry?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateVehicleRequest: {
+            vehicleNumber: string;
+            vehicleTypeId: number;
+            currentStationId: number;
+            status: components["schemas"]["VehicleStatus"];
+            fuelCardNumber?: string | null;
+            /** Format: date */
+            registrationExpiry?: string | null;
+            /** Format: date */
+            fitnessExpiry?: string | null;
+            /** Format: date */
+            insuranceExpiry?: string | null;
+            isActive?: boolean;
+        };
+        UpdateVehicleRequest: {
+            vehicleNumber?: string;
+            vehicleTypeId?: number;
+            currentStationId?: number;
+            status?: components["schemas"]["VehicleStatus"];
+            fuelCardNumber?: string | null;
+            /** Format: date */
+            registrationExpiry?: string | null;
+            /** Format: date */
+            fitnessExpiry?: string | null;
+            /** Format: date */
+            insuranceExpiry?: string | null;
+            isActive?: boolean;
+        };
+        VehicleResponse: {
+            data: components["schemas"]["Vehicle"];
+            message: string;
+        };
+        VehiclesListResponse: {
+            data: components["schemas"]["Vehicle"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        Driver: {
+            id: number;
+            name: string;
+            phone: string;
+            cnic?: string | null;
+            licenseNumber?: string | null;
+            /** Format: date */
+            licenseExpiry?: string | null;
+            address?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateDriverRequest: {
+            name: string;
+            phone: string;
+            cnic?: string | null;
+            licenseNumber?: string | null;
+            /** Format: date */
+            licenseExpiry?: string | null;
+            address?: string | null;
+            isActive?: boolean;
+        };
+        UpdateDriverRequest: {
+            name?: string;
+            phone?: string;
+            cnic?: string | null;
+            licenseNumber?: string | null;
+            /** Format: date */
+            licenseExpiry?: string | null;
+            address?: string | null;
+            isActive?: boolean;
+        };
+        DriverResponse: {
+            data: components["schemas"]["Driver"];
+            message: string;
+        };
+        DriversListResponse: {
+            data: components["schemas"]["Driver"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        DriverVehicleAssignment: {
+            id: number;
+            driver: components["schemas"]["DriverSummary"];
+            vehicle: components["schemas"]["VehicleSummary"];
+            assignmentType: components["schemas"]["DriverAssignmentType"];
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateDriverVehicleAssignmentRequest: {
+            driverId: number;
+            vehicleId: number;
+            assignmentType: components["schemas"]["DriverAssignmentType"];
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate?: string | null;
+            isActive?: boolean;
+        };
+        UpdateDriverVehicleAssignmentRequest: {
+            driverId?: number;
+            vehicleId?: number;
+            assignmentType?: components["schemas"]["DriverAssignmentType"];
+            /** Format: date */
+            startDate?: string;
+            /** Format: date */
+            endDate?: string | null;
+            isActive?: boolean;
+        };
+        DriverVehicleAssignmentResponse: {
+            data: components["schemas"]["DriverVehicleAssignment"];
+            message: string;
+        };
+        DriverVehicleAssignmentsListResponse: {
+            data: components["schemas"]["DriverVehicleAssignment"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        DriverSummary: {
+            id: number;
+            name: string;
+            phone: string;
+        };
+        VehicleSummary: {
+            id: number;
+            vehicleNumber: string;
+            status: components["schemas"]["VehicleStatus"];
+        };
+        Customer: {
+            id: number;
+            name: string;
+            contactPerson: string;
+            phone: string;
+            /** Format: email */
+            email?: string | null;
+            billingAddress?: string | null;
+            customerType: components["schemas"]["CustomerType"];
+            ntn?: string | null;
+            strn?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateCustomerRequest: {
+            name: string;
+            contactPerson: string;
+            phone: string;
+            /** Format: email */
+            email?: string | null;
+            billingAddress?: string | null;
+            customerType: components["schemas"]["CustomerType"];
+            ntn?: string | null;
+            strn?: string | null;
+            isActive?: boolean;
+        };
+        UpdateCustomerRequest: {
+            name?: string;
+            contactPerson?: string;
+            phone?: string;
+            /** Format: email */
+            email?: string | null;
+            billingAddress?: string | null;
+            customerType?: components["schemas"]["CustomerType"];
+            ntn?: string | null;
+            strn?: string | null;
+            isActive?: boolean;
+        };
+        CustomerResponse: {
+            data: components["schemas"]["Customer"];
+            message: string;
+        };
+        CustomersListResponse: {
+            data: components["schemas"]["Customer"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        Agent: {
+            id: number;
+            name: string;
+            phone: string;
+            /** Format: email */
+            email?: string | null;
+            station?: components["schemas"]["Station"];
+            commissionType: components["schemas"]["CommissionType"];
+            commissionValue?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateAgentRequest: {
+            name: string;
+            phone: string;
+            /** Format: email */
+            email?: string | null;
+            stationId?: number | null;
+            commissionType: components["schemas"]["CommissionType"];
+            commissionValue?: number | null;
+            isActive?: boolean;
+        };
+        UpdateAgentRequest: {
+            name?: string;
+            phone?: string;
+            /** Format: email */
+            email?: string | null;
+            stationId?: number | null;
+            commissionType?: components["schemas"]["CommissionType"];
+            commissionValue?: number | null;
+            isActive?: boolean;
+        };
+        AgentResponse: {
+            data: components["schemas"]["Agent"];
+            message: string;
+        };
+        AgentsListResponse: {
+            data: components["schemas"]["Agent"][];
+            pagination: components["schemas"]["Pagination"];
+        };
     };
     responses: never;
-    parameters: never;
+    parameters: {
+        Page: number;
+        Limit: number;
+        UserId: number;
+        RoleId: number;
+        Search: string;
+        IsActive: boolean;
+        StationId: number;
+        VehicleTypeIdQuery: number;
+        VehicleStatus: "available" | "assigned" | "in_transit" | "maintenance" | "breakdown" | "inactive";
+        VehicleTypeId: number;
+        VehicleId: number;
+        DriverId: number;
+        AssignmentId: number;
+        CustomerId: number;
+        AgentId: number;
+    };
     requestBodies: never;
     headers: never;
     pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    register: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AuthRegisterRequest"];
+            };
+        };
+        responses: {
+            /** @description User registered */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Duplicate email */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    login: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AuthLoginRequest"];
+            };
+        };
+        responses: {
+            /** @description Login successful */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthResponse"];
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Invalid credentials */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getMe: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Current user */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    refreshAuth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RefreshTokenRequest"];
+            };
+        };
+        responses: {
+            /** @description Tokens refreshed */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthResponse"];
+                };
+            };
+            /** @description Invalid or expired refresh token */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    logout: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RefreshTokenRequest"];
+            };
+        };
+        responses: {
+            /** @description Session revoked */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SuccessResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getUsers: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Paginated users */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UsersListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Permission denied */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateUserRequest"];
+            };
+        };
+        responses: {
+            /** @description User created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Duplicate email */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getUserById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: components["parameters"]["UserId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponse"];
+                };
+            };
+            /** @description User not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: components["parameters"]["UserId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateUserRequest"];
+            };
+        };
+        responses: {
+            /** @description User updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description User not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateUserStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: components["parameters"]["UserId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateUserStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description User status updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponse"];
+                };
+            };
+            /** @description User not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getRoles: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Paginated roles */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RolesListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRoleRequest"];
+            };
+        };
+        responses: {
+            /** @description Role created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getRoleById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: components["parameters"]["RoleId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Role detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleResponse"];
+                };
+            };
+            /** @description Role not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: components["parameters"]["RoleId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRoleRequest"];
+            };
+        };
+        responses: {
+            /** @description Role updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getPermissions: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Paginated permissions */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PermissionsListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     getHealth: {
         parameters: {
             query?: never;
@@ -395,6 +1830,998 @@ export interface operations {
             };
             /** @description Station not found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getVehicleTypes: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: components["parameters"]["IsActive"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Vehicle types */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleTypesListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createVehicleType: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateVehicleTypeRequest"];
+            };
+        };
+        responses: {
+            /** @description Vehicle type created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleTypeResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getVehicleTypeById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleTypeId: components["parameters"]["VehicleTypeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Vehicle type */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleTypeResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteVehicleType: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleTypeId: components["parameters"]["VehicleTypeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Vehicle type deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleTypeResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateVehicleType: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleTypeId: components["parameters"]["VehicleTypeId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateVehicleTypeRequest"];
+            };
+        };
+        responses: {
+            /** @description Vehicle type updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleTypeResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getVehicles: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: components["parameters"]["IsActive"];
+                stationId?: components["parameters"]["StationId"];
+                vehicleTypeId?: components["parameters"]["VehicleTypeIdQuery"];
+                status?: components["parameters"]["VehicleStatus"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Vehicles */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehiclesListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createVehicle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateVehicleRequest"];
+            };
+        };
+        responses: {
+            /** @description Vehicle created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getVehicleById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleId: components["parameters"]["VehicleId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Vehicle */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteVehicle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleId: components["parameters"]["VehicleId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Vehicle deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateVehicle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                vehicleId: components["parameters"]["VehicleId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateVehicleRequest"];
+            };
+        };
+        responses: {
+            /** @description Vehicle updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VehicleResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getDrivers: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: components["parameters"]["IsActive"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Drivers */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriversListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createDriver: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDriverRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getDriverById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                driverId: components["parameters"]["DriverId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteDriver: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                driverId: components["parameters"]["DriverId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateDriver: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                driverId: components["parameters"]["DriverId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateDriverRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getDriverVehicleAssignments: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                isActive?: components["parameters"]["IsActive"];
+                driverId?: number;
+                vehicleId?: number;
+                assignmentType?: components["schemas"]["DriverAssignmentType"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Assignments */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverVehicleAssignmentsListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createDriverVehicleAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDriverVehicleAssignmentRequest"];
+            };
+        };
+        responses: {
+            /** @description Assignment created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverVehicleAssignmentResponse"];
+                };
+            };
+            /** @description Invalid assignment */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getDriverVehicleAssignmentById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignmentId: components["parameters"]["AssignmentId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Assignment */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverVehicleAssignmentResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteDriverVehicleAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignmentId: components["parameters"]["AssignmentId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Assignment ended */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverVehicleAssignmentResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateDriverVehicleAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignmentId: components["parameters"]["AssignmentId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateDriverVehicleAssignmentRequest"];
+            };
+        };
+        responses: {
+            /** @description Assignment updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverVehicleAssignmentResponse"];
+                };
+            };
+            /** @description Invalid assignment */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getCustomers: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: components["parameters"]["IsActive"];
+                customerType?: components["schemas"]["CustomerType"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customers */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomersListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCustomerRequest"];
+            };
+        };
+        responses: {
+            /** @description Customer created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getCustomerById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["parameters"]["CustomerId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customer */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["parameters"]["CustomerId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customer deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["parameters"]["CustomerId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCustomerRequest"];
+            };
+        };
+        responses: {
+            /** @description Customer updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getAgents: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: components["parameters"]["IsActive"];
+                stationId?: components["parameters"]["StationId"];
+                commissionType?: components["schemas"]["CommissionType"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Agents */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentsListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createAgent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateAgentRequest"];
+            };
+        };
+        responses: {
+            /** @description Agent created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getAgentById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentId: components["parameters"]["AgentId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Agent */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteAgent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentId: components["parameters"]["AgentId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Agent deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateAgent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentId: components["parameters"]["AgentId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateAgentRequest"];
+            };
+        };
+        responses: {
+            /** @description Agent updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
                 headers: {
                     [name: string]: unknown;
                 };

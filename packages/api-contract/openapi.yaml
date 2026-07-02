@@ -13,14 +13,428 @@ servers:
     description: Local and deployed API base path
 
 tags:
+  - name: Auth
+    description: Authentication and current user endpoints
+  - name: Users
+    description: User administration
+  - name: Roles
+    description: Role administration
+  - name: Permissions
+    description: Permission catalogue
   - name: Health
     description: API health and status endpoints
   - name: Cities
     description: City management
   - name: Stations
     description: Station and branch management
+  - name: Vehicle Types
+    description: Vehicle classification master data
+  - name: Vehicles
+    description: Fleet master data
+  - name: Drivers
+    description: Driver master data
+  - name: Driver Vehicle Assignments
+    description: Primary and temporary driver assignments
+  - name: Customers
+    description: Contracted and spot customer master data
+  - name: Agents
+    description: Booking agent master data
 
 paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      operationId: register
+      summary: Register a user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRegisterRequest"
+      responses:
+        "201":
+          description: User registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Duplicate email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      operationId: login
+      summary: Login user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthLoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/me:
+    get:
+      tags:
+        - Auth
+      operationId: getMe
+      summary: Get current authenticated user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/refresh:
+    post:
+      tags:
+        - Auth
+      operationId: refreshAuth
+      summary: Rotate a refresh session and issue new tokens
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshTokenRequest"
+      responses:
+        "200":
+          description: Tokens refreshed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid or expired refresh token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      operationId: logout
+      summary: Revoke a refresh session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshTokenRequest"
+      responses:
+        "200":
+          description: Session revoked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /users:
+    get:
+      tags:
+        - Users
+      operationId: getUsers
+      summary: List users
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Paginated users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Permission denied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Users
+      operationId: createUser
+      summary: Create a managed user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Duplicate email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /users/{userId}:
+    parameters:
+      - $ref: "#/components/parameters/UserId"
+    get:
+      tags:
+        - Users
+      operationId: getUserById
+      summary: Get a user
+      responses:
+        "200":
+          description: User detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Users
+      operationId: updateUser
+      summary: Update a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /users/{userId}/status:
+    patch:
+      tags:
+        - Users
+      operationId: updateUserStatus
+      summary: Activate or deactivate a user
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserStatusRequest"
+      responses:
+        "200":
+          description: User status updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /roles:
+    get:
+      tags:
+        - Roles
+      operationId: getRoles
+      summary: List roles
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Paginated roles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RolesListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Roles
+      operationId: createRole
+      summary: Create a role and assign permissions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRoleRequest"
+      responses:
+        "201":
+          description: Role created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleResponse"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /roles/{roleId}:
+    parameters:
+      - $ref: "#/components/parameters/RoleId"
+    get:
+      tags:
+        - Roles
+      operationId: getRoleById
+      summary: Get a role
+      responses:
+        "200":
+          description: Role detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleResponse"
+        "404":
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Roles
+      operationId: updateRole
+      summary: Update a role and its permissions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateRoleRequest"
+      responses:
+        "200":
+          description: Role updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleResponse"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /permissions:
+    get:
+      tags:
+        - Permissions
+      operationId: getPermissions
+      summary: List available permissions
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Paginated permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionsListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /health:
     get:
       tags:
@@ -204,6 +618,292 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+  /vehicle-types:
+    get:
+      tags: [Vehicle Types]
+      operationId: getVehicleTypes
+      summary: List vehicle types
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/IsActive"
+      responses:
+        "200": { description: Vehicle types, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleTypesListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Vehicle Types]
+      operationId: createVehicleType
+      summary: Create vehicle type
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateVehicleTypeRequest" } } } }
+      responses:
+        "201": { description: Vehicle type created, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleTypeResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /vehicle-types/{vehicleTypeId}:
+    parameters: [{ $ref: "#/components/parameters/VehicleTypeId" }]
+    get:
+      tags: [Vehicle Types]
+      operationId: getVehicleTypeById
+      summary: Get vehicle type
+      responses:
+        "200": { description: Vehicle type, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleTypeResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Vehicle Types]
+      operationId: updateVehicleType
+      summary: Update vehicle type
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateVehicleTypeRequest" } } } }
+      responses:
+        "200": { description: Vehicle type updated, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleTypeResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Vehicle Types]
+      operationId: deleteVehicleType
+      summary: Soft delete vehicle type
+      responses:
+        "200": { description: Vehicle type deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleTypeResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /vehicles:
+    get:
+      tags: [Vehicles]
+      operationId: getVehicles
+      summary: List vehicles
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/IsActive"
+        - $ref: "#/components/parameters/StationId"
+        - $ref: "#/components/parameters/VehicleTypeIdQuery"
+        - $ref: "#/components/parameters/VehicleStatus"
+      responses:
+        "200": { description: Vehicles, content: { application/json: { schema: { $ref: "#/components/schemas/VehiclesListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Vehicles]
+      operationId: createVehicle
+      summary: Create vehicle
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateVehicleRequest" } } } }
+      responses:
+        "201": { description: Vehicle created, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /vehicles/{vehicleId}:
+    parameters: [{ $ref: "#/components/parameters/VehicleId" }]
+    get:
+      tags: [Vehicles]
+      operationId: getVehicleById
+      summary: Get vehicle
+      responses:
+        "200": { description: Vehicle, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Vehicles]
+      operationId: updateVehicle
+      summary: Update vehicle
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateVehicleRequest" } } } }
+      responses:
+        "200": { description: Vehicle updated, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Vehicles]
+      operationId: deleteVehicle
+      summary: Soft delete vehicle
+      responses:
+        "200": { description: Vehicle deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/VehicleResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /drivers:
+    get:
+      tags: [Drivers]
+      operationId: getDrivers
+      summary: List drivers
+      parameters: [{ $ref: "#/components/parameters/Page" }, { $ref: "#/components/parameters/Limit" }, { $ref: "#/components/parameters/Search" }, { $ref: "#/components/parameters/IsActive" }]
+      responses:
+        "200": { description: Drivers, content: { application/json: { schema: { $ref: "#/components/schemas/DriversListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Drivers]
+      operationId: createDriver
+      summary: Create driver
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateDriverRequest" } } } }
+      responses:
+        "201": { description: Driver created, content: { application/json: { schema: { $ref: "#/components/schemas/DriverResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /drivers/{driverId}:
+    parameters: [{ $ref: "#/components/parameters/DriverId" }]
+    get:
+      tags: [Drivers]
+      operationId: getDriverById
+      summary: Get driver
+      responses:
+        "200": { description: Driver, content: { application/json: { schema: { $ref: "#/components/schemas/DriverResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Drivers]
+      operationId: updateDriver
+      summary: Update driver
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateDriverRequest" } } } }
+      responses:
+        "200": { description: Driver updated, content: { application/json: { schema: { $ref: "#/components/schemas/DriverResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Drivers]
+      operationId: deleteDriver
+      summary: Soft delete driver
+      responses:
+        "200": { description: Driver deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/DriverResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /driver-vehicle-assignments:
+    get:
+      tags: [Driver Vehicle Assignments]
+      operationId: getDriverVehicleAssignments
+      summary: List driver vehicle assignments
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/IsActive"
+        - { in: query, name: driverId, schema: { type: integer } }
+        - { in: query, name: vehicleId, schema: { type: integer } }
+        - { in: query, name: assignmentType, schema: { $ref: "#/components/schemas/DriverAssignmentType" } }
+      responses:
+        "200": { description: Assignments, content: { application/json: { schema: { $ref: "#/components/schemas/DriverVehicleAssignmentsListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Driver Vehicle Assignments]
+      operationId: createDriverVehicleAssignment
+      summary: Assign driver to vehicle
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateDriverVehicleAssignmentRequest" } } } }
+      responses:
+        "201": { description: Assignment created, content: { application/json: { schema: { $ref: "#/components/schemas/DriverVehicleAssignmentResponse" } } } }
+        "400": { description: Invalid assignment, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /driver-vehicle-assignments/{assignmentId}:
+    parameters: [{ $ref: "#/components/parameters/AssignmentId" }]
+    get:
+      tags: [Driver Vehicle Assignments]
+      operationId: getDriverVehicleAssignmentById
+      summary: Get assignment
+      responses:
+        "200": { description: Assignment, content: { application/json: { schema: { $ref: "#/components/schemas/DriverVehicleAssignmentResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Driver Vehicle Assignments]
+      operationId: updateDriverVehicleAssignment
+      summary: Update assignment
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateDriverVehicleAssignmentRequest" } } } }
+      responses:
+        "200": { description: Assignment updated, content: { application/json: { schema: { $ref: "#/components/schemas/DriverVehicleAssignmentResponse" } } } }
+        "400": { description: Invalid assignment, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Driver Vehicle Assignments]
+      operationId: deleteDriverVehicleAssignment
+      summary: End assignment
+      responses:
+        "200": { description: Assignment ended, content: { application/json: { schema: { $ref: "#/components/schemas/DriverVehicleAssignmentResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /customers:
+    get:
+      tags: [Customers]
+      operationId: getCustomers
+      summary: List customers
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/IsActive"
+        - { in: query, name: customerType, schema: { $ref: "#/components/schemas/CustomerType" } }
+      responses:
+        "200": { description: Customers, content: { application/json: { schema: { $ref: "#/components/schemas/CustomersListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Customers]
+      operationId: createCustomer
+      summary: Create customer
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateCustomerRequest" } } } }
+      responses:
+        "201": { description: Customer created, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /customers/{customerId}:
+    parameters: [{ $ref: "#/components/parameters/CustomerId" }]
+    get:
+      tags: [Customers]
+      operationId: getCustomerById
+      summary: Get customer
+      responses:
+        "200": { description: Customer, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Customers]
+      operationId: updateCustomer
+      summary: Update customer
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateCustomerRequest" } } } }
+      responses:
+        "200": { description: Customer updated, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Customers]
+      operationId: deleteCustomer
+      summary: Soft delete customer
+      responses:
+        "200": { description: Customer deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /agents:
+    get:
+      tags: [Agents]
+      operationId: getAgents
+      summary: List agents
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/IsActive"
+        - $ref: "#/components/parameters/StationId"
+        - { in: query, name: commissionType, schema: { $ref: "#/components/schemas/CommissionType" } }
+      responses:
+        "200": { description: Agents, content: { application/json: { schema: { $ref: "#/components/schemas/AgentsListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Agents]
+      operationId: createAgent
+      summary: Create agent
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateAgentRequest" } } } }
+      responses:
+        "201": { description: Agent created, content: { application/json: { schema: { $ref: "#/components/schemas/AgentResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /agents/{agentId}:
+    parameters: [{ $ref: "#/components/parameters/AgentId" }]
+    get:
+      tags: [Agents]
+      operationId: getAgentById
+      summary: Get agent
+      responses:
+        "200": { description: Agent, content: { application/json: { schema: { $ref: "#/components/schemas/AgentResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Agents]
+      operationId: updateAgent
+      summary: Update agent
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateAgentRequest" } } } }
+      responses:
+        "200": { description: Agent updated, content: { application/json: { schema: { $ref: "#/components/schemas/AgentResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Agents]
+      operationId: deleteAgent
+      summary: Soft delete agent
+      responses:
+        "200": { description: Agent deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/AgentResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
 components:
   securitySchemes:
     bearerAuth:
@@ -211,7 +911,440 @@ components:
       scheme: bearer
       bearerFormat: JWT
 
+  parameters:
+    Page:
+      in: query
+      name: page
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    Limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+    UserId:
+      in: path
+      name: userId
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+    RoleId:
+      in: path
+      name: roleId
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+    Search:
+      in: query
+      name: search
+      schema: { type: string }
+    IsActive:
+      in: query
+      name: isActive
+      schema: { type: boolean }
+    StationId:
+      in: query
+      name: stationId
+      schema: { type: integer, minimum: 1 }
+    VehicleTypeIdQuery:
+      in: query
+      name: vehicleTypeId
+      schema: { type: integer, minimum: 1 }
+    VehicleStatus:
+      in: query
+      name: status
+      schema:
+        type: string
+        enum: [available, assigned, in_transit, maintenance, breakdown, inactive]
+    VehicleTypeId:
+      in: path
+      name: vehicleTypeId
+      required: true
+      schema: { type: integer, minimum: 1 }
+    VehicleId:
+      in: path
+      name: vehicleId
+      required: true
+      schema: { type: integer, minimum: 1 }
+    DriverId:
+      in: path
+      name: driverId
+      required: true
+      schema: { type: integer, minimum: 1 }
+    AssignmentId:
+      in: path
+      name: assignmentId
+      required: true
+      schema: { type: integer, minimum: 1 }
+    CustomerId:
+      in: path
+      name: customerId
+      required: true
+      schema: { type: integer, minimum: 1 }
+    AgentId:
+      in: path
+      name: agentId
+      required: true
+      schema: { type: integer, minimum: 1 }
+
   schemas:
+    AuthRegisterRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          example: Ali Khan
+        email:
+          type: string
+          format: email
+          example: admin@ems.local
+        phone:
+          type: string
+          nullable: true
+          example: "03001234567"
+        password:
+          type: string
+          minLength: 8
+          example: StrongPass123
+        roleName:
+          type: string
+          enum: [customer]
+
+    AuthLoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: admin@ems.local
+        password:
+          type: string
+          example: StrongPass123
+
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+
+    CurrentUser:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - role
+        - permissions
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Ali Khan
+        email:
+          type: string
+          format: email
+          example: admin@ems.local
+        phone:
+          type: string
+          nullable: true
+        role:
+          type: string
+          example: admin
+        roleLabel:
+          type: string
+          example: Customer
+        permissions:
+          type: array
+          items:
+            type: string
+          example: ["booking.create", "trip.dispatch"]
+
+    AuthResponse:
+      type: object
+      required:
+        - data
+        - message
+      properties:
+        data:
+          type: object
+          required:
+            - accessToken
+            - refreshToken
+            - user
+          properties:
+            accessToken:
+              type: string
+            refreshToken:
+              type: string
+            user:
+              $ref: "#/components/schemas/CurrentUser"
+        message:
+          type: string
+          example: Success
+
+    MeResponse:
+      type: object
+      required:
+        - data
+        - message
+      properties:
+        data:
+          $ref: "#/components/schemas/CurrentUser"
+        message:
+          type: string
+          example: Success
+
+    RoleSummary:
+      type: object
+      required: [id, name, label]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        label:
+          type: string
+
+    Permission:
+      type: object
+      required: [id, key, label, groupName, createdAt]
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+          example: user.manage
+        label:
+          type: string
+          example: Manage
+        groupName:
+          type: string
+          example: User
+        createdAt:
+          type: string
+          format: date-time
+
+    Role:
+      type: object
+      required: [id, name, label, isSystem, permissions, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          example: operations_manager
+        label:
+          type: string
+          example: Operations Manager
+        isSystem:
+          type: boolean
+        permissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Permission"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    User:
+      type: object
+      required: [id, name, email, isActive, role, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        role:
+          $ref: "#/components/schemas/RoleSummary"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CreateUserRequest:
+      type: object
+      required: [name, email, password, roleId]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          nullable: true
+        password:
+          type: string
+          minLength: 8
+        roleId:
+          type: integer
+          minimum: 1
+        isActive:
+          type: boolean
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          nullable: true
+        password:
+          type: string
+          minLength: 8
+        roleId:
+          type: integer
+          minimum: 1
+        isActive:
+          type: boolean
+
+    UpdateUserStatusRequest:
+      type: object
+      required: [isActive]
+      properties:
+        isActive:
+          type: boolean
+
+    CreateRoleRequest:
+      type: object
+      required: [name, label]
+      properties:
+        name:
+          type: string
+          pattern: "^[a-z][a-z0-9_]*$"
+        label:
+          type: string
+        permissionKeys:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+
+    UpdateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: "^[a-z][a-z0-9_]*$"
+        label:
+          type: string
+        permissionKeys:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+
+    Pagination:
+      type: object
+      required: [page, limit, total, totalPages]
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+
+    UserResponse:
+      type: object
+      required: [data, message]
+      properties:
+        data:
+          $ref: "#/components/schemas/User"
+        message:
+          type: string
+          example: Success
+
+    UsersListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    RoleResponse:
+      type: object
+      required: [data, message]
+      properties:
+        data:
+          $ref: "#/components/schemas/Role"
+        message:
+          type: string
+          example: Success
+
+    RolesListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    PermissionsListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Permission"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    SuccessResponse:
+      type: object
+      required: [data, message]
+      properties:
+        data:
+          type: object
+          nullable: true
+        message:
+          type: string
+          example: Success
+
     HealthResponse:
       type: object
       required:
@@ -411,6 +1544,300 @@ components:
               type: array
               items:
                 type: string
+
+    VehicleStatus:
+      type: string
+      enum: [available, assigned, in_transit, maintenance, breakdown, inactive]
+    DriverAssignmentType:
+      type: string
+      enum: [primary, temporary]
+    CustomerType:
+      type: string
+      enum: [contracted, spot]
+    CommissionType:
+      type: string
+      enum: [fixed, percentage, manual]
+
+    VehicleType:
+      type: object
+      required: [id, name, code, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string }
+        capacityTons: { type: string, nullable: true }
+        description: { type: string, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateVehicleTypeRequest:
+      type: object
+      required: [name, code]
+      properties:
+        name: { type: string }
+        code: { type: string }
+        capacityTons: { type: number, nullable: true, minimum: 0 }
+        description: { type: string, nullable: true }
+        isActive: { type: boolean }
+    UpdateVehicleTypeRequest:
+      type: object
+      properties:
+        name: { type: string }
+        code: { type: string }
+        capacityTons: { type: number, nullable: true, minimum: 0 }
+        description: { type: string, nullable: true }
+        isActive: { type: boolean }
+    VehicleTypeResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/VehicleType" }, message: { type: string } }
+    VehicleTypesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/VehicleType" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    Vehicle:
+      type: object
+      required: [id, vehicleNumber, vehicleType, currentStation, status, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        vehicleNumber: { type: string }
+        vehicleType: { $ref: "#/components/schemas/VehicleType" }
+        currentStation: { $ref: "#/components/schemas/Station" }
+        status: { $ref: "#/components/schemas/VehicleStatus" }
+        fuelCardNumber: { type: string, nullable: true }
+        registrationExpiry: { type: string, format: date, nullable: true }
+        fitnessExpiry: { type: string, format: date, nullable: true }
+        insuranceExpiry: { type: string, format: date, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateVehicleRequest:
+      type: object
+      required: [vehicleNumber, vehicleTypeId, currentStationId, status]
+      properties:
+        vehicleNumber: { type: string }
+        vehicleTypeId: { type: integer }
+        currentStationId: { type: integer }
+        status: { $ref: "#/components/schemas/VehicleStatus" }
+        fuelCardNumber: { type: string, nullable: true }
+        registrationExpiry: { type: string, format: date, nullable: true }
+        fitnessExpiry: { type: string, format: date, nullable: true }
+        insuranceExpiry: { type: string, format: date, nullable: true }
+        isActive: { type: boolean }
+    UpdateVehicleRequest:
+      type: object
+      properties:
+        vehicleNumber: { type: string }
+        vehicleTypeId: { type: integer }
+        currentStationId: { type: integer }
+        status: { $ref: "#/components/schemas/VehicleStatus" }
+        fuelCardNumber: { type: string, nullable: true }
+        registrationExpiry: { type: string, format: date, nullable: true }
+        fitnessExpiry: { type: string, format: date, nullable: true }
+        insuranceExpiry: { type: string, format: date, nullable: true }
+        isActive: { type: boolean }
+    VehicleResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/Vehicle" }, message: { type: string } }
+    VehiclesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/Vehicle" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    Driver:
+      type: object
+      required: [id, name, phone, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        phone: { type: string }
+        cnic: { type: string, nullable: true }
+        licenseNumber: { type: string, nullable: true }
+        licenseExpiry: { type: string, format: date, nullable: true }
+        address: { type: string, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateDriverRequest:
+      type: object
+      required: [name, phone]
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        cnic: { type: string, nullable: true }
+        licenseNumber: { type: string, nullable: true }
+        licenseExpiry: { type: string, format: date, nullable: true }
+        address: { type: string, nullable: true }
+        isActive: { type: boolean }
+    UpdateDriverRequest:
+      type: object
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        cnic: { type: string, nullable: true }
+        licenseNumber: { type: string, nullable: true }
+        licenseExpiry: { type: string, format: date, nullable: true }
+        address: { type: string, nullable: true }
+        isActive: { type: boolean }
+    DriverResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/Driver" }, message: { type: string } }
+    DriversListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/Driver" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    DriverVehicleAssignment:
+      type: object
+      required: [id, driver, vehicle, assignmentType, startDate, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        driver: { $ref: "#/components/schemas/DriverSummary" }
+        vehicle: { $ref: "#/components/schemas/VehicleSummary" }
+        assignmentType: { $ref: "#/components/schemas/DriverAssignmentType" }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateDriverVehicleAssignmentRequest:
+      type: object
+      required: [driverId, vehicleId, assignmentType, startDate]
+      properties:
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        assignmentType: { $ref: "#/components/schemas/DriverAssignmentType" }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date, nullable: true }
+        isActive: { type: boolean }
+    UpdateDriverVehicleAssignmentRequest:
+      type: object
+      properties:
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        assignmentType: { $ref: "#/components/schemas/DriverAssignmentType" }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date, nullable: true }
+        isActive: { type: boolean }
+    DriverVehicleAssignmentResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/DriverVehicleAssignment" }, message: { type: string } }
+    DriverVehicleAssignmentsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/DriverVehicleAssignment" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+    DriverSummary:
+      type: object
+      required: [id, name, phone]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        phone: { type: string }
+    VehicleSummary:
+      type: object
+      required: [id, vehicleNumber, status]
+      properties:
+        id: { type: integer }
+        vehicleNumber: { type: string }
+        status: { $ref: "#/components/schemas/VehicleStatus" }
+
+    Customer:
+      type: object
+      required: [id, name, contactPerson, phone, customerType, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        contactPerson: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email, nullable: true }
+        billingAddress: { type: string, nullable: true }
+        customerType: { $ref: "#/components/schemas/CustomerType" }
+        ntn: { type: string, nullable: true }
+        strn: { type: string, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateCustomerRequest:
+      type: object
+      required: [name, contactPerson, phone, customerType]
+      properties:
+        name: { type: string }
+        contactPerson: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email, nullable: true }
+        billingAddress: { type: string, nullable: true }
+        customerType: { $ref: "#/components/schemas/CustomerType" }
+        ntn: { type: string, nullable: true }
+        strn: { type: string, nullable: true }
+        isActive: { type: boolean }
+    UpdateCustomerRequest:
+      type: object
+      properties:
+        name: { type: string }
+        contactPerson: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email, nullable: true }
+        billingAddress: { type: string, nullable: true }
+        customerType: { $ref: "#/components/schemas/CustomerType" }
+        ntn: { type: string, nullable: true }
+        strn: { type: string, nullable: true }
+        isActive: { type: boolean }
+    CustomerResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/Customer" }, message: { type: string } }
+    CustomersListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/Customer" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    Agent:
+      type: object
+      required: [id, name, phone, commissionType, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email, nullable: true }
+        station: { $ref: "#/components/schemas/Station", nullable: true }
+        commissionType: { $ref: "#/components/schemas/CommissionType" }
+        commissionValue: { type: string, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateAgentRequest:
+      type: object
+      required: [name, phone, commissionType]
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email, nullable: true }
+        stationId: { type: integer, nullable: true }
+        commissionType: { $ref: "#/components/schemas/CommissionType" }
+        commissionValue: { type: number, nullable: true, minimum: 0 }
+        isActive: { type: boolean }
+    UpdateAgentRequest:
+      type: object
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email, nullable: true }
+        stationId: { type: integer, nullable: true }
+        commissionType: { $ref: "#/components/schemas/CommissionType" }
+        commissionValue: { type: number, nullable: true, minimum: 0 }
+        isActive: { type: boolean }
+    AgentResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/Agent" }, message: { type: string } }
+    AgentsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/Agent" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
 
 security:
   - bearerAuth: []

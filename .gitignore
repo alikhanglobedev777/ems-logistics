@@ -5,6 +5,16 @@ build
 .env.local
 .DS_Store
 *.log
+logs/
 coverage
 .turbo
 .vite
+
+# EMS local/generated files
+.env.*
+!.env.example
+*.tsbuildinfo
+apps/**/dist
+packages/**/dist
+apps/**/coverage
+packages/**/coverage

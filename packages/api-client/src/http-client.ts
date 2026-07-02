@@ -1,41 +1,68 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:4000/api";
+const DEFAULT_API_BASE_URL = "http://localhost:4000/api";
+let apiBaseUrl = DEFAULT_API_BASE_URL;
 
-type RequestConfig = {
-  url: string;
-  method: string;
-  params?: Record<string, unknown>;
-  data?: unknown;
-  headers?: Record<string, string>;
+export type ApiClientConfig = {
+  baseUrl?: string;
 };
 
-export async function customHttpClient<T>({
-  url,
-  method,
-  params,
-  data,
-  headers
-}: RequestConfig): Promise<T> {
-  const token = localStorage.getItem("accessToken");
+export function configureApiClient(config: ApiClientConfig) {
+  apiBaseUrl = (config.baseUrl ?? DEFAULT_API_BASE_URL).replace(/\/$/, "");
+}
 
-  const query = params
-    ? `?${new URLSearchParams(params as Record<string, string>).toString()}`
-    : "";
-
-  const response = await fetch(`${API_BASE_URL}${url}${query}`, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...headers
-    },
-    body: data ? JSON.stringify(data) : undefined
-  });
-
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => null);
-    throw errorBody ?? new Error("API request failed");
+function readAccessToken() {
+  if (typeof localStorage === "undefined") {
+    return null;
   }
 
-  return response.json();
+  return localStorage.getItem("accessToken");
+}
+
+async function readJson(response: Response): Promise<unknown> {
+  const text = await response.text();
+
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
+
+export async function customHttpClient<T>(
+  url: string,
+  options: RequestInit = {},
+): Promise<T> {
+  const token = readAccessToken();
+  const headers = new Headers(options.headers);
+  const hasBody = options.body !== undefined && options.body !== null;
+  const isFormData = typeof FormData !== "undefined" && options.body instanceof FormData;
+
+  if (hasBody && !isFormData && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
+  if (token && !headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  const response = await fetch(`${apiBaseUrl}${url}`, {
+    ...options,
+    headers,
+  });
+
+  const data = await readJson(response);
+  const result = {
+    data,
+    status: response.status,
+    headers: response.headers,
+  };
+
+  if (!response.ok) {
+    throw result;
+  }
+
+  return result as T;
 }

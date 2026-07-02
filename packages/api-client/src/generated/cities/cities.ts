@@ -34,6 +34,8 @@ import type {
 import { customHttpClient } from '../../http-client';
 
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
 
 
 const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
@@ -103,16 +105,16 @@ export const getGetCitiesQueryKey = () => {
     }
 
 
-export const getGetCitiesQueryOptions = <TData = Awaited<ReturnType<typeof getCities>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCities>>, TError, TData>>, }
+export const getGetCitiesQueryOptions = <TData = Awaited<ReturnType<typeof getCities>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCities>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
 ) => {
 
-const {query: queryOptions} = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetCitiesQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCities>>> = ({ signal }) => getCities({ signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCities>>> = ({ signal }) => getCities({ signal, ...requestOptions });
 
 
 
@@ -132,7 +134,7 @@ export function useGetCities<TData = Awaited<ReturnType<typeof getCities>>, TErr
           TError,
           Awaited<ReturnType<typeof getCities>>
         > , 'initialData'
-      >, }
+      >, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetCities<TData = Awaited<ReturnType<typeof getCities>>, TError = ErrorResponse>(
@@ -142,11 +144,11 @@ export function useGetCities<TData = Awaited<ReturnType<typeof getCities>>, TErr
           TError,
           Awaited<ReturnType<typeof getCities>>
         > , 'initialData'
-      >, }
+      >, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetCities<TData = Awaited<ReturnType<typeof getCities>>, TError = ErrorResponse>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCities>>, TError, TData>>, }
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCities>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
@@ -154,7 +156,7 @@ export function useGetCities<TData = Awaited<ReturnType<typeof getCities>>, TErr
  */
 
 export function useGetCities<TData = Awaited<ReturnType<typeof getCities>>, TError = ErrorResponse>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCities>>, TError, TData>>, }
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCities>>, TError, TData>>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -216,15 +218,15 @@ export const createCity = async (createCityRequest: CreateCityRequest, options?:
 
 
 export const getCreateCityMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCity>>, TError,{data: CreateCityRequest}, TContext>, }
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCity>>, TError,{data: CreateCityRequest}, TContext>, request?: SecondParameter<typeof customHttpClient>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createCity>>, TError,{data: CreateCityRequest}, TContext> => {
 
 const mutationKey = ['createCity'];
-const {mutation: mutationOptions} = options ?
+const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
       : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }};
+      : {mutation: { mutationKey, }, request: undefined};
 
 
 
@@ -232,7 +234,7 @@ const {mutation: mutationOptions} = options ?
       const mutationFn: MutationFunction<Awaited<ReturnType<typeof createCity>>, {data: CreateCityRequest}> = (props) => {
           const {data} = props ?? {};
 
-          return  createCity(data,)
+          return  createCity(data,requestOptions)
         }
 
 
@@ -250,7 +252,7 @@ const {mutation: mutationOptions} = options ?
  * @summary Create city
  */
 export const useCreateCity = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCity>>, TError,{data: CreateCityRequest}, TContext>, }
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCity>>, TError,{data: CreateCityRequest}, TContext>, request?: SecondParameter<typeof customHttpClient>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createCity>>,
         TError,

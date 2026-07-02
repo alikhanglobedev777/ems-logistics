@@ -1,0 +1,48 @@
+export const Permission = {
+  USER_MANAGE: 'user.manage',
+  ROLE_MANAGE: 'role.manage',
+
+  STATION_CREATE: 'station.create',
+  STATION_UPDATE: 'station.update',
+  STATION_VIEW: 'station.view',
+
+  VEHICLE_CREATE: 'vehicle.create',
+  VEHICLE_UPDATE: 'vehicle.update',
+  VEHICLE_VIEW: 'vehicle.view',
+
+  DRIVER_CREATE: 'driver.create',
+  DRIVER_UPDATE: 'driver.update',
+  DRIVER_VIEW: 'driver.view',
+
+  CUSTOMER_CREATE: 'customer.create',
+  CUSTOMER_UPDATE: 'customer.update',
+  CUSTOMER_VIEW: 'customer.view',
+
+  BOOKING_CREATE: 'booking.create',
+  BOOKING_CONFIRM: 'booking.confirm',
+  BOOKING_APPROVE_RATE: 'booking.approve_rate',
+  BOOKING_CANCEL: 'booking.cancel',
+  BOOKING_VIEW: 'booking.view',
+
+  TRIP_CREATE: 'trip.create',
+  TRIP_DISPATCH: 'trip.dispatch',
+  TRIP_COMPLETE: 'trip.complete',
+  TRIP_VIEW: 'trip.view',
+
+  FUEL_VERIFY_SLIP: 'fuel.verify_slip',
+  FUEL_MANAGE_VENDOR: 'fuel.manage_vendor',
+  FUEL_VIEW: 'fuel.view',
+
+  DRIVER_ADVANCE_CREATE: 'driver_advance.create',
+  DRIVER_SETTLE: 'driver.settle',
+
+  INVOICE_CREATE: 'invoice.create',
+  PAYMENT_RECEIVE: 'payment.receive',
+
+  REPORT_VIEW: 'report.view',
+  REPORT_VIEW_PROFIT: 'report.view_profit',
+} as const;
+
+export type Permission = (typeof Permission)[keyof typeof Permission];
+
+export const ALL_PERMISSIONS = Object.values(Permission);

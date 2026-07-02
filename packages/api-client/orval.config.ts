@@ -10,10 +10,10 @@ export default defineConfig({
       target: "src/generated/api.ts",
       schemas: "src/generated/models",
       client: "react-query",
-      prettier: true,
+      clean: true,
       override: {
         mutator: {
-          path: "src/http-client.ts",
+          path: "./src/http-client.ts",
           name: "customHttpClient"
         }
       }

@@ -3,15 +3,19 @@
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-  "dev": "turbo dev",
-  "dev:api": "pnpm --filter @ems/api dev",
-  "dev:web": "pnpm --filter @ems/web dev",
-  "build": "turbo build",
-  "typecheck": "turbo typecheck",
-  "lint": "turbo lint",
-  "contract:lint": "pnpm --filter @ems/api-contract lint",
-  "contract:generate": "pnpm --filter @ems/api-client generate"
-},
+    "dev": "turbo dev",
+    "dev:api": "pnpm --filter @ems/api dev",
+    "dev:web": "pnpm --filter @ems/web dev",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
+    "lint": "turbo lint",
+    "test:api": "pnpm --filter @ems/api test",
+    "contract:lint": "pnpm --filter @ems/api-contract lint",
+    "contract:generate": "pnpm --filter @ems/api-contract generate-types && pnpm --filter @ems/api-client generate",
+    "db:migrate": "pnpm --filter @ems/db migrate",
+    "db:generate-types": "pnpm --filter @ems/db generate-types",
+    "check": "pnpm db:migrate && pnpm contract:generate && pnpm typecheck && pnpm test:api"
+  },
   "devDependencies": {
     "turbo": "latest",
     "typescript": "latest"
