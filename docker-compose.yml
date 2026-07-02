@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: ems_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ems_user
+      POSTGRES_PASSWORD: ems_password
+      POSTGRES_DB: ems_logistics
+    ports:
+      - "5432:5432"
+    volumes:
+      - ems_postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: ems_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  ems_postgres_data:
