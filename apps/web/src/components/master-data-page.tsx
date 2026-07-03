@@ -8,7 +8,7 @@ export type FormValues = Record<string, string>;
 export type FormField = { name: string; label: string; type?: string; options?: Array<{label:string;value:string}> };
 
 export function MasterDataPage<T extends { id: number }>({ title, resource, mode, rows, columns, fields, schema, initial, detail, loading, onSubmit }: {
-  title:string; resource:string; mode:'list'|'create'|'edit'|'detail'; rows:T[]; columns:DataTableColumn<T>[]; fields:FormField[]; schema:ZodType<FormValues, FormValues>;
+  title:string; resource:string; mode:'list'|'create'|'edit'|'detail'; rows:T[]; columns:DataTableColumn<T>[]; fields:FormField[]; schema: ZodType<FormValues>;
   initial?:FormValues; detail?:T; loading?:boolean; onSubmit:(values:FormValues)=>Promise<void>;
 }) {
   const form=useForm<FormValues>({resolver:zodResolver(schema),defaultValues:initial??{}});

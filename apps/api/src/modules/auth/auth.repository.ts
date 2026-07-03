@@ -50,6 +50,15 @@ export class AuthRepository {
     return this.findUserByIdWithDb(this.db, userId);
   }
 
+  async countUsers() {
+    const result = await this.db
+      .selectFrom('users')
+      .select((eb) => eb.fn.countAll<number>().as('total'))
+      .executeTakeFirstOrThrow();
+
+    return Number(result.total);
+  }
+
   async createUserWithSession(
     userInput: CreateUserInput,
     sessionInput: CreateSessionInput,

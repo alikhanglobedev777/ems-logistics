@@ -68,6 +68,13 @@ function parseDurationMilliseconds(value: string) {
   return amount * multipliers[unit];
 }
 
+
+function jwtExpiresIn(value: string | undefined, fallback: string): JwtSignOptions['expiresIn'] {
+  // Nest/JWT accepts string durations like "15m" at runtime, but the type is
+  // narrowed by jsonwebtoken/ms. Keep the unavoidable cast isolated here.
+  return (value ?? fallback) as JwtSignOptions['expiresIn'];
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -80,7 +87,9 @@ export class AuthService {
     const name = requiredString(body.name, 'name');
     const email = normalizeEmail(requiredString(body.email, 'email'));
     const password = requiredString(body.password, 'password');
-    const requestedRole = body.roleName ?? PUBLIC_REGISTRATION_ROLE;
+    const existingUserCount = await this.authRepository.countUsers();
+    const requestedRole =
+      body.roleName ?? (existingUserCount === 0 ? 'super_admin' : PUBLIC_REGISTRATION_ROLE);
 
     if (!EMAIL_PATTERN.test(email)) {
       throw new BadRequestException({
@@ -97,11 +106,20 @@ export class AuthService {
       });
     }
 
-    if (requestedRole !== PUBLIC_REGISTRATION_ROLE) {
+    if (requestedRole !== PUBLIC_REGISTRATION_ROLE && existingUserCount > 0) {
       throw new BadRequestException({
         error: {
           code: 'PUBLIC_ROLE_NOT_ALLOWED',
-          message: 'Public registration can only create customer accounts',
+          message: 'Only the first setup user can create an elevated account publicly',
+        },
+      });
+    }
+
+    if (existingUserCount === 0 && !['super_admin', 'admin'].includes(requestedRole)) {
+      throw new BadRequestException({
+        error: {
+          code: 'BOOTSTRAP_ROLE_NOT_ALLOWED',
+          message: 'The first setup user must be super_admin or admin',
         },
       });
     }
@@ -115,11 +133,11 @@ export class AuthService {
       });
     }
 
-    const role = await this.authRepository.findRoleByName(PUBLIC_REGISTRATION_ROLE);
+    const role = await this.authRepository.findRoleByName(requestedRole);
 
     if (!role) {
       throw new BadRequestException({
-        error: { code: 'ROLE_NOT_FOUND', message: 'Customer role does not exist' },
+        error: { code: 'ROLE_NOT_FOUND', message: `${requestedRole} role does not exist` },
       });
     }
 
@@ -227,8 +245,10 @@ export class AuthService {
 
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>('JWT_ACCESS_SECRET') ?? 'dev_access_secret',
-      expiresIn:
-        this.configService.get<JwtSignOptions['expiresIn']>('JWT_ACCESS_EXPIRES_IN') ?? '15m',
+      expiresIn: jwtExpiresIn(
+        this.configService.get<string>('JWT_ACCESS_EXPIRES_IN'),
+        '15m',
+      ),
     });
 
     return toAuthResponse(user, permissions, accessToken, refreshToken);

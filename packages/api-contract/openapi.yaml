@@ -1018,7 +1018,8 @@ components:
           example: StrongPass123
         roleName:
           type: string
-          enum: [customer]
+          description: Customer for public registration. super_admin/admin are only allowed for the first setup user.
+          enum: [customer, super_admin, admin]
 
     AuthLoginRequest:
       type: object

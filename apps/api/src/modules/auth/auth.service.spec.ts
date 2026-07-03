@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let jwtService: { signAsync: jest.Mock };
   const repository = {
     findUserByEmail: jest.fn(),
     findRoleByName: jest.fn(),
@@ -18,6 +19,7 @@ describe('AuthService', () => {
     revokeRefreshSession: jest.fn(),
     findUserById: jest.fn(),
     getUserPermissions: jest.fn(),
+    countUsers: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -32,9 +34,11 @@ describe('AuthService', () => {
     }).compile();
 
     service = module.get(AuthService);
+    jwtService = module.get(JwtService);
   });
 
-  it('rejects public registration for an elevated role', async () => {
+  it('rejects public registration for an elevated role after bootstrap exists', async () => {
+    repository.countUsers.mockResolvedValue(1);
     const malformedRequest = {
       name: 'Admin',
       email: 'admin@ems.local',
@@ -45,6 +49,34 @@ describe('AuthService', () => {
     await expect(
       service.register(malformedRequest as unknown as AuthRegisterRequest),
     ).rejects.toBeInstanceOf(BadRequestException);
+  });
+
+  it('allows the first setup user to register as super_admin', async () => {
+    repository.countUsers.mockResolvedValue(0);
+    repository.findUserByEmail.mockResolvedValue(undefined);
+    repository.findRoleByName.mockResolvedValue({ id: 1, name: 'super_admin', label: 'Super Admin' });
+    repository.createUserWithSession.mockResolvedValue({
+      id: 1,
+      name: 'Admin',
+      email: 'admin@ems.local',
+      phone: null,
+      passwordHash: 'hash',
+      isActive: true,
+      roleId: 1,
+      roleName: 'super_admin',
+      roleLabel: 'Super Admin',
+    });
+    repository.getUserPermissions.mockResolvedValue(['user.manage']);
+    jwtService.signAsync.mockResolvedValue('access-token');
+
+    await expect(
+      service.register({
+        name: 'Admin',
+        email: 'admin@ems.local',
+        password: 'StrongPass123',
+        roleName: 'super_admin',
+      } as unknown as AuthRegisterRequest),
+    ).resolves.toMatchObject({ data: { accessToken: 'access-token' } });
   });
 
   it('rejects login when the user does not exist', async () => {
