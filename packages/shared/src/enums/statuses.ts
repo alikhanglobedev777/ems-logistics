@@ -22,6 +22,16 @@ export const TripStatus = {
 
 export type TripStatus = (typeof TripStatus)[keyof typeof TripStatus];
 
+export const TripLegStatus = {
+  PLANNED: 'planned',
+  DISPATCHED: 'dispatched',
+  ARRIVED: 'arrived',
+  COMPLETED: 'completed',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type TripLegStatus = (typeof TripLegStatus)[keyof typeof TripLegStatus];
+
 export const VehicleStatus = {
   AVAILABLE: 'available',
   ASSIGNED: 'assigned',
@@ -98,3 +108,20 @@ export const FuelPriceSource = {
 } as const;
 
 export type FuelPriceSource = (typeof FuelPriceSource)[keyof typeof FuelPriceSource];
+
+
+export const ContractRateModel = {
+  FIXED: 'fixed',
+  FUEL_LINKED: 'fuel_linked',
+} as const;
+
+export type ContractRateModel = (typeof ContractRateModel)[keyof typeof ContractRateModel];
+
+export const ContractStatus = {
+  DRAFT: 'draft',
+  ACTIVE: 'active',
+  EXPIRED: 'expired',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus];

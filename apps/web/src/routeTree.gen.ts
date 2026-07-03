@@ -11,18 +11,24 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VehiclesRouteImport } from './routes/vehicles'
 import { Route as VehicleTypesRouteImport } from './routes/vehicle-types'
+import { Route as TripsRouteImport } from './routes/trips'
 import { Route as RoutesRouteImport } from './routes/routes'
 import { Route as RouteOverheadProfilesRouteImport } from './routes/route-overhead-profiles'
 import { Route as RouteFuelProfilesRouteImport } from './routes/route-fuel-profiles'
 import { Route as FuelPricesRouteImport } from './routes/fuel-prices'
 import { Route as DriversRouteImport } from './routes/drivers'
 import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as ContractsRouteImport } from './routes/contracts'
+import { Route as ContractRatesRouteImport } from './routes/contract-rates'
+import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as AgentsRouteImport } from './routes/agents'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VehiclesNewRouteImport } from './routes/vehicles.new'
 import { Route as VehiclesIdRouteImport } from './routes/vehicles.$id'
 import { Route as VehicleTypesNewRouteImport } from './routes/vehicle-types.new'
 import { Route as VehicleTypesIdRouteImport } from './routes/vehicle-types.$id'
+import { Route as TripsNewRouteImport } from './routes/trips.new'
+import { Route as TripsIdRouteImport } from './routes/trips.$id'
 import { Route as RoutesNewRouteImport } from './routes/routes.new'
 import { Route as RoutesIdRouteImport } from './routes/routes.$id'
 import { Route as RouteOverheadProfilesNewRouteImport } from './routes/route-overhead-profiles.new'
@@ -36,16 +42,26 @@ import { Route as DriversNewRouteImport } from './routes/drivers.new'
 import { Route as DriversIdRouteImport } from './routes/drivers.$id'
 import { Route as CustomersNewRouteImport } from './routes/customers.new'
 import { Route as CustomersIdRouteImport } from './routes/customers.$id'
+import { Route as ContractsNewRouteImport } from './routes/contracts.new'
+import { Route as ContractsIdRouteImport } from './routes/contracts.$id'
+import { Route as ContractRatesNewRouteImport } from './routes/contract-rates.new'
+import { Route as ContractRatesIdRouteImport } from './routes/contract-rates.$id'
+import { Route as BookingsNewRouteImport } from './routes/bookings.new'
+import { Route as BookingsIdRouteImport } from './routes/bookings.$id'
 import { Route as AgentsNewRouteImport } from './routes/agents.new'
 import { Route as AgentsIdRouteImport } from './routes/agents.$id'
 import { Route as VehiclesIdEditRouteImport } from './routes/vehicles.$id.edit'
 import { Route as VehicleTypesIdEditRouteImport } from './routes/vehicle-types.$id.edit'
+import { Route as TripsIdEditRouteImport } from './routes/trips.$id.edit'
 import { Route as RoutesIdEditRouteImport } from './routes/routes.$id.edit'
 import { Route as RouteOverheadProfilesIdEditRouteImport } from './routes/route-overhead-profiles.$id.edit'
 import { Route as RouteFuelProfilesIdEditRouteImport } from './routes/route-fuel-profiles.$id.edit'
 import { Route as FuelPricesIdEditRouteImport } from './routes/fuel-prices.$id.edit'
 import { Route as DriversIdEditRouteImport } from './routes/drivers.$id.edit'
 import { Route as CustomersIdEditRouteImport } from './routes/customers.$id.edit'
+import { Route as ContractsIdEditRouteImport } from './routes/contracts.$id.edit'
+import { Route as ContractRatesIdEditRouteImport } from './routes/contract-rates.$id.edit'
+import { Route as BookingsIdEditRouteImport } from './routes/bookings.$id.edit'
 import { Route as AgentsIdEditRouteImport } from './routes/agents.$id.edit'
 
 const VehiclesRoute = VehiclesRouteImport.update({
@@ -56,6 +72,11 @@ const VehiclesRoute = VehiclesRouteImport.update({
 const VehicleTypesRoute = VehicleTypesRouteImport.update({
   id: '/vehicle-types',
   path: '/vehicle-types',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripsRoute = TripsRouteImport.update({
+  id: '/trips',
+  path: '/trips',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RoutesRoute = RoutesRouteImport.update({
@@ -88,6 +109,21 @@ const CustomersRoute = CustomersRouteImport.update({
   path: '/customers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContractsRoute = ContractsRouteImport.update({
+  id: '/contracts',
+  path: '/contracts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContractRatesRoute = ContractRatesRouteImport.update({
+  id: '/contract-rates',
+  path: '/contract-rates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AgentsRoute = AgentsRouteImport.update({
   id: '/agents',
   path: '/agents',
@@ -117,6 +153,16 @@ const VehicleTypesIdRoute = VehicleTypesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => VehicleTypesRoute,
+} as any)
+const TripsNewRoute = TripsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => TripsRoute,
+} as any)
+const TripsIdRoute = TripsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TripsRoute,
 } as any)
 const RoutesNewRoute = RoutesNewRouteImport.update({
   id: '/new',
@@ -184,6 +230,36 @@ const CustomersIdRoute = CustomersIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => CustomersRoute,
 } as any)
+const ContractsNewRoute = ContractsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => ContractsRoute,
+} as any)
+const ContractsIdRoute = ContractsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ContractsRoute,
+} as any)
+const ContractRatesNewRoute = ContractRatesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => ContractRatesRoute,
+} as any)
+const ContractRatesIdRoute = ContractRatesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ContractRatesRoute,
+} as any)
+const BookingsNewRoute = BookingsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => BookingsRoute,
+} as any)
+const BookingsIdRoute = BookingsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BookingsRoute,
+} as any)
 const AgentsNewRoute = AgentsNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -203,6 +279,11 @@ const VehicleTypesIdEditRoute = VehicleTypesIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
   getParentRoute: () => VehicleTypesIdRoute,
+} as any)
+const TripsIdEditRoute = TripsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => TripsIdRoute,
 } as any)
 const RoutesIdEditRoute = RoutesIdEditRouteImport.update({
   id: '/edit',
@@ -235,6 +316,21 @@ const CustomersIdEditRoute = CustomersIdEditRouteImport.update({
   path: '/edit',
   getParentRoute: () => CustomersIdRoute,
 } as any)
+const ContractsIdEditRoute = ContractsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => ContractsIdRoute,
+} as any)
+const ContractRatesIdEditRoute = ContractRatesIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => ContractRatesIdRoute,
+} as any)
+const BookingsIdEditRoute = BookingsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => BookingsIdRoute,
+} as any)
 const AgentsIdEditRoute = AgentsIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -244,16 +340,26 @@ const AgentsIdEditRoute = AgentsIdEditRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agents': typeof AgentsRouteWithChildren
+  '/bookings': typeof BookingsRouteWithChildren
+  '/contract-rates': typeof ContractRatesRouteWithChildren
+  '/contracts': typeof ContractsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
+  '/trips': typeof TripsRouteWithChildren
   '/vehicle-types': typeof VehicleTypesRouteWithChildren
   '/vehicles': typeof VehiclesRouteWithChildren
   '/agents/$id': typeof AgentsIdRouteWithChildren
   '/agents/new': typeof AgentsNewRoute
+  '/bookings/$id': typeof BookingsIdRouteWithChildren
+  '/bookings/new': typeof BookingsNewRoute
+  '/contract-rates/$id': typeof ContractRatesIdRouteWithChildren
+  '/contract-rates/new': typeof ContractRatesNewRoute
+  '/contracts/$id': typeof ContractsIdRouteWithChildren
+  '/contracts/new': typeof ContractsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
   '/drivers/$id': typeof DriversIdRouteWithChildren
@@ -267,33 +373,49 @@ export interface FileRoutesByFullPath {
   '/route-overhead-profiles/new': typeof RouteOverheadProfilesNewRoute
   '/routes/$id': typeof RoutesIdRouteWithChildren
   '/routes/new': typeof RoutesNewRoute
+  '/trips/$id': typeof TripsIdRouteWithChildren
+  '/trips/new': typeof TripsNewRoute
   '/vehicle-types/$id': typeof VehicleTypesIdRouteWithChildren
   '/vehicle-types/new': typeof VehicleTypesNewRoute
   '/vehicles/$id': typeof VehiclesIdRouteWithChildren
   '/vehicles/new': typeof VehiclesNewRoute
   '/agents/$id/edit': typeof AgentsIdEditRoute
+  '/bookings/$id/edit': typeof BookingsIdEditRoute
+  '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
+  '/contracts/$id/edit': typeof ContractsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
+  '/trips/$id/edit': typeof TripsIdEditRoute
   '/vehicle-types/$id/edit': typeof VehicleTypesIdEditRoute
   '/vehicles/$id/edit': typeof VehiclesIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agents': typeof AgentsRouteWithChildren
+  '/bookings': typeof BookingsRouteWithChildren
+  '/contract-rates': typeof ContractRatesRouteWithChildren
+  '/contracts': typeof ContractsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
+  '/trips': typeof TripsRouteWithChildren
   '/vehicle-types': typeof VehicleTypesRouteWithChildren
   '/vehicles': typeof VehiclesRouteWithChildren
   '/agents/$id': typeof AgentsIdRouteWithChildren
   '/agents/new': typeof AgentsNewRoute
+  '/bookings/$id': typeof BookingsIdRouteWithChildren
+  '/bookings/new': typeof BookingsNewRoute
+  '/contract-rates/$id': typeof ContractRatesIdRouteWithChildren
+  '/contract-rates/new': typeof ContractRatesNewRoute
+  '/contracts/$id': typeof ContractsIdRouteWithChildren
+  '/contracts/new': typeof ContractsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
   '/drivers/$id': typeof DriversIdRouteWithChildren
@@ -307,17 +429,23 @@ export interface FileRoutesByTo {
   '/route-overhead-profiles/new': typeof RouteOverheadProfilesNewRoute
   '/routes/$id': typeof RoutesIdRouteWithChildren
   '/routes/new': typeof RoutesNewRoute
+  '/trips/$id': typeof TripsIdRouteWithChildren
+  '/trips/new': typeof TripsNewRoute
   '/vehicle-types/$id': typeof VehicleTypesIdRouteWithChildren
   '/vehicle-types/new': typeof VehicleTypesNewRoute
   '/vehicles/$id': typeof VehiclesIdRouteWithChildren
   '/vehicles/new': typeof VehiclesNewRoute
   '/agents/$id/edit': typeof AgentsIdEditRoute
+  '/bookings/$id/edit': typeof BookingsIdEditRoute
+  '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
+  '/contracts/$id/edit': typeof ContractsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
+  '/trips/$id/edit': typeof TripsIdEditRoute
   '/vehicle-types/$id/edit': typeof VehicleTypesIdEditRoute
   '/vehicles/$id/edit': typeof VehiclesIdEditRoute
 }
@@ -325,16 +453,26 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agents': typeof AgentsRouteWithChildren
+  '/bookings': typeof BookingsRouteWithChildren
+  '/contract-rates': typeof ContractRatesRouteWithChildren
+  '/contracts': typeof ContractsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
+  '/trips': typeof TripsRouteWithChildren
   '/vehicle-types': typeof VehicleTypesRouteWithChildren
   '/vehicles': typeof VehiclesRouteWithChildren
   '/agents/$id': typeof AgentsIdRouteWithChildren
   '/agents/new': typeof AgentsNewRoute
+  '/bookings/$id': typeof BookingsIdRouteWithChildren
+  '/bookings/new': typeof BookingsNewRoute
+  '/contract-rates/$id': typeof ContractRatesIdRouteWithChildren
+  '/contract-rates/new': typeof ContractRatesNewRoute
+  '/contracts/$id': typeof ContractsIdRouteWithChildren
+  '/contracts/new': typeof ContractsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
   '/drivers/$id': typeof DriversIdRouteWithChildren
@@ -348,17 +486,23 @@ export interface FileRoutesById {
   '/route-overhead-profiles/new': typeof RouteOverheadProfilesNewRoute
   '/routes/$id': typeof RoutesIdRouteWithChildren
   '/routes/new': typeof RoutesNewRoute
+  '/trips/$id': typeof TripsIdRouteWithChildren
+  '/trips/new': typeof TripsNewRoute
   '/vehicle-types/$id': typeof VehicleTypesIdRouteWithChildren
   '/vehicle-types/new': typeof VehicleTypesNewRoute
   '/vehicles/$id': typeof VehiclesIdRouteWithChildren
   '/vehicles/new': typeof VehiclesNewRoute
   '/agents/$id/edit': typeof AgentsIdEditRoute
+  '/bookings/$id/edit': typeof BookingsIdEditRoute
+  '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
+  '/contracts/$id/edit': typeof ContractsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
+  '/trips/$id/edit': typeof TripsIdEditRoute
   '/vehicle-types/$id/edit': typeof VehicleTypesIdEditRoute
   '/vehicles/$id/edit': typeof VehiclesIdEditRoute
 }
@@ -367,16 +511,26 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agents'
+    | '/bookings'
+    | '/contract-rates'
+    | '/contracts'
     | '/customers'
     | '/drivers'
     | '/fuel-prices'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
+    | '/trips'
     | '/vehicle-types'
     | '/vehicles'
     | '/agents/$id'
     | '/agents/new'
+    | '/bookings/$id'
+    | '/bookings/new'
+    | '/contract-rates/$id'
+    | '/contract-rates/new'
+    | '/contracts/$id'
+    | '/contracts/new'
     | '/customers/$id'
     | '/customers/new'
     | '/drivers/$id'
@@ -390,33 +544,49 @@ export interface FileRouteTypes {
     | '/route-overhead-profiles/new'
     | '/routes/$id'
     | '/routes/new'
+    | '/trips/$id'
+    | '/trips/new'
     | '/vehicle-types/$id'
     | '/vehicle-types/new'
     | '/vehicles/$id'
     | '/vehicles/new'
     | '/agents/$id/edit'
+    | '/bookings/$id/edit'
+    | '/contract-rates/$id/edit'
+    | '/contracts/$id/edit'
     | '/customers/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
+    | '/trips/$id/edit'
     | '/vehicle-types/$id/edit'
     | '/vehicles/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/agents'
+    | '/bookings'
+    | '/contract-rates'
+    | '/contracts'
     | '/customers'
     | '/drivers'
     | '/fuel-prices'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
+    | '/trips'
     | '/vehicle-types'
     | '/vehicles'
     | '/agents/$id'
     | '/agents/new'
+    | '/bookings/$id'
+    | '/bookings/new'
+    | '/contract-rates/$id'
+    | '/contract-rates/new'
+    | '/contracts/$id'
+    | '/contracts/new'
     | '/customers/$id'
     | '/customers/new'
     | '/drivers/$id'
@@ -430,33 +600,49 @@ export interface FileRouteTypes {
     | '/route-overhead-profiles/new'
     | '/routes/$id'
     | '/routes/new'
+    | '/trips/$id'
+    | '/trips/new'
     | '/vehicle-types/$id'
     | '/vehicle-types/new'
     | '/vehicles/$id'
     | '/vehicles/new'
     | '/agents/$id/edit'
+    | '/bookings/$id/edit'
+    | '/contract-rates/$id/edit'
+    | '/contracts/$id/edit'
     | '/customers/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
+    | '/trips/$id/edit'
     | '/vehicle-types/$id/edit'
     | '/vehicles/$id/edit'
   id:
     | '__root__'
     | '/'
     | '/agents'
+    | '/bookings'
+    | '/contract-rates'
+    | '/contracts'
     | '/customers'
     | '/drivers'
     | '/fuel-prices'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
+    | '/trips'
     | '/vehicle-types'
     | '/vehicles'
     | '/agents/$id'
     | '/agents/new'
+    | '/bookings/$id'
+    | '/bookings/new'
+    | '/contract-rates/$id'
+    | '/contract-rates/new'
+    | '/contracts/$id'
+    | '/contracts/new'
     | '/customers/$id'
     | '/customers/new'
     | '/drivers/$id'
@@ -470,17 +656,23 @@ export interface FileRouteTypes {
     | '/route-overhead-profiles/new'
     | '/routes/$id'
     | '/routes/new'
+    | '/trips/$id'
+    | '/trips/new'
     | '/vehicle-types/$id'
     | '/vehicle-types/new'
     | '/vehicles/$id'
     | '/vehicles/new'
     | '/agents/$id/edit'
+    | '/bookings/$id/edit'
+    | '/contract-rates/$id/edit'
+    | '/contracts/$id/edit'
     | '/customers/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
+    | '/trips/$id/edit'
     | '/vehicle-types/$id/edit'
     | '/vehicles/$id/edit'
   fileRoutesById: FileRoutesById
@@ -488,12 +680,16 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgentsRoute: typeof AgentsRouteWithChildren
+  BookingsRoute: typeof BookingsRouteWithChildren
+  ContractRatesRoute: typeof ContractRatesRouteWithChildren
+  ContractsRoute: typeof ContractsRouteWithChildren
   CustomersRoute: typeof CustomersRouteWithChildren
   DriversRoute: typeof DriversRouteWithChildren
   FuelPricesRoute: typeof FuelPricesRouteWithChildren
   RouteFuelProfilesRoute: typeof RouteFuelProfilesRouteWithChildren
   RouteOverheadProfilesRoute: typeof RouteOverheadProfilesRouteWithChildren
   RoutesRoute: typeof RoutesRouteWithChildren
+  TripsRoute: typeof TripsRouteWithChildren
   VehicleTypesRoute: typeof VehicleTypesRouteWithChildren
   VehiclesRoute: typeof VehiclesRouteWithChildren
   PricingRouteEstimateRoute: typeof PricingRouteEstimateRoute
@@ -513,6 +709,13 @@ declare module '@tanstack/react-router' {
       path: '/vehicle-types'
       fullPath: '/vehicle-types'
       preLoaderRoute: typeof VehicleTypesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trips': {
+      id: '/trips'
+      path: '/trips'
+      fullPath: '/trips'
+      preLoaderRoute: typeof TripsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/routes': {
@@ -557,6 +760,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contracts': {
+      id: '/contracts'
+      path: '/contracts'
+      fullPath: '/contracts'
+      preLoaderRoute: typeof ContractsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contract-rates': {
+      id: '/contract-rates'
+      path: '/contract-rates'
+      fullPath: '/contract-rates'
+      preLoaderRoute: typeof ContractRatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/agents': {
       id: '/agents'
       path: '/agents'
@@ -598,6 +822,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/vehicle-types/$id'
       preLoaderRoute: typeof VehicleTypesIdRouteImport
       parentRoute: typeof VehicleTypesRoute
+    }
+    '/trips/new': {
+      id: '/trips/new'
+      path: '/new'
+      fullPath: '/trips/new'
+      preLoaderRoute: typeof TripsNewRouteImport
+      parentRoute: typeof TripsRoute
+    }
+    '/trips/$id': {
+      id: '/trips/$id'
+      path: '/$id'
+      fullPath: '/trips/$id'
+      preLoaderRoute: typeof TripsIdRouteImport
+      parentRoute: typeof TripsRoute
     }
     '/routes/new': {
       id: '/routes/new'
@@ -690,6 +928,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomersIdRouteImport
       parentRoute: typeof CustomersRoute
     }
+    '/contracts/new': {
+      id: '/contracts/new'
+      path: '/new'
+      fullPath: '/contracts/new'
+      preLoaderRoute: typeof ContractsNewRouteImport
+      parentRoute: typeof ContractsRoute
+    }
+    '/contracts/$id': {
+      id: '/contracts/$id'
+      path: '/$id'
+      fullPath: '/contracts/$id'
+      preLoaderRoute: typeof ContractsIdRouteImport
+      parentRoute: typeof ContractsRoute
+    }
+    '/contract-rates/new': {
+      id: '/contract-rates/new'
+      path: '/new'
+      fullPath: '/contract-rates/new'
+      preLoaderRoute: typeof ContractRatesNewRouteImport
+      parentRoute: typeof ContractRatesRoute
+    }
+    '/contract-rates/$id': {
+      id: '/contract-rates/$id'
+      path: '/$id'
+      fullPath: '/contract-rates/$id'
+      preLoaderRoute: typeof ContractRatesIdRouteImport
+      parentRoute: typeof ContractRatesRoute
+    }
+    '/bookings/new': {
+      id: '/bookings/new'
+      path: '/new'
+      fullPath: '/bookings/new'
+      preLoaderRoute: typeof BookingsNewRouteImport
+      parentRoute: typeof BookingsRoute
+    }
+    '/bookings/$id': {
+      id: '/bookings/$id'
+      path: '/$id'
+      fullPath: '/bookings/$id'
+      preLoaderRoute: typeof BookingsIdRouteImport
+      parentRoute: typeof BookingsRoute
+    }
     '/agents/new': {
       id: '/agents/new'
       path: '/new'
@@ -717,6 +997,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/vehicle-types/$id/edit'
       preLoaderRoute: typeof VehicleTypesIdEditRouteImport
       parentRoute: typeof VehicleTypesIdRoute
+    }
+    '/trips/$id/edit': {
+      id: '/trips/$id/edit'
+      path: '/edit'
+      fullPath: '/trips/$id/edit'
+      preLoaderRoute: typeof TripsIdEditRouteImport
+      parentRoute: typeof TripsIdRoute
     }
     '/routes/$id/edit': {
       id: '/routes/$id/edit'
@@ -760,6 +1047,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomersIdEditRouteImport
       parentRoute: typeof CustomersIdRoute
     }
+    '/contracts/$id/edit': {
+      id: '/contracts/$id/edit'
+      path: '/edit'
+      fullPath: '/contracts/$id/edit'
+      preLoaderRoute: typeof ContractsIdEditRouteImport
+      parentRoute: typeof ContractsIdRoute
+    }
+    '/contract-rates/$id/edit': {
+      id: '/contract-rates/$id/edit'
+      path: '/edit'
+      fullPath: '/contract-rates/$id/edit'
+      preLoaderRoute: typeof ContractRatesIdEditRouteImport
+      parentRoute: typeof ContractRatesIdRoute
+    }
+    '/bookings/$id/edit': {
+      id: '/bookings/$id/edit'
+      path: '/edit'
+      fullPath: '/bookings/$id/edit'
+      preLoaderRoute: typeof BookingsIdEditRouteImport
+      parentRoute: typeof BookingsIdRoute
+    }
     '/agents/$id/edit': {
       id: '/agents/$id/edit'
       path: '/edit'
@@ -794,6 +1102,84 @@ const AgentsRouteChildren: AgentsRouteChildren = {
 
 const AgentsRouteWithChildren =
   AgentsRoute._addFileChildren(AgentsRouteChildren)
+
+interface BookingsIdRouteChildren {
+  BookingsIdEditRoute: typeof BookingsIdEditRoute
+}
+
+const BookingsIdRouteChildren: BookingsIdRouteChildren = {
+  BookingsIdEditRoute: BookingsIdEditRoute,
+}
+
+const BookingsIdRouteWithChildren = BookingsIdRoute._addFileChildren(
+  BookingsIdRouteChildren,
+)
+
+interface BookingsRouteChildren {
+  BookingsIdRoute: typeof BookingsIdRouteWithChildren
+  BookingsNewRoute: typeof BookingsNewRoute
+}
+
+const BookingsRouteChildren: BookingsRouteChildren = {
+  BookingsIdRoute: BookingsIdRouteWithChildren,
+  BookingsNewRoute: BookingsNewRoute,
+}
+
+const BookingsRouteWithChildren = BookingsRoute._addFileChildren(
+  BookingsRouteChildren,
+)
+
+interface ContractRatesIdRouteChildren {
+  ContractRatesIdEditRoute: typeof ContractRatesIdEditRoute
+}
+
+const ContractRatesIdRouteChildren: ContractRatesIdRouteChildren = {
+  ContractRatesIdEditRoute: ContractRatesIdEditRoute,
+}
+
+const ContractRatesIdRouteWithChildren = ContractRatesIdRoute._addFileChildren(
+  ContractRatesIdRouteChildren,
+)
+
+interface ContractRatesRouteChildren {
+  ContractRatesIdRoute: typeof ContractRatesIdRouteWithChildren
+  ContractRatesNewRoute: typeof ContractRatesNewRoute
+}
+
+const ContractRatesRouteChildren: ContractRatesRouteChildren = {
+  ContractRatesIdRoute: ContractRatesIdRouteWithChildren,
+  ContractRatesNewRoute: ContractRatesNewRoute,
+}
+
+const ContractRatesRouteWithChildren = ContractRatesRoute._addFileChildren(
+  ContractRatesRouteChildren,
+)
+
+interface ContractsIdRouteChildren {
+  ContractsIdEditRoute: typeof ContractsIdEditRoute
+}
+
+const ContractsIdRouteChildren: ContractsIdRouteChildren = {
+  ContractsIdEditRoute: ContractsIdEditRoute,
+}
+
+const ContractsIdRouteWithChildren = ContractsIdRoute._addFileChildren(
+  ContractsIdRouteChildren,
+)
+
+interface ContractsRouteChildren {
+  ContractsIdRoute: typeof ContractsIdRouteWithChildren
+  ContractsNewRoute: typeof ContractsNewRoute
+}
+
+const ContractsRouteChildren: ContractsRouteChildren = {
+  ContractsIdRoute: ContractsIdRouteWithChildren,
+  ContractsNewRoute: ContractsNewRoute,
+}
+
+const ContractsRouteWithChildren = ContractsRoute._addFileChildren(
+  ContractsRouteChildren,
+)
 
 interface CustomersIdRouteChildren {
   CustomersIdEditRoute: typeof CustomersIdEditRoute
@@ -950,6 +1336,29 @@ const RoutesRouteChildren: RoutesRouteChildren = {
 const RoutesRouteWithChildren =
   RoutesRoute._addFileChildren(RoutesRouteChildren)
 
+interface TripsIdRouteChildren {
+  TripsIdEditRoute: typeof TripsIdEditRoute
+}
+
+const TripsIdRouteChildren: TripsIdRouteChildren = {
+  TripsIdEditRoute: TripsIdEditRoute,
+}
+
+const TripsIdRouteWithChildren =
+  TripsIdRoute._addFileChildren(TripsIdRouteChildren)
+
+interface TripsRouteChildren {
+  TripsIdRoute: typeof TripsIdRouteWithChildren
+  TripsNewRoute: typeof TripsNewRoute
+}
+
+const TripsRouteChildren: TripsRouteChildren = {
+  TripsIdRoute: TripsIdRouteWithChildren,
+  TripsNewRoute: TripsNewRoute,
+}
+
+const TripsRouteWithChildren = TripsRoute._addFileChildren(TripsRouteChildren)
+
 interface VehicleTypesIdRouteChildren {
   VehicleTypesIdEditRoute: typeof VehicleTypesIdEditRoute
 }
@@ -1005,12 +1414,16 @@ const VehiclesRouteWithChildren = VehiclesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgentsRoute: AgentsRouteWithChildren,
+  BookingsRoute: BookingsRouteWithChildren,
+  ContractRatesRoute: ContractRatesRouteWithChildren,
+  ContractsRoute: ContractsRouteWithChildren,
   CustomersRoute: CustomersRouteWithChildren,
   DriversRoute: DriversRouteWithChildren,
   FuelPricesRoute: FuelPricesRouteWithChildren,
   RouteFuelProfilesRoute: RouteFuelProfilesRouteWithChildren,
   RouteOverheadProfilesRoute: RouteOverheadProfilesRouteWithChildren,
   RoutesRoute: RoutesRouteWithChildren,
+  TripsRoute: TripsRouteWithChildren,
   VehicleTypesRoute: VehicleTypesRouteWithChildren,
   VehiclesRoute: VehiclesRouteWithChildren,
   PricingRouteEstimateRoute: PricingRouteEstimateRoute,

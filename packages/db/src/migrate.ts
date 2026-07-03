@@ -9,6 +9,9 @@ import * as createAuthUsersRoles from './migrations/002_create_auth_users_roles'
 import * as alignAuthFoundation from './migrations/003_align_auth_foundation';
 import * as createMasterData from './migrations/004_create_master_data';
 import * as createRoutesPricingFoundation from './migrations/005_create_routes_pricing_foundation';
+import * as createContractsRates from './migrations/006_create_contracts_rates';
+import * as createBookingsBilty from './migrations/007_create_bookings_bilty';
+import * as createMasterTripsTripLegs from './migrations/008_create_master_trips_trip_legs';
 config({
   path: path.resolve(process.cwd(), '../../.env'),
 });
@@ -20,6 +23,9 @@ class StaticMigrationProvider {
       '003_align_auth_foundation': alignAuthFoundation,
       '004_create_master_data': createMasterData,
       '005_create_routes_pricing_foundation': createRoutesPricingFoundation,
+      '006_create_contracts_rates': createContractsRates,
+      '007_create_bookings_bilty': createBookingsBilty,
+      '008_create_master_trips_trip_legs': createMasterTripsTripLegs,
     };
   }
 }

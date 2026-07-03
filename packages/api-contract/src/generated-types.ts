@@ -692,6 +692,460 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/contracts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List customer contracts */
+        get: operations["getContracts"];
+        put?: never;
+        /** Create customer contract */
+        post: operations["createContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contracts/{contractId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        /** Get customer contract */
+        get: operations["getContractById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update customer contract */
+        patch: operations["updateContract"];
+        trace?: never;
+    };
+    "/contracts/{contractId}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Activate customer contract */
+        post: operations["activateContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contracts/{contractId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel customer contract */
+        post: operations["cancelContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contracts/{contractId}/expire": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Expire customer contract */
+        post: operations["expireContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contract-rates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List contract rates */
+        get: operations["getContractRates"];
+        put?: never;
+        /** Create contract rate */
+        post: operations["createContractRate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contract-rates/active-rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get active contract rate */
+        get: operations["getActiveContractRate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contract-rates/{contractRateId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractRateId: number;
+            };
+            cookie?: never;
+        };
+        /** Get contract rate */
+        get: operations["getContractRateById"];
+        put?: never;
+        post?: never;
+        /** Soft delete contract rate */
+        delete: operations["deleteContractRate"];
+        options?: never;
+        head?: never;
+        /** Update contract rate */
+        patch: operations["updateContractRate"];
+        trace?: never;
+    };
+    "/bookings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List bookings / bilties */
+        get: operations["getBookings"];
+        put?: never;
+        /** Create booking / bilty with immutable pricing snapshot */
+        post: operations["createBooking"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bookings/{bookingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        /** Get booking / bilty */
+        get: operations["getBookingById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update draft booking / bilty */
+        patch: operations["updateBooking"];
+        trace?: never;
+    };
+    "/bookings/{bookingId}/pricing-snapshot": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        /** Get immutable booking pricing snapshot */
+        get: operations["getBookingPricingSnapshot"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bookings/{bookingId}/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Confirm booking */
+        post: operations["confirmBooking"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bookings/{bookingId}/approve-rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve low-margin booking rate */
+        post: operations["approveBookingRate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bookings/{bookingId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel booking */
+        post: operations["cancelBooking"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/master-trips": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List master trips */
+        get: operations["getMasterTrips"];
+        put?: never;
+        /** Create master trip */
+        post: operations["createMasterTrip"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/master-trips/{masterTripId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        /** Get master trip */
+        get: operations["getMasterTripById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/master-trips/{masterTripId}/add-leg": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add trip leg to master trip */
+        post: operations["createTripLeg"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/master-trips/{masterTripId}/legs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        /** Get master trip legs */
+        get: operations["getMasterTripLegs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/master-trips/{masterTripId}/timeline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        /** Get master trip timeline */
+        get: operations["getMasterTripTimeline"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/trip-legs/{tripLegId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        /** Get trip leg */
+        get: operations["getTripLegById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/trip-legs/{tripLegId}/assign-booking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Assign booking to trip leg */
+        post: operations["assignBookingToTripLeg"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/trip-legs/{tripLegId}/dispatch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Dispatch trip leg */
+        post: operations["dispatchTripLeg"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/trip-legs/{tripLegId}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Complete trip leg and update vehicle station */
+        post: operations["completeTripLeg"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/trip-legs/{tripLegId}/emergency-override": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply emergency vehicle/driver override */
+        post: operations["emergencyOverrideTripLeg"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1427,6 +1881,368 @@ export interface components {
         };
         RouteEstimateResponse: {
             data: components["schemas"]["RouteEstimate"];
+            message: string;
+        };
+        CustomerBasic: {
+            id: number;
+            name: string;
+        };
+        /** @enum {string} */
+        ContractRateModel: "fixed" | "fuel_linked";
+        /** @enum {string} */
+        ContractStatus: "draft" | "active" | "expired" | "cancelled";
+        CustomerContract: {
+            id: number;
+            customer: components["schemas"]["CustomerBasic"];
+            contractNumber: string;
+            title: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            rateModel: components["schemas"]["ContractRateModel"];
+            fuelAdjustmentEnabled: boolean;
+            fuelBasePrice?: string | null;
+            fuelAdjustmentPerLiter?: string | null;
+            status: components["schemas"]["ContractStatus"];
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateCustomerContractRequest: {
+            customerId: number;
+            contractNumber: string;
+            title: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            rateModel?: components["schemas"]["ContractRateModel"];
+            fuelAdjustmentEnabled?: boolean;
+            fuelBasePrice?: number | null;
+            fuelAdjustmentPerLiter?: number | null;
+            status?: components["schemas"]["ContractStatus"];
+        };
+        UpdateCustomerContractRequest: {
+            customerId?: number;
+            contractNumber?: string;
+            title?: string;
+            /** Format: date */
+            startDate?: string;
+            /** Format: date */
+            endDate?: string;
+            rateModel?: components["schemas"]["ContractRateModel"];
+            fuelAdjustmentEnabled?: boolean;
+            fuelBasePrice?: number | null;
+            fuelAdjustmentPerLiter?: number | null;
+            status?: components["schemas"]["ContractStatus"];
+        };
+        CustomerContractResponse: {
+            data: components["schemas"]["CustomerContract"];
+            message: string;
+        };
+        CustomerContractsListResponse: {
+            data: components["schemas"]["CustomerContract"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        ContractBasic: {
+            id: number;
+            contractNumber: string;
+        };
+        ContractRate: {
+            id: number;
+            contract: components["schemas"]["ContractBasic"];
+            route: components["schemas"]["RouteBasic"];
+            vehicleType: components["schemas"]["VehicleTypeBasic"];
+            baseFreightRate: string;
+            minimumMarginPercent: string;
+            loadingCharges: string;
+            unloadingCharges: string;
+            taxPercent: string;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateContractRateRequest: {
+            contractId: number;
+            routeId: number;
+            vehicleTypeId: number;
+            baseFreightRate: number;
+            minimumMarginPercent?: number;
+            loadingCharges?: number;
+            unloadingCharges?: number;
+            taxPercent?: number;
+            isActive?: boolean;
+        };
+        UpdateContractRateRequest: {
+            contractId?: number;
+            routeId?: number;
+            vehicleTypeId?: number;
+            baseFreightRate?: number;
+            minimumMarginPercent?: number;
+            loadingCharges?: number;
+            unloadingCharges?: number;
+            taxPercent?: number;
+            isActive?: boolean;
+        };
+        ContractRateResponse: {
+            data: components["schemas"]["ContractRate"];
+            message: string;
+        };
+        ContractRatesListResponse: {
+            data: components["schemas"]["ContractRate"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        /** @enum {string} */
+        BookingStatus: "draft" | "confirmed" | "assigned" | "in_transit" | "delivered" | "pod_uploaded" | "invoiced" | "paid" | "cancelled";
+        /** @enum {string} */
+        BookingPricingSource: "contract" | "spot" | "manual";
+        StationBasic: {
+            id: number;
+            name: string;
+        };
+        AgentBasic: {
+            id: number;
+            name: string;
+        };
+        Booking: {
+            id: number;
+            bookingNumber: string;
+            customer: components["schemas"]["CustomerBasic"];
+            contract?: components["schemas"]["ContractBasic"] | null;
+            agent?: components["schemas"]["AgentBasic"] | null;
+            originStation: components["schemas"]["StationBasic"];
+            destinationStation: components["schemas"]["StationBasic"];
+            route?: components["schemas"]["RouteBasic"] | null;
+            requiredVehicleType: components["schemas"]["VehicleTypeBasic"];
+            status: components["schemas"]["BookingStatus"];
+            cargoDescription: string;
+            cargoWeightTons?: string | null;
+            quantity?: string | null;
+            /** Format: date */
+            pickupDate?: string | null;
+            /** Format: date */
+            deliveryDueDate?: string | null;
+            finalFreightRate: string;
+            taxAmount: string;
+            totalCustomerAmount: string;
+            requiresRateApproval: boolean;
+            approvedByUserId?: number | null;
+            /** Format: date-time */
+            approvedAt?: string | null;
+            cancelReason?: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        BookingItemRequest: {
+            description: string;
+            quantity?: number;
+            weightTons?: number | null;
+            unit?: string | null;
+        };
+        CreateBookingRequest: {
+            customerId: number;
+            agentId?: number | null;
+            originStationId: number;
+            destinationStationId: number;
+            routeId?: number | null;
+            requiredVehicleTypeId: number;
+            cargoDescription: string;
+            cargoWeightTons?: number | null;
+            quantity?: number | null;
+            /** Format: date */
+            pickupDate?: string | null;
+            /** Format: date */
+            deliveryDueDate?: string | null;
+            finalFreightRate?: number | null;
+            status?: components["schemas"]["BookingStatus"];
+            createdByUserId?: number | null;
+            items?: components["schemas"]["BookingItemRequest"][];
+        };
+        UpdateBookingRequest: {
+            cargoDescription?: string;
+            cargoWeightTons?: number | null;
+            quantity?: number | null;
+            /** Format: date */
+            pickupDate?: string | null;
+            /** Format: date */
+            deliveryDueDate?: string | null;
+            status?: components["schemas"]["BookingStatus"];
+        };
+        BookingPricingSnapshot: {
+            id: number;
+            bookingId: number;
+            fuelPriceSnapshotId?: number | null;
+            fuelPricePerLiter: string;
+            expectedLiters: string;
+            reserveLiters: string;
+            estimatedFuelCost: string;
+            internalOverheadCost: string;
+            agentCommissionEstimate: string;
+            suggestedFreightRate: string;
+            finalFreightRate: string;
+            estimatedMarginAmount: string;
+            estimatedMarginPercent: string;
+            pricingSource: components["schemas"]["BookingPricingSource"];
+            /** Format: date-time */
+            createdAt: string;
+        };
+        BookingResponse: {
+            data: components["schemas"]["Booking"];
+            message: string;
+        };
+        BookingsListResponse: {
+            data: components["schemas"]["Booking"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        BookingPricingSnapshotResponse: {
+            data: components["schemas"]["BookingPricingSnapshot"];
+            message: string;
+        };
+        ApproveBookingRateRequest: {
+            approvedByUserId?: number | null;
+        };
+        CancelBookingRequest: {
+            reason: string;
+        };
+        /** @enum {string} */
+        TripStatus: "planned" | "dispatched" | "in_transit" | "completed" | "cancelled";
+        /** @enum {string} */
+        TripLegStatus: "planned" | "dispatched" | "arrived" | "completed" | "cancelled";
+        CreateMasterTripRequest: {
+            vehicleId: number;
+            driverId: number;
+            startStationId: number;
+            /** Format: date-time */
+            plannedStartAt?: string | null;
+            createdByUserId?: number | null;
+        };
+        MasterTrip: {
+            id: number;
+            tripNumber: string;
+            vehicle: {
+                id: number;
+                vehicleNumber: string;
+            };
+            driver: {
+                id: number;
+                name: string;
+            };
+            startStation: {
+                id: number;
+                name: string;
+            };
+            currentStation: {
+                id: number;
+                name: string;
+            };
+            status: components["schemas"]["TripStatus"];
+            /** Format: date-time */
+            plannedStartAt: string | null;
+            /** Format: date-time */
+            actualStartAt: string | null;
+            /** Format: date-time */
+            completedAt: string | null;
+            createdByUserId: number | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateTripLegRequest: {
+            sequenceNo?: number | null;
+            routeId: number;
+            originStationId: number;
+            destinationStationId: number;
+            /** Format: date-time */
+            plannedDepartureAt?: string | null;
+        };
+        TripLeg: {
+            id: number;
+            masterTripId: number;
+            sequenceNo: number;
+            route: {
+                id: number;
+                name: string;
+            };
+            originStation: {
+                id: number;
+                name: string;
+            };
+            destinationStation: {
+                id: number;
+                name: string;
+            };
+            /** Format: date-time */
+            plannedDepartureAt: string | null;
+            /** Format: date-time */
+            actualDepartureAt: string | null;
+            /** Format: date-time */
+            actualArrivalAt: string | null;
+            status: components["schemas"]["TripLegStatus"];
+            overrideVehicle: {
+                id: number;
+                vehicleNumber: string;
+            } | null;
+            overrideDriver: {
+                id: number;
+                name: string;
+            } | null;
+            overrideReason: string | null;
+            overrideApprovedByUserId: number | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        AssignBookingToTripLegRequest: {
+            bookingId: number;
+            allocatedWeightTons?: number | null;
+        };
+        EmergencyTripOverrideRequest: {
+            vehicleId?: number | null;
+            driverId?: number | null;
+            reason: string;
+            approvedByUserId?: number | null;
+        };
+        TripEvent: {
+            id: number;
+            masterTripId: number;
+            tripLegId: number | null;
+            eventType: string;
+            title: string;
+            description: string | null;
+            station: {
+                id: number;
+                name: string;
+            } | null;
+            createdByUserId: number | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        MasterTripResponse: {
+            data: components["schemas"]["MasterTrip"];
+            message: string;
+        };
+        MasterTripsListResponse: {
+            data: components["schemas"]["MasterTrip"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        TripLegResponse: {
+            data: components["schemas"]["TripLeg"];
+            message: string;
+        };
+        TripLegsListResponse: {
+            data: components["schemas"]["TripLeg"][];
+            message: string;
+        };
+        TripTimelineResponse: {
+            data: components["schemas"]["TripEvent"][];
             message: string;
         };
     };
@@ -3766,6 +4582,817 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getContracts: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                customerId?: number;
+                status?: components["schemas"]["ContractStatus"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contracts */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractsListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCustomerContractRequest"];
+            };
+        };
+        responses: {
+            /** @description Contract created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getContractById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCustomerContractRequest"];
+            };
+        };
+        responses: {
+            /** @description Contract updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    activateContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract activated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractResponse"];
+                };
+            };
+        };
+    };
+    cancelContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract cancelled */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractResponse"];
+                };
+            };
+        };
+    };
+    expireContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract expired */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerContractResponse"];
+                };
+            };
+        };
+    };
+    getContractRates: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                contractId?: number;
+                routeId?: number;
+                vehicleTypeId?: number;
+                isActive?: components["parameters"]["IsActive"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract rates */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractRatesListResponse"];
+                };
+            };
+        };
+    };
+    createContractRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateContractRateRequest"];
+            };
+        };
+        responses: {
+            /** @description Contract rate created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractRateResponse"];
+                };
+            };
+        };
+    };
+    getActiveContractRate: {
+        parameters: {
+            query: {
+                customerId: number;
+                routeId: number;
+                vehicleTypeId: number;
+                effectiveDate?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Active contract rate */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractRateResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getContractRateById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractRateId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract rate */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractRateResponse"];
+                };
+            };
+        };
+    };
+    deleteContractRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractRateId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Contract rate deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractRateResponse"];
+                };
+            };
+        };
+    };
+    updateContractRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contractRateId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateContractRateRequest"];
+            };
+        };
+        responses: {
+            /** @description Contract rate updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractRateResponse"];
+                };
+            };
+        };
+    };
+    getBookings: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                status?: components["schemas"]["BookingStatus"];
+                customerId?: number;
+                routeId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bookings */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingsListResponse"];
+                };
+            };
+        };
+    };
+    createBooking: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateBookingRequest"];
+            };
+        };
+        responses: {
+            /** @description Booking created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingResponse"];
+                };
+            };
+        };
+    };
+    getBookingById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Booking */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingResponse"];
+                };
+            };
+        };
+    };
+    updateBooking: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateBookingRequest"];
+            };
+        };
+        responses: {
+            /** @description Booking updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingResponse"];
+                };
+            };
+        };
+    };
+    getBookingPricingSnapshot: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Pricing snapshot */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingPricingSnapshotResponse"];
+                };
+            };
+        };
+    };
+    confirmBooking: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Booking confirmed */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingResponse"];
+                };
+            };
+        };
+    };
+    approveBookingRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["ApproveBookingRateRequest"];
+            };
+        };
+        responses: {
+            /** @description Rate approved */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingResponse"];
+                };
+            };
+        };
+    };
+    cancelBooking: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CancelBookingRequest"];
+            };
+        };
+        responses: {
+            /** @description Booking cancelled */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookingResponse"];
+                };
+            };
+        };
+    };
+    getMasterTrips: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                status?: components["schemas"]["TripStatus"];
+                vehicleId?: number;
+                driverId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Master trips */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MasterTripsListResponse"];
+                };
+            };
+        };
+    };
+    createMasterTrip: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateMasterTripRequest"];
+            };
+        };
+        responses: {
+            /** @description Master trip created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MasterTripResponse"];
+                };
+            };
+        };
+    };
+    getMasterTripById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Master trip */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MasterTripResponse"];
+                };
+            };
+        };
+    };
+    createTripLeg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateTripLegRequest"];
+            };
+        };
+        responses: {
+            /** @description Trip leg created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SuccessResponse"];
+                };
+            };
+        };
+    };
+    getMasterTripLegs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Trip legs */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripLegsListResponse"];
+                };
+            };
+        };
+    };
+    getMasterTripTimeline: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                masterTripId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Timeline */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripTimelineResponse"];
+                };
+            };
+        };
+    };
+    getTripLegById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Trip leg */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripLegResponse"];
+                };
+            };
+        };
+    };
+    assignBookingToTripLeg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignBookingToTripLegRequest"];
+            };
+        };
+        responses: {
+            /** @description Booking assigned */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripLegResponse"];
+                };
+            };
+        };
+    };
+    dispatchTripLeg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Trip leg dispatched */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripLegResponse"];
+                };
+            };
+        };
+    };
+    completeTripLeg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Trip leg completed */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripLegResponse"];
+                };
+            };
+        };
+    };
+    emergencyOverrideTripLeg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tripLegId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmergencyTripOverrideRequest"];
+            };
+        };
+        responses: {
+            /** @description Override applied */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TripLegResponse"];
                 };
             };
         };

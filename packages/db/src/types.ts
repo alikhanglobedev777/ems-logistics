@@ -26,12 +26,99 @@ export interface Agents {
   updated_at: Generated<Timestamp>;
 }
 
+export interface BookingItems {
+  booking_id: number;
+  created_at: Generated<Timestamp>;
+  description: string;
+  id: Generated<number>;
+  quantity: Generated<Numeric>;
+  unit: string | null;
+  weight_tons: Numeric | null;
+}
+
+export interface BookingPricingSnapshots {
+  agent_commission_estimate: Generated<Numeric>;
+  booking_id: number;
+  created_at: Generated<Timestamp>;
+  estimated_fuel_cost: Generated<Numeric>;
+  estimated_margin_amount: Generated<Numeric>;
+  estimated_margin_percent: Generated<Numeric>;
+  expected_liters: Generated<Numeric>;
+  final_freight_rate: Generated<Numeric>;
+  fuel_price_per_liter: Generated<Numeric>;
+  fuel_price_snapshot_id: number | null;
+  id: Generated<number>;
+  internal_overhead_cost: Generated<Numeric>;
+  pricing_source: Generated<string>;
+  reserve_liters: Generated<Numeric>;
+  suggested_freight_rate: Generated<Numeric>;
+}
+
+export interface Bookings {
+  agent_id: number | null;
+  approved_at: Timestamp | null;
+  approved_by_user_id: number | null;
+  booking_number: string;
+  cancel_reason: string | null;
+  cargo_description: string;
+  cargo_weight_tons: Numeric | null;
+  contract_id: number | null;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  customer_id: number;
+  delivery_due_date: Timestamp | null;
+  destination_station_id: number;
+  final_freight_rate: Generated<Numeric>;
+  id: Generated<number>;
+  origin_station_id: number;
+  pickup_date: Timestamp | null;
+  quantity: Numeric | null;
+  required_vehicle_type_id: number;
+  requires_rate_approval: Generated<boolean>;
+  route_id: number | null;
+  status: Generated<string>;
+  tax_amount: Generated<Numeric>;
+  total_customer_amount: Generated<Numeric>;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface Cities {
   country: Generated<string>;
   created_at: Generated<Timestamp>;
   id: Generated<number>;
   name: string;
   province: string | null;
+}
+
+export interface ContractRates {
+  base_freight_rate: Numeric;
+  contract_id: number;
+  created_at: Generated<Timestamp>;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  loading_charges: Generated<Numeric>;
+  minimum_margin_percent: Generated<Numeric>;
+  route_id: number;
+  tax_percent: Generated<Numeric>;
+  unloading_charges: Generated<Numeric>;
+  updated_at: Generated<Timestamp>;
+  vehicle_type_id: number;
+}
+
+export interface CustomerContracts {
+  contract_number: string;
+  created_at: Generated<Timestamp>;
+  customer_id: number;
+  end_date: Timestamp;
+  fuel_adjustment_enabled: Generated<boolean>;
+  fuel_adjustment_per_liter: Numeric | null;
+  fuel_base_price: Numeric | null;
+  id: Generated<number>;
+  rate_model: Generated<string>;
+  start_date: Timestamp;
+  status: Generated<string>;
+  title: string;
+  updated_at: Generated<Timestamp>;
 }
 
 export interface Customers {
@@ -82,6 +169,22 @@ export interface FuelPriceSnapshots {
   id: Generated<number>;
   price_per_liter: Numeric;
   source: Generated<string>;
+}
+
+export interface MasterTrips {
+  actual_start_at: Timestamp | null;
+  completed_at: Timestamp | null;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  current_station_id: number;
+  driver_id: number;
+  id: Generated<number>;
+  planned_start_at: Timestamp | null;
+  start_station_id: number;
+  status: Generated<string>;
+  trip_number: string;
+  updated_at: Generated<Timestamp>;
+  vehicle_id: number;
 }
 
 export interface Permissions {
@@ -162,6 +265,45 @@ export interface Stations {
   name: string;
 }
 
+export interface TripEvents {
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  description: string | null;
+  event_type: string;
+  id: Generated<number>;
+  master_trip_id: number;
+  station_id: number | null;
+  title: string;
+  trip_leg_id: number | null;
+}
+
+export interface TripLegBookings {
+  allocated_weight_tons: Numeric | null;
+  booking_id: number;
+  created_at: Generated<Timestamp>;
+  id: Generated<number>;
+  trip_leg_id: number;
+}
+
+export interface TripLegs {
+  actual_arrival_at: Timestamp | null;
+  actual_departure_at: Timestamp | null;
+  created_at: Generated<Timestamp>;
+  destination_station_id: number;
+  id: Generated<number>;
+  master_trip_id: number;
+  origin_station_id: number;
+  override_approved_by_user_id: number | null;
+  override_driver_id: number | null;
+  override_reason: string | null;
+  override_vehicle_id: number | null;
+  planned_departure_at: Timestamp | null;
+  route_id: number;
+  sequence_no: number;
+  status: Generated<string>;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface UserRefreshSessions {
   created_at: Generated<Timestamp>;
   expires_at: Timestamp;
@@ -211,11 +353,17 @@ export interface VehicleTypes {
 
 export interface DB {
   agents: Agents;
+  booking_items: BookingItems;
+  booking_pricing_snapshots: BookingPricingSnapshots;
+  bookings: Bookings;
   cities: Cities;
+  contract_rates: ContractRates;
+  customer_contracts: CustomerContracts;
   customers: Customers;
   driver_vehicle_assignments: DriverVehicleAssignments;
   drivers: Drivers;
   fuel_price_snapshots: FuelPriceSnapshots;
+  master_trips: MasterTrips;
   permissions: Permissions;
   role_permissions: RolePermissions;
   roles: Roles;
@@ -223,6 +371,9 @@ export interface DB {
   route_overhead_profiles: RouteOverheadProfiles;
   routes: Routes;
   stations: Stations;
+  trip_events: TripEvents;
+  trip_leg_bookings: TripLegBookings;
+  trip_legs: TripLegs;
   user_refresh_sessions: UserRefreshSessions;
   users: Users;
   vehicle_types: VehicleTypes;

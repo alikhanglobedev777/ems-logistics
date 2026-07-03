@@ -31,6 +31,15 @@ export const Permission = {
   OVERHEAD_MANAGE: 'overhead.manage',
   OVERHEAD_VIEW: 'overhead.view',
 
+  CONTRACT_CREATE: 'contract.create',
+  CONTRACT_UPDATE: 'contract.update',
+  CONTRACT_VIEW: 'contract.view',
+  CONTRACT_ACTIVATE: 'contract.activate',
+  CONTRACT_CANCEL: 'contract.cancel',
+  CONTRACT_RATE_CREATE: 'contract_rate.create',
+  CONTRACT_RATE_UPDATE: 'contract_rate.update',
+  CONTRACT_RATE_VIEW: 'contract_rate.view',
+
   BOOKING_CREATE: 'booking.create',
   BOOKING_CONFIRM: 'booking.confirm',
   BOOKING_APPROVE_RATE: 'booking.approve_rate',
@@ -40,6 +49,7 @@ export const Permission = {
   TRIP_CREATE: 'trip.create',
   TRIP_DISPATCH: 'trip.dispatch',
   TRIP_COMPLETE: 'trip.complete',
+  TRIP_OVERRIDE_ASSIGNMENT: 'trip.override_assignment',
   TRIP_VIEW: 'trip.view',
 
   FUEL_VERIFY_SLIP: 'fuel.verify_slip',

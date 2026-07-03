@@ -20,6 +20,11 @@ import { RouteOverheadProfilesModule } from './modules/route-overhead-profiles/r
 import { RouteFuelProfilesModule } from './modules/route-fuel-profiles/route-fuel-profiles.module';
 import { FuelPriceSnapshotsModule } from './modules/fuel-price-snapshots/fuel-price-snapshots.module';
 import { RoutesModule } from './modules/routes/routes.module';
+import { ContractsModule } from './modules/contracts/contracts.module';
+import { ContractRatesModule } from './modules/contract-rates/contract-rates.module';
+import { BookingsModule } from './modules/bookings/bookings.module';
+import { MasterTripsModule } from './modules/master-trips/master-trips.module';
+import { TripLegsModule } from './modules/trip-legs/trip-legs.module';
 
 @Module({
   imports: [
@@ -45,6 +50,11 @@ import { RoutesModule } from './modules/routes/routes.module';
     RouteFuelProfilesModule,
     FuelPriceSnapshotsModule,
     RoutesModule,
+    ContractsModule,
+    ContractRatesModule,
+    BookingsModule,
+    TripLegsModule,
+    MasterTripsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

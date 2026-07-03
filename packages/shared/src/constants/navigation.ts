@@ -19,6 +19,8 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: 'Route Fuel Profiles', path: '/route-fuel-profiles', permission: Permission.ROUTE_VIEW },
   { label: 'Route Overhead', path: '/route-overhead-profiles', permission: Permission.OVERHEAD_VIEW },
   { label: 'Pricing Estimate', path: '/pricing/route-estimate', permission: Permission.ROUTE_VIEW },
+  { label: 'Contracts', path: '/contracts', permission: Permission.CONTRACT_VIEW },
+  { label: 'Contract Rates', path: '/contract-rates', permission: Permission.CONTRACT_RATE_VIEW },
   { label: 'Bookings / Bilty', path: '/bookings', permission: Permission.BOOKING_VIEW },
   { label: 'Trips', path: '/trips', permission: Permission.TRIP_VIEW },
   { label: 'Fuel', path: '/fuel', permission: Permission.FUEL_VIEW },

@@ -12,6 +12,7 @@ export const STATUS_META: Record<string, StatusMeta> = {
   assigned: { label: 'Assigned', tone: 'info' },
   planned: { label: 'Planned', tone: 'neutral' },
   dispatched: { label: 'Dispatched', tone: 'info' },
+  arrived: { label: 'Arrived', tone: 'info' },
   in_transit: { label: 'In Transit', tone: 'info' },
   completed: { label: 'Completed', tone: 'success' },
   delivered: { label: 'Delivered', tone: 'success' },

@@ -49,6 +49,14 @@ tags:
     description: Internal hidden overhead by route and vehicle type
   - name: Pricing
     description: Internal route pricing estimate APIs
+  - name: Contracts
+    description: Customer contract management
+  - name: Contract Rates
+    description: Route and vehicle-type contract rates
+  - name: Bookings
+    description: Booking and Bilty revenue workflow
+  - name: Trips
+    description: Master trip and trip leg movement workflow
 
 paths:
   /auth/register:
@@ -1138,6 +1146,425 @@ paths:
       responses:
         "200": { description: Route estimate, content: { application/json: { schema: { $ref: "#/components/schemas/RouteEstimateResponse" } } } }
         "404": { description: Missing pricing setup, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+
+  /contracts:
+    get:
+      tags: [Contracts]
+      operationId: getContracts
+      summary: List customer contracts
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: customerId
+          in: query
+          schema: { type: integer }
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/ContractStatus" }
+      responses:
+        "200": { description: Contracts, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractsListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Contracts]
+      operationId: createContract
+      summary: Create customer contract
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateCustomerContractRequest" } } } }
+      responses:
+        "201": { description: Contract created, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /contracts/{contractId}:
+    parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Contracts]
+      operationId: getContractById
+      summary: Get customer contract
+      responses:
+        "200": { description: Contract, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Contracts]
+      operationId: updateContract
+      summary: Update customer contract
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateCustomerContractRequest" } } } }
+      responses:
+        "200": { description: Contract updated, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /contracts/{contractId}/activate:
+    parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Contracts]
+      operationId: activateContract
+      summary: Activate customer contract
+      responses:
+        "200": { description: Contract activated, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractResponse" } } } }
+
+  /contracts/{contractId}/cancel:
+    parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Contracts]
+      operationId: cancelContract
+      summary: Cancel customer contract
+      responses:
+        "200": { description: Contract cancelled, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractResponse" } } } }
+
+  /contracts/{contractId}/expire:
+    parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Contracts]
+      operationId: expireContract
+      summary: Expire customer contract
+      responses:
+        "200": { description: Contract expired, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerContractResponse" } } } }
+
+  /contract-rates:
+    get:
+      tags: [Contract Rates]
+      operationId: getContractRates
+      summary: List contract rates
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - name: contractId
+          in: query
+          schema: { type: integer }
+        - name: routeId
+          in: query
+          schema: { type: integer }
+        - name: vehicleTypeId
+          in: query
+          schema: { type: integer }
+        - $ref: "#/components/parameters/IsActive"
+      responses:
+        "200": { description: Contract rates, content: { application/json: { schema: { $ref: "#/components/schemas/ContractRatesListResponse" } } } }
+    post:
+      tags: [Contract Rates]
+      operationId: createContractRate
+      summary: Create contract rate
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateContractRateRequest" } } } }
+      responses:
+        "201": { description: Contract rate created, content: { application/json: { schema: { $ref: "#/components/schemas/ContractRateResponse" } } } }
+
+  /contract-rates/active-rate:
+    get:
+      tags: [Contract Rates]
+      operationId: getActiveContractRate
+      summary: Get active contract rate
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema: { type: integer }
+        - name: routeId
+          in: query
+          required: true
+          schema: { type: integer }
+        - name: vehicleTypeId
+          in: query
+          required: true
+          schema: { type: integer }
+        - name: effectiveDate
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        "200": { description: Active contract rate, content: { application/json: { schema: { $ref: "#/components/schemas/ContractRateResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /contract-rates/{contractRateId}:
+    parameters:
+      - name: contractRateId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Contract Rates]
+      operationId: getContractRateById
+      summary: Get contract rate
+      responses:
+        "200": { description: Contract rate, content: { application/json: { schema: { $ref: "#/components/schemas/ContractRateResponse" } } } }
+    patch:
+      tags: [Contract Rates]
+      operationId: updateContractRate
+      summary: Update contract rate
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateContractRateRequest" } } } }
+      responses:
+        "200": { description: Contract rate updated, content: { application/json: { schema: { $ref: "#/components/schemas/ContractRateResponse" } } } }
+    delete:
+      tags: [Contract Rates]
+      operationId: deleteContractRate
+      summary: Soft delete contract rate
+      responses:
+        "200": { description: Contract rate deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/ContractRateResponse" } } } }
+
+
+  /bookings:
+    get:
+      tags: [Bookings]
+      operationId: getBookings
+      summary: List bookings / bilties
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/BookingStatus" }
+        - name: customerId
+          in: query
+          schema: { type: integer }
+        - name: routeId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Bookings, content: { application/json: { schema: { $ref: "#/components/schemas/BookingsListResponse" } } } }
+    post:
+      tags: [Bookings]
+      operationId: createBooking
+      summary: Create booking / bilty with immutable pricing snapshot
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateBookingRequest" } } } }
+      responses:
+        "201": { description: Booking created, content: { application/json: { schema: { $ref: "#/components/schemas/BookingResponse" } } } }
+
+  /bookings/{bookingId}:
+    parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Bookings]
+      operationId: getBookingById
+      summary: Get booking / bilty
+      responses:
+        "200": { description: Booking, content: { application/json: { schema: { $ref: "#/components/schemas/BookingResponse" } } } }
+    patch:
+      tags: [Bookings]
+      operationId: updateBooking
+      summary: Update draft booking / bilty
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateBookingRequest" } } } }
+      responses:
+        "200": { description: Booking updated, content: { application/json: { schema: { $ref: "#/components/schemas/BookingResponse" } } } }
+
+  /bookings/{bookingId}/pricing-snapshot:
+    parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Bookings]
+      operationId: getBookingPricingSnapshot
+      summary: Get immutable booking pricing snapshot
+      responses:
+        "200": { description: Pricing snapshot, content: { application/json: { schema: { $ref: "#/components/schemas/BookingPricingSnapshotResponse" } } } }
+
+  /bookings/{bookingId}/confirm:
+    parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Bookings]
+      operationId: confirmBooking
+      summary: Confirm booking
+      responses:
+        "200": { description: Booking confirmed, content: { application/json: { schema: { $ref: "#/components/schemas/BookingResponse" } } } }
+
+  /bookings/{bookingId}/approve-rate:
+    parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Bookings]
+      operationId: approveBookingRate
+      summary: Approve low-margin booking rate
+      requestBody: { required: false, content: { application/json: { schema: { $ref: "#/components/schemas/ApproveBookingRateRequest" } } } }
+      responses:
+        "200": { description: Rate approved, content: { application/json: { schema: { $ref: "#/components/schemas/BookingResponse" } } } }
+
+  /bookings/{bookingId}/cancel:
+    parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Bookings]
+      operationId: cancelBooking
+      summary: Cancel booking
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CancelBookingRequest" } } } }
+      responses:
+        "200": { description: Booking cancelled, content: { application/json: { schema: { $ref: "#/components/schemas/BookingResponse" } } } }
+
+  /master-trips:
+    get:
+      tags: [Trips]
+      operationId: getMasterTrips
+      summary: List master trips
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/TripStatus" }
+        - name: vehicleId
+          in: query
+          schema: { type: integer }
+        - name: driverId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Master trips, content: { application/json: { schema: { $ref: "#/components/schemas/MasterTripsListResponse" } } } }
+    post:
+      tags: [Trips]
+      operationId: createMasterTrip
+      summary: Create master trip
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateMasterTripRequest" } } } }
+      responses:
+        "201": { description: Master trip created, content: { application/json: { schema: { $ref: "#/components/schemas/MasterTripResponse" } } } }
+
+  /master-trips/{masterTripId}:
+    parameters:
+      - name: masterTripId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Trips]
+      operationId: getMasterTripById
+      summary: Get master trip
+      responses:
+        "200": { description: Master trip, content: { application/json: { schema: { $ref: "#/components/schemas/MasterTripResponse" } } } }
+
+  /master-trips/{masterTripId}/add-leg:
+    parameters:
+      - name: masterTripId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Trips]
+      operationId: createTripLeg
+      summary: Add trip leg to master trip
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateTripLegRequest" } } } }
+      responses:
+        "201": { description: Trip leg created, content: { application/json: { schema: { $ref: "#/components/schemas/SuccessResponse" } } } }
+
+  /master-trips/{masterTripId}/legs:
+    parameters:
+      - name: masterTripId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Trips]
+      operationId: getMasterTripLegs
+      summary: Get master trip legs
+      responses:
+        "200": { description: Trip legs, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegsListResponse" } } } }
+
+  /master-trips/{masterTripId}/timeline:
+    parameters:
+      - name: masterTripId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Trips]
+      operationId: getMasterTripTimeline
+      summary: Get master trip timeline
+      responses:
+        "200": { description: Timeline, content: { application/json: { schema: { $ref: "#/components/schemas/TripTimelineResponse" } } } }
+
+  /trip-legs/{tripLegId}:
+    parameters:
+      - name: tripLegId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Trips]
+      operationId: getTripLegById
+      summary: Get trip leg
+      responses:
+        "200": { description: Trip leg, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegResponse" } } } }
+
+  /trip-legs/{tripLegId}/assign-booking:
+    parameters:
+      - name: tripLegId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Trips]
+      operationId: assignBookingToTripLeg
+      summary: Assign booking to trip leg
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/AssignBookingToTripLegRequest" } } } }
+      responses:
+        "200": { description: Booking assigned, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegResponse" } } } }
+
+  /trip-legs/{tripLegId}/dispatch:
+    parameters:
+      - name: tripLegId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Trips]
+      operationId: dispatchTripLeg
+      summary: Dispatch trip leg
+      responses:
+        "200": { description: Trip leg dispatched, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegResponse" } } } }
+
+  /trip-legs/{tripLegId}/complete:
+    parameters:
+      - name: tripLegId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Trips]
+      operationId: completeTripLeg
+      summary: Complete trip leg and update vehicle station
+      responses:
+        "200": { description: Trip leg completed, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegResponse" } } } }
+
+  /trip-legs/{tripLegId}/emergency-override:
+    parameters:
+      - name: tripLegId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [Trips]
+      operationId: emergencyOverrideTripLeg
+      summary: Apply emergency vehicle/driver override
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/EmergencyTripOverrideRequest" } } } }
+      responses:
+        "200": { description: Override applied, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegResponse" } } } }
 
 components:
   securitySchemes:
@@ -2297,6 +2724,423 @@ components:
       type: object
       required: [data, message]
       properties: { data: { $ref: "#/components/schemas/RouteEstimate" }, message: { type: string } }
+
+
+    CustomerBasic:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+
+    ContractRateModel:
+      type: string
+      enum: [fixed, fuel_linked]
+
+    ContractStatus:
+      type: string
+      enum: [draft, active, expired, cancelled]
+
+    CustomerContract:
+      type: object
+      required: [id, customer, contractNumber, title, startDate, endDate, rateModel, fuelAdjustmentEnabled, status, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        customer: { $ref: "#/components/schemas/CustomerBasic" }
+        contractNumber: { type: string }
+        title: { type: string }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date }
+        rateModel: { $ref: "#/components/schemas/ContractRateModel" }
+        fuelAdjustmentEnabled: { type: boolean }
+        fuelBasePrice: { type: string, nullable: true }
+        fuelAdjustmentPerLiter: { type: string, nullable: true }
+        status: { $ref: "#/components/schemas/ContractStatus" }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateCustomerContractRequest:
+      type: object
+      required: [customerId, contractNumber, title, startDate, endDate]
+      properties:
+        customerId: { type: integer }
+        contractNumber: { type: string }
+        title: { type: string }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date }
+        rateModel: { $ref: "#/components/schemas/ContractRateModel" }
+        fuelAdjustmentEnabled: { type: boolean }
+        fuelBasePrice: { type: number, minimum: 0, nullable: true }
+        fuelAdjustmentPerLiter: { type: number, minimum: 0, nullable: true }
+        status: { $ref: "#/components/schemas/ContractStatus" }
+    UpdateCustomerContractRequest:
+      type: object
+      properties:
+        customerId: { type: integer }
+        contractNumber: { type: string }
+        title: { type: string }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date }
+        rateModel: { $ref: "#/components/schemas/ContractRateModel" }
+        fuelAdjustmentEnabled: { type: boolean }
+        fuelBasePrice: { type: number, minimum: 0, nullable: true }
+        fuelAdjustmentPerLiter: { type: number, minimum: 0, nullable: true }
+        status: { $ref: "#/components/schemas/ContractStatus" }
+    CustomerContractResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/CustomerContract" }, message: { type: string } }
+    CustomerContractsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/CustomerContract" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    ContractBasic:
+      type: object
+      required: [id, contractNumber]
+      properties:
+        id: { type: integer }
+        contractNumber: { type: string }
+
+    ContractRate:
+      type: object
+      required: [id, contract, route, vehicleType, baseFreightRate, minimumMarginPercent, loadingCharges, unloadingCharges, taxPercent, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        contract: { $ref: "#/components/schemas/ContractBasic" }
+        route: { $ref: "#/components/schemas/RouteBasic" }
+        vehicleType: { $ref: "#/components/schemas/VehicleTypeBasic" }
+        baseFreightRate: { type: string }
+        minimumMarginPercent: { type: string }
+        loadingCharges: { type: string }
+        unloadingCharges: { type: string }
+        taxPercent: { type: string }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateContractRateRequest:
+      type: object
+      required: [contractId, routeId, vehicleTypeId, baseFreightRate]
+      properties:
+        contractId: { type: integer }
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        baseFreightRate: { type: number, minimum: 0 }
+        minimumMarginPercent: { type: number, minimum: 0 }
+        loadingCharges: { type: number, minimum: 0 }
+        unloadingCharges: { type: number, minimum: 0 }
+        taxPercent: { type: number, minimum: 0 }
+        isActive: { type: boolean }
+    UpdateContractRateRequest:
+      type: object
+      properties:
+        contractId: { type: integer }
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        baseFreightRate: { type: number, minimum: 0 }
+        minimumMarginPercent: { type: number, minimum: 0 }
+        loadingCharges: { type: number, minimum: 0 }
+        unloadingCharges: { type: number, minimum: 0 }
+        taxPercent: { type: number, minimum: 0 }
+        isActive: { type: boolean }
+    ContractRateResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/ContractRate" }, message: { type: string } }
+    ContractRatesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/ContractRate" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+
+    BookingStatus:
+      type: string
+      enum: [draft, confirmed, assigned, in_transit, delivered, pod_uploaded, invoiced, paid, cancelled]
+
+    BookingPricingSource:
+      type: string
+      enum: [contract, spot, manual]
+
+    StationBasic:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+
+    AgentBasic:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+
+    Booking:
+      type: object
+      required: [id, bookingNumber, customer, originStation, destinationStation, requiredVehicleType, status, cargoDescription, finalFreightRate, taxAmount, totalCustomerAmount, requiresRateApproval, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        bookingNumber: { type: string }
+        customer: { $ref: "#/components/schemas/CustomerBasic" }
+        contract:
+          nullable: true
+          allOf: [{ $ref: "#/components/schemas/ContractBasic" }]
+        agent:
+          nullable: true
+          allOf: [{ $ref: "#/components/schemas/AgentBasic" }]
+        originStation: { $ref: "#/components/schemas/StationBasic" }
+        destinationStation: { $ref: "#/components/schemas/StationBasic" }
+        route:
+          nullable: true
+          allOf: [{ $ref: "#/components/schemas/RouteBasic" }]
+        requiredVehicleType: { $ref: "#/components/schemas/VehicleTypeBasic" }
+        status: { $ref: "#/components/schemas/BookingStatus" }
+        cargoDescription: { type: string }
+        cargoWeightTons: { type: string, nullable: true }
+        quantity: { type: string, nullable: true }
+        pickupDate: { type: string, format: date, nullable: true }
+        deliveryDueDate: { type: string, format: date, nullable: true }
+        finalFreightRate: { type: string }
+        taxAmount: { type: string }
+        totalCustomerAmount: { type: string }
+        requiresRateApproval: { type: boolean }
+        approvedByUserId: { type: integer, nullable: true }
+        approvedAt: { type: string, format: date-time, nullable: true }
+        cancelReason: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    BookingItemRequest:
+      type: object
+      required: [description]
+      properties:
+        description: { type: string }
+        quantity: { type: number, minimum: 0 }
+        weightTons: { type: number, minimum: 0, nullable: true }
+        unit: { type: string, nullable: true }
+
+    CreateBookingRequest:
+      type: object
+      required: [customerId, originStationId, destinationStationId, requiredVehicleTypeId, cargoDescription]
+      properties:
+        customerId: { type: integer }
+        agentId: { type: integer, nullable: true }
+        originStationId: { type: integer }
+        destinationStationId: { type: integer }
+        routeId: { type: integer, nullable: true }
+        requiredVehicleTypeId: { type: integer }
+        cargoDescription: { type: string }
+        cargoWeightTons: { type: number, minimum: 0, nullable: true }
+        quantity: { type: number, minimum: 0, nullable: true }
+        pickupDate: { type: string, format: date, nullable: true }
+        deliveryDueDate: { type: string, format: date, nullable: true }
+        finalFreightRate: { type: number, minimum: 0, nullable: true }
+        status: { $ref: "#/components/schemas/BookingStatus" }
+        createdByUserId: { type: integer, nullable: true }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/BookingItemRequest" }
+
+    UpdateBookingRequest:
+      type: object
+      properties:
+        cargoDescription: { type: string }
+        cargoWeightTons: { type: number, minimum: 0, nullable: true }
+        quantity: { type: number, minimum: 0, nullable: true }
+        pickupDate: { type: string, format: date, nullable: true }
+        deliveryDueDate: { type: string, format: date, nullable: true }
+        status: { $ref: "#/components/schemas/BookingStatus" }
+
+    BookingPricingSnapshot:
+      type: object
+      required: [id, bookingId, fuelPricePerLiter, expectedLiters, reserveLiters, estimatedFuelCost, internalOverheadCost, agentCommissionEstimate, suggestedFreightRate, finalFreightRate, estimatedMarginAmount, estimatedMarginPercent, pricingSource, createdAt]
+      properties:
+        id: { type: integer }
+        bookingId: { type: integer }
+        fuelPriceSnapshotId: { type: integer, nullable: true }
+        fuelPricePerLiter: { type: string }
+        expectedLiters: { type: string }
+        reserveLiters: { type: string }
+        estimatedFuelCost: { type: string }
+        internalOverheadCost: { type: string }
+        agentCommissionEstimate: { type: string }
+        suggestedFreightRate: { type: string }
+        finalFreightRate: { type: string }
+        estimatedMarginAmount: { type: string }
+        estimatedMarginPercent: { type: string }
+        pricingSource: { $ref: "#/components/schemas/BookingPricingSource" }
+        createdAt: { type: string, format: date-time }
+
+    BookingResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/Booking" }, message: { type: string } }
+    BookingsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/Booking" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+    BookingPricingSnapshotResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/BookingPricingSnapshot" }, message: { type: string } }
+    ApproveBookingRateRequest:
+      type: object
+      properties:
+        approvedByUserId: { type: integer, nullable: true }
+    CancelBookingRequest:
+      type: object
+      required: [reason]
+      properties:
+        reason: { type: string }
+
+    TripStatus:
+      type: string
+      enum: [planned, dispatched, in_transit, completed, cancelled]
+    TripLegStatus:
+      type: string
+      enum: [planned, dispatched, arrived, completed, cancelled]
+
+    CreateMasterTripRequest:
+      type: object
+      required: [vehicleId, driverId, startStationId]
+      properties:
+        vehicleId: { type: integer }
+        driverId: { type: integer }
+        startStationId: { type: integer }
+        plannedStartAt: { type: string, format: date-time, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+
+    MasterTrip:
+      type: object
+      required: [id, tripNumber, vehicle, driver, startStation, currentStation, status, plannedStartAt, actualStartAt, completedAt, createdByUserId, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        tripNumber: { type: string }
+        vehicle:
+          type: object
+          required: [id, vehicleNumber]
+          properties: { id: { type: integer }, vehicleNumber: { type: string } }
+        driver:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        startStation:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        currentStation:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        status: { $ref: "#/components/schemas/TripStatus" }
+        plannedStartAt: { type: string, format: date-time, nullable: true }
+        actualStartAt: { type: string, format: date-time, nullable: true }
+        completedAt: { type: string, format: date-time, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CreateTripLegRequest:
+      type: object
+      required: [routeId, originStationId, destinationStationId]
+      properties:
+        sequenceNo: { type: integer, nullable: true }
+        routeId: { type: integer }
+        originStationId: { type: integer }
+        destinationStationId: { type: integer }
+        plannedDepartureAt: { type: string, format: date-time, nullable: true }
+
+    TripLeg:
+      type: object
+      required: [id, masterTripId, sequenceNo, route, originStation, destinationStation, plannedDepartureAt, actualDepartureAt, actualArrivalAt, status, overrideVehicle, overrideDriver, overrideReason, overrideApprovedByUserId, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        masterTripId: { type: integer }
+        sequenceNo: { type: integer }
+        route:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        originStation:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        destinationStation:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        plannedDepartureAt: { type: string, format: date-time, nullable: true }
+        actualDepartureAt: { type: string, format: date-time, nullable: true }
+        actualArrivalAt: { type: string, format: date-time, nullable: true }
+        status: { $ref: "#/components/schemas/TripLegStatus" }
+        overrideVehicle:
+          nullable: true
+          type: object
+          required: [id, vehicleNumber]
+          properties: { id: { type: integer }, vehicleNumber: { type: string } }
+        overrideDriver:
+          nullable: true
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        overrideReason: { type: string, nullable: true }
+        overrideApprovedByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    AssignBookingToTripLegRequest:
+      type: object
+      required: [bookingId]
+      properties:
+        bookingId: { type: integer }
+        allocatedWeightTons: { type: number, nullable: true }
+
+    EmergencyTripOverrideRequest:
+      type: object
+      required: [reason]
+      properties:
+        vehicleId: { type: integer, nullable: true }
+        driverId: { type: integer, nullable: true }
+        reason: { type: string }
+        approvedByUserId: { type: integer, nullable: true }
+
+    TripEvent:
+      type: object
+      required: [id, masterTripId, tripLegId, eventType, title, description, station, createdByUserId, createdAt]
+      properties:
+        id: { type: integer }
+        masterTripId: { type: integer }
+        tripLegId: { type: integer, nullable: true }
+        eventType: { type: string }
+        title: { type: string }
+        description: { type: string, nullable: true }
+        station:
+          nullable: true
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+
+    MasterTripResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/MasterTrip" }, message: { type: string } }
+    MasterTripsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/MasterTrip" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+    TripLegResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/TripLeg" }, message: { type: string } }
+    TripLegsListResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/TripLeg" } }, message: { type: string } }
+    TripTimelineResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/TripEvent" } }, message: { type: string } }
 
 security:
   - bearerAuth: []
