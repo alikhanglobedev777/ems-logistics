@@ -39,6 +39,16 @@ tags:
     description: Contracted and spot customer master data
   - name: Agents
     description: Booking agent master data
+  - name: Routes
+    description: Operational route setup
+  - name: Fuel Price Snapshots
+    description: Fuel price snapshots used for stable historical pricing
+  - name: Route Fuel Profiles
+    description: Expected route fuel by vehicle type
+  - name: Route Overhead Profiles
+    description: Internal hidden overhead by route and vehicle type
+  - name: Pricing
+    description: Internal route pricing estimate APIs
 
 paths:
   /auth/register:
@@ -903,6 +913,231 @@ paths:
       responses:
         "200": { description: Agent deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/AgentResponse" } } } }
         "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+
+  /routes:
+    get:
+      tags: [Routes]
+      operationId: getRoutes
+      summary: List routes
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/IsActive"
+        - name: stationId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Routes, content: { application/json: { schema: { $ref: "#/components/schemas/RoutesListResponse" } } } }
+        "401": { description: Unauthorized, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    post:
+      tags: [Routes]
+      operationId: createRoute
+      summary: Create route
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateRouteRequest" } } } }
+      responses:
+        "201": { description: Route created, content: { application/json: { schema: { $ref: "#/components/schemas/RouteResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+  /routes/{routeId}:
+    parameters:
+      - name: routeId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Routes]
+      operationId: getRouteById
+      summary: Get route
+      responses:
+        "200": { description: Route, content: { application/json: { schema: { $ref: "#/components/schemas/RouteResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    patch:
+      tags: [Routes]
+      operationId: updateRoute
+      summary: Update route
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateRouteRequest" } } } }
+      responses:
+        "200": { description: Route updated, content: { application/json: { schema: { $ref: "#/components/schemas/RouteResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+    delete:
+      tags: [Routes]
+      operationId: deleteRoute
+      summary: Soft delete route
+      responses:
+        "200": { description: Route deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/RouteResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /fuel-price-snapshots:
+    get:
+      tags: [Fuel Price Snapshots]
+      operationId: getFuelPriceSnapshots
+      summary: List fuel price snapshots
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - name: fuelType
+          in: query
+          schema: { $ref: "#/components/schemas/FuelType" }
+        - name: source
+          in: query
+          schema: { $ref: "#/components/schemas/FuelPriceSource" }
+      responses:
+        "200": { description: Fuel prices, content: { application/json: { schema: { $ref: "#/components/schemas/FuelPriceSnapshotsListResponse" } } } }
+    post:
+      tags: [Fuel Price Snapshots]
+      operationId: createFuelPriceSnapshot
+      summary: Create manual/API fuel price snapshot
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateFuelPriceSnapshotRequest" } } } }
+      responses:
+        "201": { description: Fuel price snapshot created, content: { application/json: { schema: { $ref: "#/components/schemas/FuelPriceSnapshotResponse" } } } }
+        "400": { description: Invalid request, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+  /fuel-price-snapshots/latest:
+    get:
+      tags: [Fuel Price Snapshots]
+      operationId: getLatestFuelPriceSnapshot
+      summary: Get latest effective fuel price snapshot
+      parameters:
+        - name: fuelType
+          in: query
+          schema: { $ref: "#/components/schemas/FuelType" }
+      responses:
+        "200": { description: Latest fuel price, content: { application/json: { schema: { $ref: "#/components/schemas/FuelPriceSnapshotResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+  /fuel-price-snapshots/{fuelPriceSnapshotId}:
+    parameters:
+      - name: fuelPriceSnapshotId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Fuel Price Snapshots]
+      operationId: getFuelPriceSnapshotById
+      summary: Get fuel price snapshot
+      responses:
+        "200": { description: Fuel price, content: { application/json: { schema: { $ref: "#/components/schemas/FuelPriceSnapshotResponse" } } } }
+        "404": { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
+
+  /route-fuel-profiles:
+    get:
+      tags: [Route Fuel Profiles]
+      operationId: getRouteFuelProfiles
+      summary: List route fuel profiles
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - name: routeId
+          in: query
+          schema: { type: integer }
+        - name: vehicleTypeId
+          in: query
+          schema: { type: integer }
+        - $ref: "#/components/parameters/IsActive"
+      responses:
+        "200": { description: Fuel profiles, content: { application/json: { schema: { $ref: "#/components/schemas/RouteFuelProfilesListResponse" } } } }
+    post:
+      tags: [Route Fuel Profiles]
+      operationId: createRouteFuelProfile
+      summary: Create route fuel profile
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateRouteFuelProfileRequest" } } } }
+      responses:
+        "201": { description: Fuel profile created, content: { application/json: { schema: { $ref: "#/components/schemas/RouteFuelProfileResponse" } } } }
+  /route-fuel-profiles/{routeFuelProfileId}:
+    parameters:
+      - name: routeFuelProfileId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Route Fuel Profiles]
+      operationId: getRouteFuelProfileById
+      summary: Get route fuel profile
+      responses:
+        "200": { description: Fuel profile, content: { application/json: { schema: { $ref: "#/components/schemas/RouteFuelProfileResponse" } } } }
+    patch:
+      tags: [Route Fuel Profiles]
+      operationId: updateRouteFuelProfile
+      summary: Update route fuel profile
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateRouteFuelProfileRequest" } } } }
+      responses:
+        "200": { description: Fuel profile updated, content: { application/json: { schema: { $ref: "#/components/schemas/RouteFuelProfileResponse" } } } }
+    delete:
+      tags: [Route Fuel Profiles]
+      operationId: deleteRouteFuelProfile
+      summary: Soft delete route fuel profile
+      responses:
+        "200": { description: Fuel profile deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/RouteFuelProfileResponse" } } } }
+
+  /route-overhead-profiles:
+    get:
+      tags: [Route Overhead Profiles]
+      operationId: getRouteOverheadProfiles
+      summary: List route overhead profiles
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - name: routeId
+          in: query
+          schema: { type: integer }
+        - name: vehicleTypeId
+          in: query
+          schema: { type: integer }
+        - $ref: "#/components/parameters/IsActive"
+      responses:
+        "200": { description: Overhead profiles, content: { application/json: { schema: { $ref: "#/components/schemas/RouteOverheadProfilesListResponse" } } } }
+    post:
+      tags: [Route Overhead Profiles]
+      operationId: createRouteOverheadProfile
+      summary: Create route overhead profile
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateRouteOverheadProfileRequest" } } } }
+      responses:
+        "201": { description: Overhead profile created, content: { application/json: { schema: { $ref: "#/components/schemas/RouteOverheadProfileResponse" } } } }
+  /route-overhead-profiles/{routeOverheadProfileId}:
+    parameters:
+      - name: routeOverheadProfileId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [Route Overhead Profiles]
+      operationId: getRouteOverheadProfileById
+      summary: Get route overhead profile
+      responses:
+        "200": { description: Overhead profile, content: { application/json: { schema: { $ref: "#/components/schemas/RouteOverheadProfileResponse" } } } }
+    patch:
+      tags: [Route Overhead Profiles]
+      operationId: updateRouteOverheadProfile
+      summary: Update route overhead profile
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateRouteOverheadProfileRequest" } } } }
+      responses:
+        "200": { description: Overhead profile updated, content: { application/json: { schema: { $ref: "#/components/schemas/RouteOverheadProfileResponse" } } } }
+    delete:
+      tags: [Route Overhead Profiles]
+      operationId: deleteRouteOverheadProfile
+      summary: Soft delete route overhead profile
+      responses:
+        "200": { description: Overhead profile deactivated, content: { application/json: { schema: { $ref: "#/components/schemas/RouteOverheadProfileResponse" } } } }
+
+  /pricing/route-estimate:
+    get:
+      tags: [Pricing]
+      operationId: getRoutePricingEstimate
+      summary: Get internal route pricing estimate
+      parameters:
+        - name: routeId
+          in: query
+          required: true
+          schema: { type: integer }
+        - name: vehicleTypeId
+          in: query
+          required: true
+          schema: { type: integer }
+        - name: fuelType
+          in: query
+          schema: { $ref: "#/components/schemas/FuelType" }
+      responses:
+        "200": { description: Route estimate, content: { application/json: { schema: { $ref: "#/components/schemas/RouteEstimateResponse" } } } }
+        "404": { description: Missing pricing setup, content: { application/json: { schema: { $ref: "#/components/schemas/ErrorResponse" } } } }
 
 components:
   securitySchemes:
@@ -1839,6 +2074,229 @@ components:
       type: object
       required: [data, pagination]
       properties: { data: { type: array, items: { $ref: "#/components/schemas/Agent" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+
+    StationSummary:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string, nullable: true }
+
+    RouteBasic:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+
+    VehicleTypeBasic:
+      type: object
+      required: [id, name, code]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string }
+
+    RoadCondition:
+      type: string
+      enum: [good, normal, rough, high_risk]
+
+    FuelType:
+      type: string
+      enum: [diesel, petrol]
+
+    FuelPriceSource:
+      type: string
+      enum: [manual, api]
+
+    Route:
+      type: object
+      required: [id, name, originStation, destinationStation, roadCondition, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        originStation: { $ref: "#/components/schemas/StationSummary" }
+        destinationStation: { $ref: "#/components/schemas/StationSummary" }
+        distanceKm: { type: string, nullable: true }
+        estimatedDurationHours: { type: string, nullable: true }
+        roadCondition: { $ref: "#/components/schemas/RoadCondition" }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateRouteRequest:
+      type: object
+      required: [originStationId, destinationStationId, name]
+      properties:
+        originStationId: { type: integer }
+        destinationStationId: { type: integer }
+        name: { type: string }
+        distanceKm: { type: number, nullable: true, minimum: 0 }
+        estimatedDurationHours: { type: number, nullable: true, minimum: 0 }
+        roadCondition: { $ref: "#/components/schemas/RoadCondition" }
+        isActive: { type: boolean }
+    UpdateRouteRequest:
+      type: object
+      properties:
+        originStationId: { type: integer }
+        destinationStationId: { type: integer }
+        name: { type: string }
+        distanceKm: { type: number, nullable: true, minimum: 0 }
+        estimatedDurationHours: { type: number, nullable: true, minimum: 0 }
+        roadCondition: { $ref: "#/components/schemas/RoadCondition" }
+        isActive: { type: boolean }
+    RouteResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/Route" }, message: { type: string } }
+    RoutesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/Route" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    FuelPriceSnapshot:
+      type: object
+      required: [id, fuelType, pricePerLiter, source, effectiveAt, createdAt]
+      properties:
+        id: { type: integer }
+        fuelType: { $ref: "#/components/schemas/FuelType" }
+        pricePerLiter: { type: string }
+        source: { $ref: "#/components/schemas/FuelPriceSource" }
+        effectiveAt: { type: string, format: date-time }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+    CreateFuelPriceSnapshotRequest:
+      type: object
+      required: [fuelType, pricePerLiter, effectiveAt]
+      properties:
+        fuelType: { $ref: "#/components/schemas/FuelType" }
+        pricePerLiter: { type: number, minimum: 0 }
+        source: { $ref: "#/components/schemas/FuelPriceSource" }
+        effectiveAt: { type: string, format: date-time }
+    FuelPriceSnapshotResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/FuelPriceSnapshot" }, message: { type: string } }
+    FuelPriceSnapshotsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/FuelPriceSnapshot" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    RouteFuelProfile:
+      type: object
+      required: [id, route, vehicleType, expectedLiters, reserveLiters, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        route: { $ref: "#/components/schemas/RouteBasic" }
+        vehicleType: { $ref: "#/components/schemas/VehicleTypeBasic" }
+        expectedLiters: { type: string }
+        reserveLiters: { type: string }
+        notes: { type: string, nullable: true }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateRouteFuelProfileRequest:
+      type: object
+      required: [routeId, vehicleTypeId, expectedLiters]
+      properties:
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        expectedLiters: { type: number, minimum: 0 }
+        reserveLiters: { type: number, minimum: 0 }
+        notes: { type: string, nullable: true }
+        isActive: { type: boolean }
+    UpdateRouteFuelProfileRequest:
+      type: object
+      properties:
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        expectedLiters: { type: number, minimum: 0 }
+        reserveLiters: { type: number, minimum: 0 }
+        notes: { type: string, nullable: true }
+        isActive: { type: boolean }
+    RouteFuelProfileResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/RouteFuelProfile" }, message: { type: string } }
+    RouteFuelProfilesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/RouteFuelProfile" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    RouteOverheadProfile:
+      type: object
+      required: [id, route, vehicleType, maintenanceCost, tyreCost, oilServiceCost, depreciationCost, insuranceTaxCost, routeRiskCost, emptyReturnRiskCost, workshopReserveCost, totalOverhead, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        route: { $ref: "#/components/schemas/RouteBasic" }
+        vehicleType: { $ref: "#/components/schemas/VehicleTypeBasic" }
+        maintenanceCost: { type: string }
+        tyreCost: { type: string }
+        oilServiceCost: { type: string }
+        depreciationCost: { type: string }
+        insuranceTaxCost: { type: string }
+        routeRiskCost: { type: string }
+        emptyReturnRiskCost: { type: string }
+        workshopReserveCost: { type: string }
+        totalOverhead: { type: string }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateRouteOverheadProfileRequest:
+      type: object
+      required: [routeId, vehicleTypeId]
+      properties:
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        maintenanceCost: { type: number, minimum: 0 }
+        tyreCost: { type: number, minimum: 0 }
+        oilServiceCost: { type: number, minimum: 0 }
+        depreciationCost: { type: number, minimum: 0 }
+        insuranceTaxCost: { type: number, minimum: 0 }
+        routeRiskCost: { type: number, minimum: 0 }
+        emptyReturnRiskCost: { type: number, minimum: 0 }
+        workshopReserveCost: { type: number, minimum: 0 }
+        isActive: { type: boolean }
+    UpdateRouteOverheadProfileRequest:
+      type: object
+      properties:
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        maintenanceCost: { type: number, minimum: 0 }
+        tyreCost: { type: number, minimum: 0 }
+        oilServiceCost: { type: number, minimum: 0 }
+        depreciationCost: { type: number, minimum: 0 }
+        insuranceTaxCost: { type: number, minimum: 0 }
+        routeRiskCost: { type: number, minimum: 0 }
+        emptyReturnRiskCost: { type: number, minimum: 0 }
+        workshopReserveCost: { type: number, minimum: 0 }
+        isActive: { type: boolean }
+    RouteOverheadProfileResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/RouteOverheadProfile" }, message: { type: string } }
+    RouteOverheadProfilesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/RouteOverheadProfile" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    RouteEstimate:
+      type: object
+      required: [routeId, vehicleTypeId, fuelPriceSnapshot, fuelProfile, overheadProfile, estimatedFuelCost, internalOverheadCost, internalMinimumSuggestedCost]
+      properties:
+        routeId: { type: integer }
+        vehicleTypeId: { type: integer }
+        fuelPriceSnapshot: { $ref: "#/components/schemas/FuelPriceSnapshot" }
+        fuelProfile: { $ref: "#/components/schemas/RouteFuelProfile" }
+        overheadProfile: { $ref: "#/components/schemas/RouteOverheadProfile" }
+        estimatedFuelCost: { type: string }
+        internalOverheadCost: { type: string }
+        internalMinimumSuggestedCost: { type: string }
+    RouteEstimateResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/RouteEstimate" }, message: { type: string } }
 
 security:
   - bearerAuth: []

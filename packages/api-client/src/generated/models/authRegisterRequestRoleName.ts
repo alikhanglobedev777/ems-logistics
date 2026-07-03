@@ -6,9 +6,14 @@
  * OpenAPI spec version: 1.0.0
  */
 
+/**
+ * Customer for public registration. super_admin/admin are only allowed for the first setup user.
+ */
 export type AuthRegisterRequestRoleName = typeof AuthRegisterRequestRoleName[keyof typeof AuthRegisterRequestRoleName];
 
 
 export const AuthRegisterRequestRoleName = {
   customer: 'customer',
+  super_admin: 'super_admin',
+  admin: 'admin',
 } as const;

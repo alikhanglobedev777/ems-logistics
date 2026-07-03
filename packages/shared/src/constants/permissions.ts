@@ -18,6 +18,19 @@ export const Permission = {
   CUSTOMER_UPDATE: 'customer.update',
   CUSTOMER_VIEW: 'customer.view',
 
+  AGENT_CREATE: 'agent.create',
+  AGENT_UPDATE: 'agent.update',
+  AGENT_VIEW: 'agent.view',
+
+  ROUTE_CREATE: 'route.create',
+  ROUTE_UPDATE: 'route.update',
+  ROUTE_VIEW: 'route.view',
+
+  FUEL_PRICE_MANAGE: 'fuel_price.manage',
+  FUEL_PRICE_VIEW: 'fuel_price.view',
+  OVERHEAD_MANAGE: 'overhead.manage',
+  OVERHEAD_VIEW: 'overhead.view',
+
   BOOKING_CREATE: 'booking.create',
   BOOKING_CONFIRM: 'booking.confirm',
   BOOKING_APPROVE_RATE: 'booking.approve_rate',

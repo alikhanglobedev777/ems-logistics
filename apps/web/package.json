@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc -b --pretty false"
+    "typecheck": "tsc -b --pretty false",
+    "routes:generate": "tsr generate --routesDirectory ./src/routes --generatedRouteTree ./src/routeTree.gen.ts",
+    "boundaries": "node ../../scripts/check-frontend-boundaries.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -16,7 +18,7 @@
     "@ems/shared": "workspace:*",
     "@ems/ui": "workspace:*",
     "@tanstack/react-query": "^5.101.2",
-    "@tanstack/react-router": "^1.170.16",
+    "@tanstack/react-router": "1.170.17",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.21",
     "decimal.js": "^10.6.0",
@@ -39,6 +41,7 @@
     "globals": "^17.7.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.0",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "@tanstack/router-cli": "1.167.18"
   }
 }

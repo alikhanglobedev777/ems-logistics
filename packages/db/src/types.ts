@@ -74,6 +74,16 @@ export interface DriverVehicleAssignments {
   vehicle_id: number;
 }
 
+export interface FuelPriceSnapshots {
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  effective_at: Timestamp;
+  fuel_type: string;
+  id: Generated<number>;
+  price_per_liter: Numeric;
+  source: Generated<string>;
+}
+
 export interface Permissions {
   created_at: Generated<Timestamp>;
   description: string | null;
@@ -95,6 +105,49 @@ export interface Roles {
   is_system: Generated<boolean>;
   label: string;
   name: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface RouteFuelProfiles {
+  created_at: Generated<Timestamp>;
+  expected_liters: Numeric;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  notes: string | null;
+  reserve_liters: Generated<Numeric>;
+  route_id: number;
+  updated_at: Generated<Timestamp>;
+  vehicle_type_id: number;
+}
+
+export interface RouteOverheadProfiles {
+  created_at: Generated<Timestamp>;
+  depreciation_cost: Generated<Numeric>;
+  empty_return_risk_cost: Generated<Numeric>;
+  id: Generated<number>;
+  insurance_tax_cost: Generated<Numeric>;
+  is_active: Generated<boolean>;
+  maintenance_cost: Generated<Numeric>;
+  oil_service_cost: Generated<Numeric>;
+  route_id: number;
+  route_risk_cost: Generated<Numeric>;
+  total_overhead: Generated<Numeric>;
+  tyre_cost: Generated<Numeric>;
+  updated_at: Generated<Timestamp>;
+  vehicle_type_id: number;
+  workshop_reserve_cost: Generated<Numeric>;
+}
+
+export interface Routes {
+  created_at: Generated<Timestamp>;
+  destination_station_id: number;
+  distance_km: Numeric | null;
+  estimated_duration_hours: Numeric | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  name: string;
+  origin_station_id: number;
+  road_condition: Generated<string>;
   updated_at: Generated<Timestamp>;
 }
 
@@ -162,9 +215,13 @@ export interface DB {
   customers: Customers;
   driver_vehicle_assignments: DriverVehicleAssignments;
   drivers: Drivers;
+  fuel_price_snapshots: FuelPriceSnapshots;
   permissions: Permissions;
   role_permissions: RolePermissions;
   roles: Roles;
+  route_fuel_profiles: RouteFuelProfiles;
+  route_overhead_profiles: RouteOverheadProfiles;
+  routes: Routes;
   stations: Stations;
   user_refresh_sessions: UserRefreshSessions;
   users: Users;

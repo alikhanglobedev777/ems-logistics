@@ -3,9 +3,9 @@
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "dev": "pnpm build:shared && turbo dev",
-    "dev:api": "pnpm build:shared && pnpm --filter @ems/api dev",
-    "dev:web": "pnpm build:shared && pnpm --filter @ems/web dev",
+    "dev": "pnpm dev:prepare && turbo dev",
+    "dev:api": "pnpm build:shared && pnpm contract:generate && pnpm --filter @ems/api dev",
+    "dev:web": "pnpm build:shared && pnpm contract:generate && pnpm routes:generate && pnpm --filter @ems/web dev",
     "build": "turbo build",
     "typecheck": "turbo typecheck",
     "lint": "turbo lint",
@@ -14,8 +14,11 @@
     "contract:generate": "pnpm --filter @ems/api-contract generate-types && pnpm --filter @ems/api-client generate",
     "db:migrate": "pnpm --filter @ems/db migrate",
     "db:generate-types": "pnpm --filter @ems/db generate-types",
-    "check": "pnpm build:shared && pnpm db:migrate && pnpm contract:generate && pnpm typecheck && pnpm test:api",
-    "build:shared": "pnpm --filter @ems/shared build"
+    "check": "pnpm dev:prepare && pnpm db:migrate && pnpm typecheck && pnpm test:api && pnpm frontend:boundaries",
+    "build:shared": "pnpm --filter @ems/shared build",
+    "routes:generate": "pnpm --filter @ems/web routes:generate",
+    "frontend:boundaries": "pnpm --filter @ems/web boundaries",
+    "dev:prepare": "pnpm build:shared && pnpm contract:generate && pnpm routes:generate"
   },
   "devDependencies": {
     "turbo": "latest",

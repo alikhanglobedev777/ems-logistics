@@ -8,6 +8,7 @@ import * as createCitiesAndStations from './migrations/001_create_cities_and_sta
 import * as createAuthUsersRoles from './migrations/002_create_auth_users_roles';
 import * as alignAuthFoundation from './migrations/003_align_auth_foundation';
 import * as createMasterData from './migrations/004_create_master_data';
+import * as createRoutesPricingFoundation from './migrations/005_create_routes_pricing_foundation';
 config({
   path: path.resolve(process.cwd(), '../../.env'),
 });
@@ -18,6 +19,7 @@ class StaticMigrationProvider {
       '002_create_auth_users_roles': createAuthUsersRoles,
       '003_align_auth_foundation': alignAuthFoundation,
       '004_create_master_data': createMasterData,
+      '005_create_routes_pricing_foundation': createRoutesPricingFoundation,
     };
   }
 }

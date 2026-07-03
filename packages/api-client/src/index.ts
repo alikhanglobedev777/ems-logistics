@@ -11,5 +11,10 @@ export * from "./generated/driver-vehicle-assignments/driver-vehicle-assignments
 export * from "./generated/drivers/drivers";
 export * from "./generated/vehicle-types/vehicle-types";
 export * from "./generated/vehicles/vehicles";
+export * from "./generated/routes/routes";
+export * from "./generated/fuel-price-snapshots/fuel-price-snapshots";
+export * from "./generated/route-fuel-profiles/route-fuel-profiles";
+export * from "./generated/route-overhead-profiles/route-overhead-profiles";
+export * from "./generated/pricing/pricing";
 export * from "./generated/models";
 export * from "./http-client";

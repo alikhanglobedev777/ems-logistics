@@ -15,6 +15,11 @@ import { DriversModule } from './modules/drivers/drivers.module';
 import { DriverVehicleAssignmentsModule } from './modules/driver-vehicle-assignments/driver-vehicle-assignments.module';
 import { VehiclesModule } from './modules/vehicles/vehicles.module';
 import { VehicleTypesModule } from './modules/vehicle-types/vehicle-types.module';
+import { PricingModule } from './modules/pricing/pricing.module';
+import { RouteOverheadProfilesModule } from './modules/route-overhead-profiles/route-overhead-profiles.module';
+import { RouteFuelProfilesModule } from './modules/route-fuel-profiles/route-fuel-profiles.module';
+import { FuelPriceSnapshotsModule } from './modules/fuel-price-snapshots/fuel-price-snapshots.module';
+import { RoutesModule } from './modules/routes/routes.module';
 
 @Module({
   imports: [
@@ -35,6 +40,11 @@ import { VehicleTypesModule } from './modules/vehicle-types/vehicle-types.module
     DriverVehicleAssignmentsModule,
     CustomersModule,
     AgentsModule,
+    PricingModule,
+    RouteOverheadProfilesModule,
+    RouteFuelProfilesModule,
+    FuelPriceSnapshotsModule,
+    RoutesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -75,3 +75,26 @@ export const DriverSettlementStatus = {
 
 export type DriverSettlementStatus =
   (typeof DriverSettlementStatus)[keyof typeof DriverSettlementStatus];
+
+export const RoadCondition = {
+  GOOD: 'good',
+  NORMAL: 'normal',
+  ROUGH: 'rough',
+  HIGH_RISK: 'high_risk',
+} as const;
+
+export type RoadCondition = (typeof RoadCondition)[keyof typeof RoadCondition];
+
+export const FuelType = {
+  DIESEL: 'diesel',
+  PETROL: 'petrol',
+} as const;
+
+export type FuelType = (typeof FuelType)[keyof typeof FuelType];
+
+export const FuelPriceSource = {
+  MANUAL: 'manual',
+  API: 'api',
+} as const;
+
+export type FuelPriceSource = (typeof FuelPriceSource)[keyof typeof FuelPriceSource];

@@ -79,3 +79,32 @@ export type CreateAgentRequest = Schemas['CreateAgentRequest'];
 export type UpdateAgentRequest = Schemas['UpdateAgentRequest'];
 export type AgentResponse = Schemas['AgentResponse'];
 export type AgentsListResponse = Schemas['AgentsListResponse'];
+
+export type RoadCondition = Schemas['RoadCondition'];
+export type FuelType = Schemas['FuelType'];
+export type FuelPriceSource = Schemas['FuelPriceSource'];
+
+export type Route = Schemas['Route'];
+export type CreateRouteRequest = Schemas['CreateRouteRequest'];
+export type UpdateRouteRequest = Schemas['UpdateRouteRequest'];
+export type RouteResponse = Schemas['RouteResponse'];
+export type RoutesListResponse = Schemas['RoutesListResponse'];
+
+export type FuelPriceSnapshot = Schemas['FuelPriceSnapshot'];
+export type CreateFuelPriceSnapshotRequest = Schemas['CreateFuelPriceSnapshotRequest'];
+export type FuelPriceSnapshotResponse = Schemas['FuelPriceSnapshotResponse'];
+export type FuelPriceSnapshotsListResponse = Schemas['FuelPriceSnapshotsListResponse'];
+
+export type RouteFuelProfile = Schemas['RouteFuelProfile'];
+export type CreateRouteFuelProfileRequest = Schemas['CreateRouteFuelProfileRequest'];
+export type UpdateRouteFuelProfileRequest = Schemas['UpdateRouteFuelProfileRequest'];
+export type RouteFuelProfileResponse = Schemas['RouteFuelProfileResponse'];
+export type RouteFuelProfilesListResponse = Schemas['RouteFuelProfilesListResponse'];
+
+export type RouteOverheadProfile = Schemas['RouteOverheadProfile'];
+export type CreateRouteOverheadProfileRequest = Schemas['CreateRouteOverheadProfileRequest'];
+export type UpdateRouteOverheadProfileRequest = Schemas['UpdateRouteOverheadProfileRequest'];
+export type RouteOverheadProfileResponse = Schemas['RouteOverheadProfileResponse'];
+export type RouteOverheadProfilesListResponse = Schemas['RouteOverheadProfilesListResponse'];
+
+export type RouteEstimateResponse = Schemas['RouteEstimateResponse'];

@@ -14,5 +14,6 @@ export interface AuthRegisterRequest {
   phone?: string | null;
   /** @minLength 8 */
   password: string;
+  /** Customer for public registration. super_admin/admin are only allowed for the first setup user. */
   roleName?: AuthRegisterRequestRoleName;
 }

@@ -504,6 +504,194 @@ export interface paths {
         patch: operations["updateAgent"];
         trace?: never;
     };
+    "/routes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List routes */
+        get: operations["getRoutes"];
+        put?: never;
+        /** Create route */
+        post: operations["createRoute"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/routes/{routeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeId: number;
+            };
+            cookie?: never;
+        };
+        /** Get route */
+        get: operations["getRouteById"];
+        put?: never;
+        post?: never;
+        /** Soft delete route */
+        delete: operations["deleteRoute"];
+        options?: never;
+        head?: never;
+        /** Update route */
+        patch: operations["updateRoute"];
+        trace?: never;
+    };
+    "/fuel-price-snapshots": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List fuel price snapshots */
+        get: operations["getFuelPriceSnapshots"];
+        put?: never;
+        /** Create manual/API fuel price snapshot */
+        post: operations["createFuelPriceSnapshot"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-price-snapshots/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get latest effective fuel price snapshot */
+        get: operations["getLatestFuelPriceSnapshot"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-price-snapshots/{fuelPriceSnapshotId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelPriceSnapshotId: number;
+            };
+            cookie?: never;
+        };
+        /** Get fuel price snapshot */
+        get: operations["getFuelPriceSnapshotById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/route-fuel-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List route fuel profiles */
+        get: operations["getRouteFuelProfiles"];
+        put?: never;
+        /** Create route fuel profile */
+        post: operations["createRouteFuelProfile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/route-fuel-profiles/{routeFuelProfileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeFuelProfileId: number;
+            };
+            cookie?: never;
+        };
+        /** Get route fuel profile */
+        get: operations["getRouteFuelProfileById"];
+        put?: never;
+        post?: never;
+        /** Soft delete route fuel profile */
+        delete: operations["deleteRouteFuelProfile"];
+        options?: never;
+        head?: never;
+        /** Update route fuel profile */
+        patch: operations["updateRouteFuelProfile"];
+        trace?: never;
+    };
+    "/route-overhead-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List route overhead profiles */
+        get: operations["getRouteOverheadProfiles"];
+        put?: never;
+        /** Create route overhead profile */
+        post: operations["createRouteOverheadProfile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/route-overhead-profiles/{routeOverheadProfileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeOverheadProfileId: number;
+            };
+            cookie?: never;
+        };
+        /** Get route overhead profile */
+        get: operations["getRouteOverheadProfileById"];
+        put?: never;
+        post?: never;
+        /** Soft delete route overhead profile */
+        delete: operations["deleteRouteOverheadProfile"];
+        options?: never;
+        head?: never;
+        /** Update route overhead profile */
+        patch: operations["updateRouteOverheadProfile"];
+        trace?: never;
+    };
+    "/pricing/route-estimate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get internal route pricing estimate */
+        get: operations["getRoutePricingEstimate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -520,8 +708,11 @@ export interface components {
             phone?: string | null;
             /** @example StrongPass123 */
             password: string;
-            /** @enum {string} */
-            roleName?: "customer";
+            /**
+             * @description Customer for public registration. super_admin/admin are only allowed for the first setup user.
+             * @enum {string}
+             */
+            roleName?: "customer" | "super_admin" | "admin";
         };
         AuthLoginRequest: {
             /**
@@ -1047,6 +1238,196 @@ export interface components {
         AgentsListResponse: {
             data: components["schemas"]["Agent"][];
             pagination: components["schemas"]["Pagination"];
+        };
+        StationSummary: {
+            id: number;
+            name: string;
+            code?: string | null;
+        };
+        RouteBasic: {
+            id: number;
+            name: string;
+        };
+        VehicleTypeBasic: {
+            id: number;
+            name: string;
+            code: string;
+        };
+        /** @enum {string} */
+        RoadCondition: "good" | "normal" | "rough" | "high_risk";
+        /** @enum {string} */
+        FuelType: "diesel" | "petrol";
+        /** @enum {string} */
+        FuelPriceSource: "manual" | "api";
+        Route: {
+            id: number;
+            name: string;
+            originStation: components["schemas"]["StationSummary"];
+            destinationStation: components["schemas"]["StationSummary"];
+            distanceKm?: string | null;
+            estimatedDurationHours?: string | null;
+            roadCondition: components["schemas"]["RoadCondition"];
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateRouteRequest: {
+            originStationId: number;
+            destinationStationId: number;
+            name: string;
+            distanceKm?: number | null;
+            estimatedDurationHours?: number | null;
+            roadCondition?: components["schemas"]["RoadCondition"];
+            isActive?: boolean;
+        };
+        UpdateRouteRequest: {
+            originStationId?: number;
+            destinationStationId?: number;
+            name?: string;
+            distanceKm?: number | null;
+            estimatedDurationHours?: number | null;
+            roadCondition?: components["schemas"]["RoadCondition"];
+            isActive?: boolean;
+        };
+        RouteResponse: {
+            data: components["schemas"]["Route"];
+            message: string;
+        };
+        RoutesListResponse: {
+            data: components["schemas"]["Route"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        FuelPriceSnapshot: {
+            id: number;
+            fuelType: components["schemas"]["FuelType"];
+            pricePerLiter: string;
+            source: components["schemas"]["FuelPriceSource"];
+            /** Format: date-time */
+            effectiveAt: string;
+            createdByUserId?: number | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        CreateFuelPriceSnapshotRequest: {
+            fuelType: components["schemas"]["FuelType"];
+            pricePerLiter: number;
+            source?: components["schemas"]["FuelPriceSource"];
+            /** Format: date-time */
+            effectiveAt: string;
+        };
+        FuelPriceSnapshotResponse: {
+            data: components["schemas"]["FuelPriceSnapshot"];
+            message: string;
+        };
+        FuelPriceSnapshotsListResponse: {
+            data: components["schemas"]["FuelPriceSnapshot"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        RouteFuelProfile: {
+            id: number;
+            route: components["schemas"]["RouteBasic"];
+            vehicleType: components["schemas"]["VehicleTypeBasic"];
+            expectedLiters: string;
+            reserveLiters: string;
+            notes?: string | null;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateRouteFuelProfileRequest: {
+            routeId: number;
+            vehicleTypeId: number;
+            expectedLiters: number;
+            reserveLiters?: number;
+            notes?: string | null;
+            isActive?: boolean;
+        };
+        UpdateRouteFuelProfileRequest: {
+            routeId?: number;
+            vehicleTypeId?: number;
+            expectedLiters?: number;
+            reserveLiters?: number;
+            notes?: string | null;
+            isActive?: boolean;
+        };
+        RouteFuelProfileResponse: {
+            data: components["schemas"]["RouteFuelProfile"];
+            message: string;
+        };
+        RouteFuelProfilesListResponse: {
+            data: components["schemas"]["RouteFuelProfile"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        RouteOverheadProfile: {
+            id: number;
+            route: components["schemas"]["RouteBasic"];
+            vehicleType: components["schemas"]["VehicleTypeBasic"];
+            maintenanceCost: string;
+            tyreCost: string;
+            oilServiceCost: string;
+            depreciationCost: string;
+            insuranceTaxCost: string;
+            routeRiskCost: string;
+            emptyReturnRiskCost: string;
+            workshopReserveCost: string;
+            totalOverhead: string;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateRouteOverheadProfileRequest: {
+            routeId: number;
+            vehicleTypeId: number;
+            maintenanceCost?: number;
+            tyreCost?: number;
+            oilServiceCost?: number;
+            depreciationCost?: number;
+            insuranceTaxCost?: number;
+            routeRiskCost?: number;
+            emptyReturnRiskCost?: number;
+            workshopReserveCost?: number;
+            isActive?: boolean;
+        };
+        UpdateRouteOverheadProfileRequest: {
+            routeId?: number;
+            vehicleTypeId?: number;
+            maintenanceCost?: number;
+            tyreCost?: number;
+            oilServiceCost?: number;
+            depreciationCost?: number;
+            insuranceTaxCost?: number;
+            routeRiskCost?: number;
+            emptyReturnRiskCost?: number;
+            workshopReserveCost?: number;
+            isActive?: boolean;
+        };
+        RouteOverheadProfileResponse: {
+            data: components["schemas"]["RouteOverheadProfile"];
+            message: string;
+        };
+        RouteOverheadProfilesListResponse: {
+            data: components["schemas"]["RouteOverheadProfile"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        RouteEstimate: {
+            routeId: number;
+            vehicleTypeId: number;
+            fuelPriceSnapshot: components["schemas"]["FuelPriceSnapshot"];
+            fuelProfile: components["schemas"]["RouteFuelProfile"];
+            overheadProfile: components["schemas"]["RouteOverheadProfile"];
+            estimatedFuelCost: string;
+            internalOverheadCost: string;
+            internalMinimumSuggestedCost: string;
+        };
+        RouteEstimateResponse: {
+            data: components["schemas"]["RouteEstimate"];
+            message: string;
         };
     };
     responses: never;
@@ -2822,6 +3203,564 @@ export interface operations {
             };
             /** @description Invalid request */
             400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getRoutes: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: components["parameters"]["IsActive"];
+                stationId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Routes */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoutesListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createRoute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRouteRequest"];
+            };
+        };
+        responses: {
+            /** @description Route created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getRouteById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Route */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteRoute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Route deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateRoute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRouteRequest"];
+            };
+        };
+        responses: {
+            /** @description Route updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getFuelPriceSnapshots: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                fuelType?: components["schemas"]["FuelType"];
+                source?: components["schemas"]["FuelPriceSource"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel prices */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelPriceSnapshotsListResponse"];
+                };
+            };
+        };
+    };
+    createFuelPriceSnapshot: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFuelPriceSnapshotRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel price snapshot created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelPriceSnapshotResponse"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getLatestFuelPriceSnapshot: {
+        parameters: {
+            query?: {
+                fuelType?: components["schemas"]["FuelType"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Latest fuel price */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelPriceSnapshotResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getFuelPriceSnapshotById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelPriceSnapshotId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel price */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelPriceSnapshotResponse"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getRouteFuelProfiles: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                routeId?: number;
+                vehicleTypeId?: number;
+                isActive?: components["parameters"]["IsActive"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel profiles */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteFuelProfilesListResponse"];
+                };
+            };
+        };
+    };
+    createRouteFuelProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRouteFuelProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel profile created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteFuelProfileResponse"];
+                };
+            };
+        };
+    };
+    getRouteFuelProfileById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeFuelProfileId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel profile */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteFuelProfileResponse"];
+                };
+            };
+        };
+    };
+    deleteRouteFuelProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeFuelProfileId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel profile deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteFuelProfileResponse"];
+                };
+            };
+        };
+    };
+    updateRouteFuelProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeFuelProfileId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRouteFuelProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel profile updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteFuelProfileResponse"];
+                };
+            };
+        };
+    };
+    getRouteOverheadProfiles: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                routeId?: number;
+                vehicleTypeId?: number;
+                isActive?: components["parameters"]["IsActive"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Overhead profiles */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOverheadProfilesListResponse"];
+                };
+            };
+        };
+    };
+    createRouteOverheadProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRouteOverheadProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Overhead profile created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOverheadProfileResponse"];
+                };
+            };
+        };
+    };
+    getRouteOverheadProfileById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeOverheadProfileId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Overhead profile */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOverheadProfileResponse"];
+                };
+            };
+        };
+    };
+    deleteRouteOverheadProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeOverheadProfileId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Overhead profile deactivated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOverheadProfileResponse"];
+                };
+            };
+        };
+    };
+    updateRouteOverheadProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                routeOverheadProfileId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRouteOverheadProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Overhead profile updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOverheadProfileResponse"];
+                };
+            };
+        };
+    };
+    getRoutePricingEstimate: {
+        parameters: {
+            query: {
+                routeId: number;
+                vehicleTypeId: number;
+                fuelType?: components["schemas"]["FuelType"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Route estimate */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteEstimateResponse"];
+                };
+            };
+            /** @description Missing pricing setup */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
