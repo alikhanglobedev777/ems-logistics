@@ -136,6 +136,40 @@ export interface Customers {
   updated_at: Generated<Timestamp>;
 }
 
+export interface DriverAdvances {
+  advance_number: string;
+  advance_type: Generated<string>;
+  amount: Numeric;
+  cancelled_reason: string | null;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  driver_id: number;
+  id: Generated<number>;
+  issued_at: Timestamp | null;
+  issued_by_user_id: number | null;
+  master_trip_id: number;
+  payment_method: Generated<string>;
+  reason: string | null;
+  status: Generated<string>;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface DriverExpenses {
+  amount: Numeric;
+  approved_at: Timestamp | null;
+  approved_by_user_id: number | null;
+  created_at: Generated<Timestamp>;
+  description: string | null;
+  driver_id: number;
+  expense_type: Generated<string>;
+  id: Generated<number>;
+  incurred_at: Generated<Timestamp>;
+  master_trip_id: number;
+  reject_reason: string | null;
+  status: Generated<string>;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface Drivers {
   address: string | null;
   cnic: string | null;
@@ -146,6 +180,26 @@ export interface Drivers {
   license_number: string | null;
   name: string;
   phone: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface DriverSettlements {
+  cancelled_reason: string | null;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  driver_id: number;
+  finalized_at: Timestamp | null;
+  finalized_by_user_id: number | null;
+  id: Generated<number>;
+  master_trip_id: number;
+  paid_at: Timestamp | null;
+  paid_by_user_id: number | null;
+  payable_to_driver_amount: Generated<Numeric>;
+  recoverable_from_driver_amount: Generated<Numeric>;
+  settlement_number: string;
+  status: Generated<string>;
+  total_advance_amount: Generated<Numeric>;
+  total_approved_expense_amount: Generated<Numeric>;
   updated_at: Generated<Timestamp>;
 }
 
@@ -360,6 +414,9 @@ export interface DB {
   contract_rates: ContractRates;
   customer_contracts: CustomerContracts;
   customers: Customers;
+  driver_advances: DriverAdvances;
+  driver_expenses: DriverExpenses;
+  driver_settlements: DriverSettlements;
   driver_vehicle_assignments: DriverVehicleAssignments;
   drivers: Drivers;
   fuel_price_snapshots: FuelPriceSnapshots;

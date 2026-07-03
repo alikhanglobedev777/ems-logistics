@@ -23,6 +23,8 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: 'Contract Rates', path: '/contract-rates', permission: Permission.CONTRACT_RATE_VIEW },
   { label: 'Bookings / Bilty', path: '/bookings', permission: Permission.BOOKING_VIEW },
   { label: 'Trips', path: '/trips', permission: Permission.TRIP_VIEW },
+  { label: 'Driver Advances', path: '/driver-advances', permission: Permission.DRIVER_ADVANCE_VIEW },
+  { label: 'Driver Settlements', path: '/driver-settlements', permission: Permission.DRIVER_SETTLEMENT_VIEW },
   { label: 'Fuel', path: '/fuel', permission: Permission.FUEL_VIEW },
   { label: 'Reports', path: '/reports', permission: Permission.REPORT_VIEW },
 ];

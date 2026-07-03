@@ -25,6 +25,8 @@ import { ContractRatesModule } from './modules/contract-rates/contract-rates.mod
 import { BookingsModule } from './modules/bookings/bookings.module';
 import { MasterTripsModule } from './modules/master-trips/master-trips.module';
 import { TripLegsModule } from './modules/trip-legs/trip-legs.module';
+import { DriverAdvancesModule } from './modules/driver-advances/driver-advances.module';
+import { DriverSettlementsModule } from './modules/driver-settlements/driver-settlements.module';
 
 @Module({
   imports: [
@@ -55,6 +57,8 @@ import { TripLegsModule } from './modules/trip-legs/trip-legs.module';
     BookingsModule,
     TripLegsModule,
     MasterTripsModule,
+    DriverAdvancesModule,
+    DriverSettlementsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

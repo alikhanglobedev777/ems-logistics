@@ -57,6 +57,10 @@ tags:
     description: Booking and Bilty revenue workflow
   - name: Trips
     description: Master trip and trip leg movement workflow
+  - name: DriverAdvances
+    description: Driver cash advance workflow excluding fuel
+  - name: DriverSettlements
+    description: Driver expense and settlement workflow
 
 paths:
   /auth/register:
@@ -1565,6 +1569,208 @@ paths:
       requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/EmergencyTripOverrideRequest" } } } }
       responses:
         "200": { description: Override applied, content: { application/json: { schema: { $ref: "#/components/schemas/TripLegResponse" } } } }
+
+
+  /driver-advances:
+    get:
+      tags: [DriverAdvances]
+      operationId: getDriverAdvances
+      summary: List driver advances
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/DriverAdvanceStatus" }
+        - name: masterTripId
+          in: query
+          schema: { type: integer }
+        - name: driverId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Driver advances, content: { application/json: { schema: { $ref: "#/components/schemas/DriverAdvancesListResponse" } } } }
+    post:
+      tags: [DriverAdvances]
+      operationId: createDriverAdvance
+      summary: Create driver advance
+      description: Driver advances exclude fuel because fuel is handled as vendor payable.
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateDriverAdvanceRequest" } } } }
+      responses:
+        "201": { description: Driver advance created, content: { application/json: { schema: { $ref: "#/components/schemas/DriverAdvanceResponse" } } } }
+
+  /driver-advances/{advanceId}:
+    parameters:
+      - name: advanceId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [DriverAdvances]
+      operationId: getDriverAdvanceById
+      summary: Get driver advance
+      responses:
+        "200": { description: Driver advance, content: { application/json: { schema: { $ref: "#/components/schemas/DriverAdvanceResponse" } } } }
+
+  /driver-advances/{advanceId}/issue:
+    parameters:
+      - name: advanceId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverAdvances]
+      operationId: issueDriverAdvance
+      summary: Issue driver advance
+      responses:
+        "200": { description: Driver advance issued, content: { application/json: { schema: { $ref: "#/components/schemas/DriverAdvanceResponse" } } } }
+
+  /driver-advances/{advanceId}/cancel:
+    parameters:
+      - name: advanceId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverAdvances]
+      operationId: cancelDriverAdvance
+      summary: Cancel driver advance
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CancelDriverAdvanceRequest" } } } }
+      responses:
+        "200": { description: Driver advance cancelled, content: { application/json: { schema: { $ref: "#/components/schemas/DriverAdvanceResponse" } } } }
+
+  /driver-settlements:
+    get:
+      tags: [DriverSettlements]
+      operationId: getDriverSettlements
+      summary: List driver settlements
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/DriverSettlementStatus" }
+        - name: masterTripId
+          in: query
+          schema: { type: integer }
+        - name: driverId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Driver settlements, content: { application/json: { schema: { $ref: "#/components/schemas/DriverSettlementsListResponse" } } } }
+    post:
+      tags: [DriverSettlements]
+      operationId: createDriverSettlement
+      summary: Create driver settlement for a master trip
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateDriverSettlementRequest" } } } }
+      responses:
+        "201": { description: Driver settlement created, content: { application/json: { schema: { $ref: "#/components/schemas/DriverSettlementResponse" } } } }
+
+  /driver-settlements/{settlementId}:
+    parameters:
+      - name: settlementId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [DriverSettlements]
+      operationId: getDriverSettlementById
+      summary: Get driver settlement
+      responses:
+        "200": { description: Driver settlement, content: { application/json: { schema: { $ref: "#/components/schemas/DriverSettlementResponse" } } } }
+
+  /driver-settlements/{settlementId}/finalize:
+    parameters:
+      - name: settlementId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverSettlements]
+      operationId: finalizeDriverSettlement
+      summary: Finalize driver settlement totals
+      responses:
+        "200": { description: Driver settlement finalized, content: { application/json: { schema: { $ref: "#/components/schemas/DriverSettlementResponse" } } } }
+
+  /driver-settlements/{settlementId}/mark-paid:
+    parameters:
+      - name: settlementId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverSettlements]
+      operationId: markDriverSettlementPaid
+      summary: Mark driver settlement paid
+      responses:
+        "200": { description: Driver settlement paid, content: { application/json: { schema: { $ref: "#/components/schemas/DriverSettlementResponse" } } } }
+
+  /driver-settlements/{settlementId}/cancel:
+    parameters:
+      - name: settlementId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverSettlements]
+      operationId: cancelDriverSettlement
+      summary: Cancel driver settlement
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CancelDriverSettlementRequest" } } } }
+      responses:
+        "200": { description: Driver settlement cancelled, content: { application/json: { schema: { $ref: "#/components/schemas/DriverSettlementResponse" } } } }
+
+  /driver-settlements/expenses/list:
+    get:
+      tags: [DriverSettlements]
+      operationId: getDriverExpenses
+      summary: List driver expenses
+      parameters:
+        - name: masterTripId
+          in: query
+          schema: { type: integer }
+        - name: driverId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Driver expenses, content: { application/json: { schema: { $ref: "#/components/schemas/DriverExpensesListResponse" } } } }
+
+  /driver-settlements/expenses:
+    post:
+      tags: [DriverSettlements]
+      operationId: createDriverExpense
+      summary: Submit driver expense
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateDriverExpenseRequest" } } } }
+      responses:
+        "201": { description: Driver expense submitted, content: { application/json: { schema: { $ref: "#/components/schemas/DriverExpenseResponse" } } } }
+
+  /driver-settlements/expenses/{expenseId}/approve:
+    parameters:
+      - name: expenseId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverSettlements]
+      operationId: approveDriverExpense
+      summary: Approve driver expense
+      responses:
+        "200": { description: Driver expense approved, content: { application/json: { schema: { $ref: "#/components/schemas/DriverExpenseResponse" } } } }
+
+  /driver-settlements/expenses/{expenseId}/reject:
+    parameters:
+      - name: expenseId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [DriverSettlements]
+      operationId: rejectDriverExpense
+      summary: Reject driver expense
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CancelDriverSettlementRequest" } } } }
+      responses:
+        "200": { description: Driver expense rejected, content: { application/json: { schema: { $ref: "#/components/schemas/DriverExpenseResponse" } } } }
 
 components:
   securitySchemes:
@@ -3141,6 +3347,171 @@ components:
       type: object
       required: [data, message]
       properties: { data: { type: array, items: { $ref: "#/components/schemas/TripEvent" } }, message: { type: string } }
+
+
+    DriverAdvanceStatus:
+      type: string
+      enum: [draft, issued, settled, cancelled]
+    DriverExpenseStatus:
+      type: string
+      enum: [submitted, approved, rejected]
+    DriverSettlementStatus:
+      type: string
+      enum: [open, under_review, settled, cancelled]
+
+    CreateDriverAdvanceRequest:
+      type: object
+      required: [masterTripId, amount]
+      properties:
+        masterTripId: { type: integer }
+        amount: { type: number }
+        advanceType:
+          type: string
+          enum: [cash_trip_expense, toll_tax, loading_unloading, repair_emergency, other]
+          nullable: true
+        paymentMethod:
+          type: string
+          enum: [cash, bank_transfer, mobile_wallet, cheque]
+          nullable: true
+        reason: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+
+    DriverAdvance:
+      type: object
+      required: [id, advanceNumber, masterTrip, driver, advanceType, amount, paymentMethod, reason, issuedAt, status, cancelledReason, createdByUserId, issuedByUserId, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        advanceNumber: { type: string }
+        masterTrip:
+          type: object
+          required: [id, tripNumber]
+          properties: { id: { type: integer }, tripNumber: { type: string } }
+        driver:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        advanceType: { type: string }
+        amount: { type: string }
+        paymentMethod: { type: string }
+        reason: { type: string, nullable: true }
+        issuedAt: { type: string, format: date-time, nullable: true }
+        status: { $ref: "#/components/schemas/DriverAdvanceStatus" }
+        cancelledReason: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+        issuedByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CancelDriverAdvanceRequest:
+      type: object
+      required: [reason]
+      properties:
+        reason: { type: string }
+
+    DriverAdvanceResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/DriverAdvance" }, message: { type: string } }
+    DriverAdvancesListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/DriverAdvance" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    CreateDriverExpenseRequest:
+      type: object
+      required: [masterTripId, amount]
+      properties:
+        masterTripId: { type: integer }
+        amount: { type: number }
+        expenseType:
+          type: string
+          enum: [toll_tax, loading_unloading, repair_emergency, parking, other]
+          nullable: true
+        description: { type: string, nullable: true }
+        incurredAt: { type: string, format: date, nullable: true }
+
+    DriverExpense:
+      type: object
+      required: [id, masterTrip, driver, expenseType, amount, description, incurredAt, status, approvedByUserId, approvedAt, rejectReason, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        masterTrip:
+          type: object
+          required: [id, tripNumber]
+          properties: { id: { type: integer }, tripNumber: { type: string } }
+        driver:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        expenseType: { type: string }
+        amount: { type: string }
+        description: { type: string, nullable: true }
+        incurredAt: { type: string, format: date }
+        status: { $ref: "#/components/schemas/DriverExpenseStatus" }
+        approvedByUserId: { type: integer, nullable: true }
+        approvedAt: { type: string, format: date-time, nullable: true }
+        rejectReason: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    DriverExpenseResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/DriverExpense" }, message: { type: string } }
+    DriverExpensesListResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/DriverExpense" } }, message: { type: string } }
+
+    CreateDriverSettlementRequest:
+      type: object
+      required: [masterTripId]
+      properties:
+        masterTripId: { type: integer }
+        createdByUserId: { type: integer, nullable: true }
+
+    DriverSettlement:
+      type: object
+      required: [id, settlementNumber, masterTrip, driver, totalAdvanceAmount, totalApprovedExpenseAmount, payableToDriverAmount, recoverableFromDriverAmount, status, finalizedAt, paidAt, cancelledReason, createdByUserId, finalizedByUserId, paidByUserId, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        settlementNumber: { type: string }
+        masterTrip:
+          type: object
+          required: [id, tripNumber]
+          properties: { id: { type: integer }, tripNumber: { type: string } }
+        driver:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        totalAdvanceAmount: { type: string }
+        totalApprovedExpenseAmount: { type: string }
+        payableToDriverAmount: { type: string }
+        recoverableFromDriverAmount: { type: string }
+        status: { $ref: "#/components/schemas/DriverSettlementStatus" }
+        finalizedAt: { type: string, format: date-time, nullable: true }
+        paidAt: { type: string, format: date-time, nullable: true }
+        cancelledReason: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+        finalizedByUserId: { type: integer, nullable: true }
+        paidByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CancelDriverSettlementRequest:
+      type: object
+      required: [reason]
+      properties:
+        reason: { type: string }
+
+    DriverSettlementResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/DriverSettlement" }, message: { type: string } }
+    DriverSettlementsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/DriverSettlement" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
 
 security:
   - bearerAuth: []

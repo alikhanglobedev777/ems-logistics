@@ -20,5 +20,7 @@ export * from "./generated/contracts/contracts";
 export * from "./generated/contract-rates/contract-rates";
 export * from "./generated/bookings/bookings";
 export * from "./generated/trips/trips";
+export * from "./generated/driver-advances/driver-advances";
+export * from "./generated/driver-settlements/driver-settlements";
 export * from "./generated/models";
 export * from "./http-client";

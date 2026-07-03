@@ -149,3 +149,23 @@ export type AssignBookingToTripLegRequest = Schemas['AssignBookingToTripLegReque
 export type EmergencyTripOverrideRequest = Schemas['EmergencyTripOverrideRequest'];
 export type TripEvent = Schemas['TripEvent'];
 export type TripTimelineResponse = Schemas['TripTimelineResponse'];
+
+export type DriverAdvanceStatus = Schemas['DriverAdvanceStatus'];
+export type DriverAdvance = Schemas['DriverAdvance'];
+export type CreateDriverAdvanceRequest = Schemas['CreateDriverAdvanceRequest'];
+export type DriverAdvanceResponse = Schemas['DriverAdvanceResponse'];
+export type DriverAdvancesListResponse = Schemas['DriverAdvancesListResponse'];
+export type CancelDriverAdvanceRequest = Schemas['CancelDriverAdvanceRequest'];
+
+export type DriverExpenseStatus = Schemas['DriverExpenseStatus'];
+export type DriverExpense = Schemas['DriverExpense'];
+export type CreateDriverExpenseRequest = Schemas['CreateDriverExpenseRequest'];
+export type DriverExpenseResponse = Schemas['DriverExpenseResponse'];
+export type DriverExpensesListResponse = Schemas['DriverExpensesListResponse'];
+
+export type DriverSettlementStatus = Schemas['DriverSettlementStatus'];
+export type DriverSettlement = Schemas['DriverSettlement'];
+export type CreateDriverSettlementRequest = Schemas['CreateDriverSettlementRequest'];
+export type DriverSettlementResponse = Schemas['DriverSettlementResponse'];
+export type DriverSettlementsListResponse = Schemas['DriverSettlementsListResponse'];
+export type CancelDriverSettlementRequest = Schemas['CancelDriverSettlementRequest'];

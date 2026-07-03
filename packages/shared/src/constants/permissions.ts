@@ -57,7 +57,16 @@ export const Permission = {
   FUEL_VIEW: 'fuel.view',
 
   DRIVER_ADVANCE_CREATE: 'driver_advance.create',
-  DRIVER_SETTLE: 'driver.settle',
+  DRIVER_ADVANCE_ISSUE: 'driver_advance.issue',
+  DRIVER_ADVANCE_CANCEL: 'driver_advance.cancel',
+  DRIVER_ADVANCE_VIEW: 'driver_advance.view',
+  DRIVER_SETTLEMENT_CREATE: 'driver_settlement.create',
+  DRIVER_SETTLEMENT_FINALIZE: 'driver_settlement.finalize',
+  DRIVER_SETTLEMENT_MARK_PAID: 'driver_settlement.mark_paid',
+  DRIVER_SETTLEMENT_CANCEL: 'driver_settlement.cancel',
+  DRIVER_SETTLEMENT_VIEW: 'driver_settlement.view',
+  DRIVER_EXPENSE_CREATE: 'driver_expense.create',
+  DRIVER_EXPENSE_APPROVE: 'driver_expense.approve',
 
   INVOICE_CREATE: 'invoice.create',
   PAYMENT_RECEIVE: 'payment.receive',

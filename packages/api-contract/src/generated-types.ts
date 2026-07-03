@@ -1146,6 +1146,250 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/driver-advances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List driver advances */
+        get: operations["getDriverAdvances"];
+        put?: never;
+        /**
+         * Create driver advance
+         * @description Driver advances exclude fuel because fuel is handled as vendor payable.
+         */
+        post: operations["createDriverAdvance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-advances/{advanceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                advanceId: number;
+            };
+            cookie?: never;
+        };
+        /** Get driver advance */
+        get: operations["getDriverAdvanceById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-advances/{advanceId}/issue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                advanceId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Issue driver advance */
+        post: operations["issueDriverAdvance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-advances/{advanceId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                advanceId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel driver advance */
+        post: operations["cancelDriverAdvance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List driver settlements */
+        get: operations["getDriverSettlements"];
+        put?: never;
+        /** Create driver settlement for a master trip */
+        post: operations["createDriverSettlement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/{settlementId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        /** Get driver settlement */
+        get: operations["getDriverSettlementById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/{settlementId}/finalize": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Finalize driver settlement totals */
+        post: operations["finalizeDriverSettlement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/{settlementId}/mark-paid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Mark driver settlement paid */
+        post: operations["markDriverSettlementPaid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/{settlementId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel driver settlement */
+        post: operations["cancelDriverSettlement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/expenses/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List driver expenses */
+        get: operations["getDriverExpenses"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/expenses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Submit driver expense */
+        post: operations["createDriverExpense"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/expenses/{expenseId}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                expenseId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve driver expense */
+        post: operations["approveDriverExpense"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/driver-settlements/expenses/{expenseId}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                expenseId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reject driver expense */
+        post: operations["rejectDriverExpense"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2244,6 +2488,145 @@ export interface components {
         TripTimelineResponse: {
             data: components["schemas"]["TripEvent"][];
             message: string;
+        };
+        /** @enum {string} */
+        DriverAdvanceStatus: "draft" | "issued" | "settled" | "cancelled";
+        /** @enum {string} */
+        DriverExpenseStatus: "submitted" | "approved" | "rejected";
+        /** @enum {string} */
+        DriverSettlementStatus: "open" | "under_review" | "settled" | "cancelled";
+        CreateDriverAdvanceRequest: {
+            masterTripId: number;
+            amount: number;
+            /** @enum {string|null} */
+            advanceType?: "cash_trip_expense" | "toll_tax" | "loading_unloading" | "repair_emergency" | "other" | null;
+            /** @enum {string|null} */
+            paymentMethod?: "cash" | "bank_transfer" | "mobile_wallet" | "cheque" | null;
+            reason?: string | null;
+            createdByUserId?: number | null;
+        };
+        DriverAdvance: {
+            id: number;
+            advanceNumber: string;
+            masterTrip: {
+                id: number;
+                tripNumber: string;
+            };
+            driver: {
+                id: number;
+                name: string;
+            };
+            advanceType: string;
+            amount: string;
+            paymentMethod: string;
+            reason: string | null;
+            /** Format: date-time */
+            issuedAt: string | null;
+            status: components["schemas"]["DriverAdvanceStatus"];
+            cancelledReason: string | null;
+            createdByUserId: number | null;
+            issuedByUserId: number | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CancelDriverAdvanceRequest: {
+            reason: string;
+        };
+        DriverAdvanceResponse: {
+            data: components["schemas"]["DriverAdvance"];
+            message: string;
+        };
+        DriverAdvancesListResponse: {
+            data: components["schemas"]["DriverAdvance"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        CreateDriverExpenseRequest: {
+            masterTripId: number;
+            amount: number;
+            /** @enum {string|null} */
+            expenseType?: "toll_tax" | "loading_unloading" | "repair_emergency" | "parking" | "other" | null;
+            description?: string | null;
+            /** Format: date */
+            incurredAt?: string | null;
+        };
+        DriverExpense: {
+            id: number;
+            masterTrip: {
+                id: number;
+                tripNumber: string;
+            };
+            driver: {
+                id: number;
+                name: string;
+            };
+            expenseType: string;
+            amount: string;
+            description: string | null;
+            /** Format: date */
+            incurredAt: string;
+            status: components["schemas"]["DriverExpenseStatus"];
+            approvedByUserId: number | null;
+            /** Format: date-time */
+            approvedAt: string | null;
+            rejectReason: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DriverExpenseResponse: {
+            data: components["schemas"]["DriverExpense"];
+            message: string;
+        };
+        DriverExpensesListResponse: {
+            data: components["schemas"]["DriverExpense"][];
+            message: string;
+        };
+        CreateDriverSettlementRequest: {
+            masterTripId: number;
+            createdByUserId?: number | null;
+        };
+        DriverSettlement: {
+            id: number;
+            settlementNumber: string;
+            masterTrip: {
+                id: number;
+                tripNumber: string;
+            };
+            driver: {
+                id: number;
+                name: string;
+            };
+            totalAdvanceAmount: string;
+            totalApprovedExpenseAmount: string;
+            payableToDriverAmount: string;
+            recoverableFromDriverAmount: string;
+            status: components["schemas"]["DriverSettlementStatus"];
+            /** Format: date-time */
+            finalizedAt: string | null;
+            /** Format: date-time */
+            paidAt: string | null;
+            cancelledReason: string | null;
+            createdByUserId: number | null;
+            finalizedByUserId: number | null;
+            paidByUserId: number | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CancelDriverSettlementRequest: {
+            reason: string;
+        };
+        DriverSettlementResponse: {
+            data: components["schemas"]["DriverSettlement"];
+            message: string;
+        };
+        DriverSettlementsListResponse: {
+            data: components["schemas"]["DriverSettlement"][];
+            pagination: components["schemas"]["Pagination"];
         };
     };
     responses: never;
@@ -5393,6 +5776,365 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TripLegResponse"];
+                };
+            };
+        };
+    };
+    getDriverAdvances: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                status?: components["schemas"]["DriverAdvanceStatus"];
+                masterTripId?: number;
+                driverId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver advances */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverAdvancesListResponse"];
+                };
+            };
+        };
+    };
+    createDriverAdvance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDriverAdvanceRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver advance created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverAdvanceResponse"];
+                };
+            };
+        };
+    };
+    getDriverAdvanceById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                advanceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver advance */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverAdvanceResponse"];
+                };
+            };
+        };
+    };
+    issueDriverAdvance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                advanceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver advance issued */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverAdvanceResponse"];
+                };
+            };
+        };
+    };
+    cancelDriverAdvance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                advanceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CancelDriverAdvanceRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver advance cancelled */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverAdvanceResponse"];
+                };
+            };
+        };
+    };
+    getDriverSettlements: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                status?: components["schemas"]["DriverSettlementStatus"];
+                masterTripId?: number;
+                driverId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver settlements */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverSettlementsListResponse"];
+                };
+            };
+        };
+    };
+    createDriverSettlement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDriverSettlementRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver settlement created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverSettlementResponse"];
+                };
+            };
+        };
+    };
+    getDriverSettlementById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver settlement */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverSettlementResponse"];
+                };
+            };
+        };
+    };
+    finalizeDriverSettlement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver settlement finalized */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverSettlementResponse"];
+                };
+            };
+        };
+    };
+    markDriverSettlementPaid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver settlement paid */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverSettlementResponse"];
+                };
+            };
+        };
+    };
+    cancelDriverSettlement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                settlementId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CancelDriverSettlementRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver settlement cancelled */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverSettlementResponse"];
+                };
+            };
+        };
+    };
+    getDriverExpenses: {
+        parameters: {
+            query?: {
+                masterTripId?: number;
+                driverId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver expenses */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverExpensesListResponse"];
+                };
+            };
+        };
+    };
+    createDriverExpense: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDriverExpenseRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver expense submitted */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverExpenseResponse"];
+                };
+            };
+        };
+    };
+    approveDriverExpense: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                expenseId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Driver expense approved */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverExpenseResponse"];
+                };
+            };
+        };
+    };
+    rejectDriverExpense: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                expenseId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CancelDriverSettlementRequest"];
+            };
+        };
+        responses: {
+            /** @description Driver expense rejected */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DriverExpenseResponse"];
                 };
             };
         };

@@ -76,6 +76,24 @@ export const FuelSlipStatus = {
 
 export type FuelSlipStatus = (typeof FuelSlipStatus)[keyof typeof FuelSlipStatus];
 
+
+export const DriverAdvanceStatus = {
+  DRAFT: 'draft',
+  ISSUED: 'issued',
+  SETTLED: 'settled',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type DriverAdvanceStatus = (typeof DriverAdvanceStatus)[keyof typeof DriverAdvanceStatus];
+
+export const DriverExpenseStatus = {
+  SUBMITTED: 'submitted',
+  APPROVED: 'approved',
+  REJECTED: 'rejected',
+} as const;
+
+export type DriverExpenseStatus = (typeof DriverExpenseStatus)[keyof typeof DriverExpenseStatus];
+
 export const DriverSettlementStatus = {
   OPEN: 'open',
   UNDER_REVIEW: 'under_review',

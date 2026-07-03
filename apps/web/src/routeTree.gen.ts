@@ -17,6 +17,8 @@ import { Route as RouteOverheadProfilesRouteImport } from './routes/route-overhe
 import { Route as RouteFuelProfilesRouteImport } from './routes/route-fuel-profiles'
 import { Route as FuelPricesRouteImport } from './routes/fuel-prices'
 import { Route as DriversRouteImport } from './routes/drivers'
+import { Route as DriverSettlementsRouteImport } from './routes/driver-settlements'
+import { Route as DriverAdvancesRouteImport } from './routes/driver-advances'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as ContractsRouteImport } from './routes/contracts'
 import { Route as ContractRatesRouteImport } from './routes/contract-rates'
@@ -40,6 +42,10 @@ import { Route as FuelPricesNewRouteImport } from './routes/fuel-prices.new'
 import { Route as FuelPricesIdRouteImport } from './routes/fuel-prices.$id'
 import { Route as DriversNewRouteImport } from './routes/drivers.new'
 import { Route as DriversIdRouteImport } from './routes/drivers.$id'
+import { Route as DriverSettlementsNewRouteImport } from './routes/driver-settlements.new'
+import { Route as DriverSettlementsIdRouteImport } from './routes/driver-settlements.$id'
+import { Route as DriverAdvancesNewRouteImport } from './routes/driver-advances.new'
+import { Route as DriverAdvancesIdRouteImport } from './routes/driver-advances.$id'
 import { Route as CustomersNewRouteImport } from './routes/customers.new'
 import { Route as CustomersIdRouteImport } from './routes/customers.$id'
 import { Route as ContractsNewRouteImport } from './routes/contracts.new'
@@ -58,6 +64,8 @@ import { Route as RouteOverheadProfilesIdEditRouteImport } from './routes/route-
 import { Route as RouteFuelProfilesIdEditRouteImport } from './routes/route-fuel-profiles.$id.edit'
 import { Route as FuelPricesIdEditRouteImport } from './routes/fuel-prices.$id.edit'
 import { Route as DriversIdEditRouteImport } from './routes/drivers.$id.edit'
+import { Route as DriverSettlementsIdEditRouteImport } from './routes/driver-settlements.$id.edit'
+import { Route as DriverAdvancesIdEditRouteImport } from './routes/driver-advances.$id.edit'
 import { Route as CustomersIdEditRouteImport } from './routes/customers.$id.edit'
 import { Route as ContractsIdEditRouteImport } from './routes/contracts.$id.edit'
 import { Route as ContractRatesIdEditRouteImport } from './routes/contract-rates.$id.edit'
@@ -102,6 +110,16 @@ const FuelPricesRoute = FuelPricesRouteImport.update({
 const DriversRoute = DriversRouteImport.update({
   id: '/drivers',
   path: '/drivers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverSettlementsRoute = DriverSettlementsRouteImport.update({
+  id: '/driver-settlements',
+  path: '/driver-settlements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverAdvancesRoute = DriverAdvancesRouteImport.update({
+  id: '/driver-advances',
+  path: '/driver-advances',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CustomersRoute = CustomersRouteImport.update({
@@ -220,6 +238,26 @@ const DriversIdRoute = DriversIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => DriversRoute,
 } as any)
+const DriverSettlementsNewRoute = DriverSettlementsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => DriverSettlementsRoute,
+} as any)
+const DriverSettlementsIdRoute = DriverSettlementsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => DriverSettlementsRoute,
+} as any)
+const DriverAdvancesNewRoute = DriverAdvancesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => DriverAdvancesRoute,
+} as any)
+const DriverAdvancesIdRoute = DriverAdvancesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => DriverAdvancesRoute,
+} as any)
 const CustomersNewRoute = CustomersNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -311,6 +349,16 @@ const DriversIdEditRoute = DriversIdEditRouteImport.update({
   path: '/edit',
   getParentRoute: () => DriversIdRoute,
 } as any)
+const DriverSettlementsIdEditRoute = DriverSettlementsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => DriverSettlementsIdRoute,
+} as any)
+const DriverAdvancesIdEditRoute = DriverAdvancesIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => DriverAdvancesIdRoute,
+} as any)
 const CustomersIdEditRoute = CustomersIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -344,6 +392,8 @@ export interface FileRoutesByFullPath {
   '/contract-rates': typeof ContractRatesRouteWithChildren
   '/contracts': typeof ContractsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
+  '/driver-advances': typeof DriverAdvancesRouteWithChildren
+  '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
@@ -362,6 +412,10 @@ export interface FileRoutesByFullPath {
   '/contracts/new': typeof ContractsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
+  '/driver-advances/$id': typeof DriverAdvancesIdRouteWithChildren
+  '/driver-advances/new': typeof DriverAdvancesNewRoute
+  '/driver-settlements/$id': typeof DriverSettlementsIdRouteWithChildren
+  '/driver-settlements/new': typeof DriverSettlementsNewRoute
   '/drivers/$id': typeof DriversIdRouteWithChildren
   '/drivers/new': typeof DriversNewRoute
   '/fuel-prices/$id': typeof FuelPricesIdRouteWithChildren
@@ -384,6 +438,8 @@ export interface FileRoutesByFullPath {
   '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
   '/contracts/$id/edit': typeof ContractsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
+  '/driver-advances/$id/edit': typeof DriverAdvancesIdEditRoute
+  '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
@@ -400,6 +456,8 @@ export interface FileRoutesByTo {
   '/contract-rates': typeof ContractRatesRouteWithChildren
   '/contracts': typeof ContractsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
+  '/driver-advances': typeof DriverAdvancesRouteWithChildren
+  '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
@@ -418,6 +476,10 @@ export interface FileRoutesByTo {
   '/contracts/new': typeof ContractsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
+  '/driver-advances/$id': typeof DriverAdvancesIdRouteWithChildren
+  '/driver-advances/new': typeof DriverAdvancesNewRoute
+  '/driver-settlements/$id': typeof DriverSettlementsIdRouteWithChildren
+  '/driver-settlements/new': typeof DriverSettlementsNewRoute
   '/drivers/$id': typeof DriversIdRouteWithChildren
   '/drivers/new': typeof DriversNewRoute
   '/fuel-prices/$id': typeof FuelPricesIdRouteWithChildren
@@ -440,6 +502,8 @@ export interface FileRoutesByTo {
   '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
   '/contracts/$id/edit': typeof ContractsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
+  '/driver-advances/$id/edit': typeof DriverAdvancesIdEditRoute
+  '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
@@ -457,6 +521,8 @@ export interface FileRoutesById {
   '/contract-rates': typeof ContractRatesRouteWithChildren
   '/contracts': typeof ContractsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
+  '/driver-advances': typeof DriverAdvancesRouteWithChildren
+  '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
@@ -475,6 +541,10 @@ export interface FileRoutesById {
   '/contracts/new': typeof ContractsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
+  '/driver-advances/$id': typeof DriverAdvancesIdRouteWithChildren
+  '/driver-advances/new': typeof DriverAdvancesNewRoute
+  '/driver-settlements/$id': typeof DriverSettlementsIdRouteWithChildren
+  '/driver-settlements/new': typeof DriverSettlementsNewRoute
   '/drivers/$id': typeof DriversIdRouteWithChildren
   '/drivers/new': typeof DriversNewRoute
   '/fuel-prices/$id': typeof FuelPricesIdRouteWithChildren
@@ -497,6 +567,8 @@ export interface FileRoutesById {
   '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
   '/contracts/$id/edit': typeof ContractsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
+  '/driver-advances/$id/edit': typeof DriverAdvancesIdEditRoute
+  '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
@@ -515,6 +587,8 @@ export interface FileRouteTypes {
     | '/contract-rates'
     | '/contracts'
     | '/customers'
+    | '/driver-advances'
+    | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
     | '/route-fuel-profiles'
@@ -533,6 +607,10 @@ export interface FileRouteTypes {
     | '/contracts/new'
     | '/customers/$id'
     | '/customers/new'
+    | '/driver-advances/$id'
+    | '/driver-advances/new'
+    | '/driver-settlements/$id'
+    | '/driver-settlements/new'
     | '/drivers/$id'
     | '/drivers/new'
     | '/fuel-prices/$id'
@@ -555,6 +633,8 @@ export interface FileRouteTypes {
     | '/contract-rates/$id/edit'
     | '/contracts/$id/edit'
     | '/customers/$id/edit'
+    | '/driver-advances/$id/edit'
+    | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/route-fuel-profiles/$id/edit'
@@ -571,6 +651,8 @@ export interface FileRouteTypes {
     | '/contract-rates'
     | '/contracts'
     | '/customers'
+    | '/driver-advances'
+    | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
     | '/route-fuel-profiles'
@@ -589,6 +671,10 @@ export interface FileRouteTypes {
     | '/contracts/new'
     | '/customers/$id'
     | '/customers/new'
+    | '/driver-advances/$id'
+    | '/driver-advances/new'
+    | '/driver-settlements/$id'
+    | '/driver-settlements/new'
     | '/drivers/$id'
     | '/drivers/new'
     | '/fuel-prices/$id'
@@ -611,6 +697,8 @@ export interface FileRouteTypes {
     | '/contract-rates/$id/edit'
     | '/contracts/$id/edit'
     | '/customers/$id/edit'
+    | '/driver-advances/$id/edit'
+    | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/route-fuel-profiles/$id/edit'
@@ -627,6 +715,8 @@ export interface FileRouteTypes {
     | '/contract-rates'
     | '/contracts'
     | '/customers'
+    | '/driver-advances'
+    | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
     | '/route-fuel-profiles'
@@ -645,6 +735,10 @@ export interface FileRouteTypes {
     | '/contracts/new'
     | '/customers/$id'
     | '/customers/new'
+    | '/driver-advances/$id'
+    | '/driver-advances/new'
+    | '/driver-settlements/$id'
+    | '/driver-settlements/new'
     | '/drivers/$id'
     | '/drivers/new'
     | '/fuel-prices/$id'
@@ -667,6 +761,8 @@ export interface FileRouteTypes {
     | '/contract-rates/$id/edit'
     | '/contracts/$id/edit'
     | '/customers/$id/edit'
+    | '/driver-advances/$id/edit'
+    | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/route-fuel-profiles/$id/edit'
@@ -684,6 +780,8 @@ export interface RootRouteChildren {
   ContractRatesRoute: typeof ContractRatesRouteWithChildren
   ContractsRoute: typeof ContractsRouteWithChildren
   CustomersRoute: typeof CustomersRouteWithChildren
+  DriverAdvancesRoute: typeof DriverAdvancesRouteWithChildren
+  DriverSettlementsRoute: typeof DriverSettlementsRouteWithChildren
   DriversRoute: typeof DriversRouteWithChildren
   FuelPricesRoute: typeof FuelPricesRouteWithChildren
   RouteFuelProfilesRoute: typeof RouteFuelProfilesRouteWithChildren
@@ -751,6 +849,20 @@ declare module '@tanstack/react-router' {
       path: '/drivers'
       fullPath: '/drivers'
       preLoaderRoute: typeof DriversRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver-settlements': {
+      id: '/driver-settlements'
+      path: '/driver-settlements'
+      fullPath: '/driver-settlements'
+      preLoaderRoute: typeof DriverSettlementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver-advances': {
+      id: '/driver-advances'
+      path: '/driver-advances'
+      fullPath: '/driver-advances'
+      preLoaderRoute: typeof DriverAdvancesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/customers': {
@@ -914,6 +1026,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DriversIdRouteImport
       parentRoute: typeof DriversRoute
     }
+    '/driver-settlements/new': {
+      id: '/driver-settlements/new'
+      path: '/new'
+      fullPath: '/driver-settlements/new'
+      preLoaderRoute: typeof DriverSettlementsNewRouteImport
+      parentRoute: typeof DriverSettlementsRoute
+    }
+    '/driver-settlements/$id': {
+      id: '/driver-settlements/$id'
+      path: '/$id'
+      fullPath: '/driver-settlements/$id'
+      preLoaderRoute: typeof DriverSettlementsIdRouteImport
+      parentRoute: typeof DriverSettlementsRoute
+    }
+    '/driver-advances/new': {
+      id: '/driver-advances/new'
+      path: '/new'
+      fullPath: '/driver-advances/new'
+      preLoaderRoute: typeof DriverAdvancesNewRouteImport
+      parentRoute: typeof DriverAdvancesRoute
+    }
+    '/driver-advances/$id': {
+      id: '/driver-advances/$id'
+      path: '/$id'
+      fullPath: '/driver-advances/$id'
+      preLoaderRoute: typeof DriverAdvancesIdRouteImport
+      parentRoute: typeof DriverAdvancesRoute
+    }
     '/customers/new': {
       id: '/customers/new'
       path: '/new'
@@ -1039,6 +1179,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/drivers/$id/edit'
       preLoaderRoute: typeof DriversIdEditRouteImport
       parentRoute: typeof DriversIdRoute
+    }
+    '/driver-settlements/$id/edit': {
+      id: '/driver-settlements/$id/edit'
+      path: '/edit'
+      fullPath: '/driver-settlements/$id/edit'
+      preLoaderRoute: typeof DriverSettlementsIdEditRouteImport
+      parentRoute: typeof DriverSettlementsIdRoute
+    }
+    '/driver-advances/$id/edit': {
+      id: '/driver-advances/$id/edit'
+      path: '/edit'
+      fullPath: '/driver-advances/$id/edit'
+      preLoaderRoute: typeof DriverAdvancesIdEditRouteImport
+      parentRoute: typeof DriverAdvancesIdRoute
     }
     '/customers/$id/edit': {
       id: '/customers/$id/edit'
@@ -1206,6 +1360,55 @@ const CustomersRouteChildren: CustomersRouteChildren = {
 const CustomersRouteWithChildren = CustomersRoute._addFileChildren(
   CustomersRouteChildren,
 )
+
+interface DriverAdvancesIdRouteChildren {
+  DriverAdvancesIdEditRoute: typeof DriverAdvancesIdEditRoute
+}
+
+const DriverAdvancesIdRouteChildren: DriverAdvancesIdRouteChildren = {
+  DriverAdvancesIdEditRoute: DriverAdvancesIdEditRoute,
+}
+
+const DriverAdvancesIdRouteWithChildren =
+  DriverAdvancesIdRoute._addFileChildren(DriverAdvancesIdRouteChildren)
+
+interface DriverAdvancesRouteChildren {
+  DriverAdvancesIdRoute: typeof DriverAdvancesIdRouteWithChildren
+  DriverAdvancesNewRoute: typeof DriverAdvancesNewRoute
+}
+
+const DriverAdvancesRouteChildren: DriverAdvancesRouteChildren = {
+  DriverAdvancesIdRoute: DriverAdvancesIdRouteWithChildren,
+  DriverAdvancesNewRoute: DriverAdvancesNewRoute,
+}
+
+const DriverAdvancesRouteWithChildren = DriverAdvancesRoute._addFileChildren(
+  DriverAdvancesRouteChildren,
+)
+
+interface DriverSettlementsIdRouteChildren {
+  DriverSettlementsIdEditRoute: typeof DriverSettlementsIdEditRoute
+}
+
+const DriverSettlementsIdRouteChildren: DriverSettlementsIdRouteChildren = {
+  DriverSettlementsIdEditRoute: DriverSettlementsIdEditRoute,
+}
+
+const DriverSettlementsIdRouteWithChildren =
+  DriverSettlementsIdRoute._addFileChildren(DriverSettlementsIdRouteChildren)
+
+interface DriverSettlementsRouteChildren {
+  DriverSettlementsIdRoute: typeof DriverSettlementsIdRouteWithChildren
+  DriverSettlementsNewRoute: typeof DriverSettlementsNewRoute
+}
+
+const DriverSettlementsRouteChildren: DriverSettlementsRouteChildren = {
+  DriverSettlementsIdRoute: DriverSettlementsIdRouteWithChildren,
+  DriverSettlementsNewRoute: DriverSettlementsNewRoute,
+}
+
+const DriverSettlementsRouteWithChildren =
+  DriverSettlementsRoute._addFileChildren(DriverSettlementsRouteChildren)
 
 interface DriversIdRouteChildren {
   DriversIdEditRoute: typeof DriversIdEditRoute
@@ -1418,6 +1621,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContractRatesRoute: ContractRatesRouteWithChildren,
   ContractsRoute: ContractsRouteWithChildren,
   CustomersRoute: CustomersRouteWithChildren,
+  DriverAdvancesRoute: DriverAdvancesRouteWithChildren,
+  DriverSettlementsRoute: DriverSettlementsRouteWithChildren,
   DriversRoute: DriversRouteWithChildren,
   FuelPricesRoute: FuelPricesRouteWithChildren,
   RouteFuelProfilesRoute: RouteFuelProfilesRouteWithChildren,
