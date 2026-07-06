@@ -55,6 +55,10 @@ export const Permission = {
   FUEL_VERIFY_SLIP: 'fuel.verify_slip',
   FUEL_MANAGE_VENDOR: 'fuel.manage_vendor',
   FUEL_VIEW: 'fuel.view',
+  FUEL_VENDOR_INVOICE_CREATE: 'fuel_vendor_invoice.create',
+  FUEL_VENDOR_INVOICE_VIEW: 'fuel_vendor_invoice.view',
+  FUEL_VENDOR_PAYMENT_PAY: 'fuel_vendor_payment.pay',
+  FUEL_VENDOR_PAYMENT_VIEW: 'fuel_vendor_payment.view',
 
   DRIVER_ADVANCE_CREATE: 'driver_advance.create',
   DRIVER_ADVANCE_ISSUE: 'driver_advance.issue',
@@ -70,6 +74,17 @@ export const Permission = {
 
   INVOICE_CREATE: 'invoice.create',
   PAYMENT_RECEIVE: 'payment.receive',
+
+  DELIVERY_PROOF_CREATE: 'delivery_proof.create',
+  DELIVERY_PROOF_VIEW: 'delivery_proof.view',
+  CUSTOMER_INVOICE_CREATE: 'customer_invoice.create',
+  CUSTOMER_INVOICE_VIEW: 'customer_invoice.view',
+  CUSTOMER_PAYMENT_RECEIVE: 'customer_payment.receive',
+  CUSTOMER_PAYMENT_VIEW: 'customer_payment.view',
+  AGENT_COMMISSION_CREATE: 'agent_commission.create',
+  AGENT_COMMISSION_APPROVE: 'agent_commission.approve',
+  AGENT_COMMISSION_PAY: 'agent_commission.pay',
+  AGENT_COMMISSION_VIEW: 'agent_commission.view',
 
   REPORT_VIEW: 'report.view',
   REPORT_VIEW_PROFIT: 'report.view_profit',

@@ -1,11 +1,15 @@
 import { FuelType } from '@ems/shared';
 import { useState } from 'react';
+import { useGetRoutes } from '../../routes/api/routes.api';
+import { useGetVehicleTypes } from '../../vehicle-types/api/vehicle-types.api';
 import { useGetRoutePricingEstimate } from '../api/pricing.api';
 
 export function RoutePricingEstimatePage() {
   const [routeId, setRouteId] = useState('');
   const [vehicleTypeId, setVehicleTypeId] = useState('');
   const [fuelType, setFuelType] = useState<FuelType>(FuelType.DIESEL);
+  const routes = useGetRoutes({ page: 1, limit: 200 });
+  const vehicleTypes = useGetVehicleTypes({ page: 1, limit: 200 });
   const enabled = Boolean(routeId && vehicleTypeId);
   const estimate = useGetRoutePricingEstimate(
     { routeId: Number(routeId || 0), vehicleTypeId: Number(vehicleTypeId || 0), fuelType },
@@ -24,12 +28,26 @@ export function RoutePricingEstimatePage() {
 
       <div className="entity-form">
         <label>
-          Route ID
-          <input type="number" value={routeId} onChange={(event) => setRouteId(event.target.value)} />
+          Route
+          <select value={routeId} onChange={(event) => setRouteId(event.target.value)}>
+            <option value="">Select route</option>
+            {(routes.data?.status === 200 ? routes.data.data.data : []).map((route) => (
+              <option key={route.id} value={route.id}>
+                {route.name}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
-          Vehicle type ID
-          <input type="number" value={vehicleTypeId} onChange={(event) => setVehicleTypeId(event.target.value)} />
+          Vehicle type
+          <select value={vehicleTypeId} onChange={(event) => setVehicleTypeId(event.target.value)}>
+            <option value="">Select vehicle type</option>
+            {(vehicleTypes.data?.status === 200 ? vehicleTypes.data.data.data : []).map((vehicleType) => (
+              <option key={vehicleType.id} value={vehicleType.id}>
+                {vehicleType.name}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           Fuel type
@@ -43,7 +61,7 @@ export function RoutePricingEstimatePage() {
         </label>
       </div>
 
-      {!enabled ? <p>Enter route and vehicle type IDs to calculate an internal estimate.</p> : null}
+      {!enabled ? <p>Select a route and vehicle type to calculate an internal estimate.</p> : null}
       {estimate.isLoading ? <p>Loading estimate…</p> : null}
       {estimate.isError ? <p>Estimate unavailable. Check fuel price, route fuel profile, and overhead profile setup.</p> : null}
       {data ? (

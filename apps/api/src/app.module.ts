@@ -29,6 +29,11 @@ import { DriverAdvancesModule } from './modules/driver-advances/driver-advances.
 import { DriverSettlementsModule } from './modules/driver-settlements/driver-settlements.module';
 import { FuelVendorsModule } from './modules/fuel-vendors/fuel-vendors.module';
 import { FuelSlipsModule } from './modules/fuel-slips/fuel-slips.module';
+import { DeliveryProofsModule } from './modules/delivery-proofs/delivery-proofs.module';
+import { CustomerInvoicesModule } from './modules/customer-invoices/customer-invoices.module';
+import { AgentCommissionsModule } from './modules/agent-commissions/agent-commissions.module';
+import { FuelVendorInvoicesModule } from './modules/fuel-vendor-invoices/fuel-vendor-invoices.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 @Module({
   imports: [
@@ -63,6 +68,11 @@ import { FuelSlipsModule } from './modules/fuel-slips/fuel-slips.module';
     DriverSettlementsModule,
     FuelVendorsModule,
     FuelSlipsModule,
+    FuelVendorInvoicesModule,
+    DeliveryProofsModule,
+    CustomerInvoicesModule,
+    AgentCommissionsModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

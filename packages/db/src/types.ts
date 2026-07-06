@@ -26,6 +26,27 @@ export interface Agents {
   updated_at: Generated<Timestamp>;
 }
 
+export interface AgentCommissions {
+  agent_id: number;
+  approved_at: Timestamp | null;
+  approved_by_user_id: number | null;
+  booking_id: number;
+  cancelled_reason: string | null;
+  commission_amount: Numeric;
+  commission_number: string;
+  commission_type: string;
+  commission_value: Numeric | null;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  id: Generated<number>;
+  notes: string | null;
+  paid_at: Timestamp | null;
+  paid_by_user_id: number | null;
+  payable_after: Generated<string>;
+  status: Generated<string>;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface BookingItems {
   booking_id: number;
   created_at: Generated<Timestamp>;
@@ -118,6 +139,41 @@ export interface CustomerContracts {
   start_date: Timestamp;
   status: Generated<string>;
   title: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface CustomerInvoices {
+  balance_amount: Generated<Numeric>;
+  booking_id: number;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  customer_id: number;
+  due_date: Timestamp | null;
+  id: Generated<number>;
+  invoice_date: Generated<Timestamp>;
+  invoice_number: string;
+  issued_at: Timestamp | null;
+  notes: string | null;
+  paid_amount: Generated<Numeric>;
+  status: Generated<string>;
+  subtotal_amount: Generated<Numeric>;
+  tax_amount: Generated<Numeric>;
+  total_amount: Generated<Numeric>;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface CustomerPayments {
+  amount: Numeric;
+  created_at: Generated<Timestamp>;
+  customer_id: number;
+  customer_invoice_id: number;
+  id: Generated<number>;
+  notes: string | null;
+  payment_date: Generated<Timestamp>;
+  payment_method: Generated<string>;
+  payment_number: string;
+  received_by_user_id: number | null;
+  reference_number: string | null;
   updated_at: Generated<Timestamp>;
 }
 
@@ -215,6 +271,24 @@ export interface DriverVehicleAssignments {
   vehicle_id: number;
 }
 
+export interface DeliveryProofs {
+  booking_id: number;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  delivered_at: Generated<Timestamp>;
+  goods_condition: Generated<string>;
+  id: Generated<number>;
+  master_trip_id: number | null;
+  proof_image_urls: Generated<unknown>;
+  proof_number: string;
+  receiver_cnic: string | null;
+  receiver_name: string;
+  receiver_phone: string | null;
+  remarks: string | null;
+  trip_leg_id: number | null;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface FuelPriceSnapshots {
   created_at: Generated<Timestamp>;
   created_by_user_id: number | null;
@@ -261,6 +335,46 @@ export interface FuelVendors {
   ntn: string | null;
   payment_terms_days: Generated<number>;
   phone: string | null;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface FuelVendorInvoices {
+  balance_amount: Generated<Numeric>;
+  created_at: Generated<Timestamp>;
+  created_by_user_id: number | null;
+  due_date: Timestamp | null;
+  fuel_vendor_id: number;
+  id: Generated<number>;
+  invoice_date: Generated<Timestamp>;
+  invoice_number: string;
+  notes: string | null;
+  paid_amount: Generated<Numeric>;
+  status: Generated<string>;
+  total_amount: Generated<Numeric>;
+  updated_at: Generated<Timestamp>;
+  vendor_invoice_number: string | null;
+}
+
+export interface FuelVendorInvoiceItems {
+  amount: Numeric;
+  created_at: Generated<Timestamp>;
+  fuel_slip_id: number;
+  fuel_vendor_invoice_id: number;
+  id: Generated<number>;
+}
+
+export interface FuelVendorPayments {
+  amount: Numeric;
+  created_at: Generated<Timestamp>;
+  fuel_vendor_id: number;
+  fuel_vendor_invoice_id: number;
+  id: Generated<number>;
+  notes: string | null;
+  paid_by_user_id: number | null;
+  payment_date: Generated<Timestamp>;
+  payment_method: Generated<string>;
+  payment_number: string;
+  reference_number: string | null;
   updated_at: Generated<Timestamp>;
 }
 
@@ -445,6 +559,7 @@ export interface VehicleTypes {
 }
 
 export interface DB {
+  agent_commissions: AgentCommissions;
   agents: Agents;
   booking_items: BookingItems;
   booking_pricing_snapshots: BookingPricingSnapshots;
@@ -452,14 +567,20 @@ export interface DB {
   cities: Cities;
   contract_rates: ContractRates;
   customer_contracts: CustomerContracts;
+  customer_invoices: CustomerInvoices;
+  customer_payments: CustomerPayments;
   customers: Customers;
   driver_advances: DriverAdvances;
   driver_expenses: DriverExpenses;
   driver_settlements: DriverSettlements;
+  delivery_proofs: DeliveryProofs;
   driver_vehicle_assignments: DriverVehicleAssignments;
   drivers: Drivers;
   fuel_price_snapshots: FuelPriceSnapshots;
   fuel_slips: FuelSlips;
+  fuel_vendor_invoice_items: FuelVendorInvoiceItems;
+  fuel_vendor_invoices: FuelVendorInvoices;
+  fuel_vendor_payments: FuelVendorPayments;
   fuel_vendors: FuelVendors;
   master_trips: MasterTrips;
   permissions: Permissions;

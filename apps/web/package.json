@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "pnpm routes:generate && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc -b --pretty false",
+    "typecheck": "pnpm routes:generate && tsc -b --pretty false",
     "routes:generate": "tsr generate --routesDirectory ./src/routes --generatedRouteTree ./src/routeTree.gen.ts",
     "boundaries": "node ../../scripts/check-frontend-boundaries.mjs"
   },

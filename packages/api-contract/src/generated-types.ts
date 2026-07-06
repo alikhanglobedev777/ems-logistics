@@ -1506,6 +1506,265 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/delivery-proofs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List delivery proofs / PODs */
+        get: operations["getDeliveryProofs"];
+        put?: never;
+        /** Upload delivery proof and mark booking POD uploaded */
+        post: operations["createDeliveryProof"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/delivery-proofs/{deliveryProofId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get delivery proof */
+        get: operations["getDeliveryProofById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/customer-invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List customer invoices */
+        get: operations["getCustomerInvoices"];
+        put?: never;
+        /** Create customer invoice from POD uploaded booking */
+        post: operations["createCustomerInvoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/customer-invoices/{customerInvoiceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get customer invoice */
+        get: operations["getCustomerInvoiceById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/customer-invoices/{customerInvoiceId}/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Receive customer payment against invoice */
+        post: operations["receiveCustomerPayment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/customer-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List customer payments */
+        get: operations["getCustomerPayments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent-commissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List agent commissions */
+        get: operations["getAgentCommissions"];
+        put?: never;
+        /** Create agent commission from booking */
+        post: operations["createAgentCommission"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent-commissions/{agentCommissionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get agent commission */
+        get: operations["getAgentCommissionById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent-commissions/{agentCommissionId}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve agent commission */
+        post: operations["approveAgentCommission"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent-commissions/{agentCommissionId}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Mark agent commission paid */
+        post: operations["payAgentCommission"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-vendor-invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List fuel vendor invoices */
+        get: operations["getFuelVendorInvoices"];
+        put?: never;
+        /** Create fuel vendor invoice from verified fuel slips */
+        post: operations["createFuelVendorInvoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-vendor-invoices/{fuelVendorInvoiceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get fuel vendor invoice */
+        get: operations["getFuelVendorInvoiceById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-vendor-invoices/{fuelVendorInvoiceId}/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Pay fuel vendor invoice */
+        post: operations["payFuelVendorInvoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-vendor-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List fuel vendor payments */
+        get: operations["getFuelVendorPayments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reports/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get operations and finance dashboard report */
+        get: operations["getReportsDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2859,6 +3118,290 @@ export interface components {
         FuelSlipsListResponse: {
             data: components["schemas"]["FuelSlip"][];
             pagination: components["schemas"]["Pagination"];
+        };
+        /** @enum {string} */
+        DeliveryGoodsCondition: "good" | "damaged" | "partial_damage" | "short_quantity";
+        /** @enum {string} */
+        CustomerInvoiceStatus: "draft" | "issued" | "partially_paid" | "paid" | "cancelled";
+        /** @enum {string} */
+        PaymentMethod: "cash" | "bank_transfer" | "cheque" | "mobile_wallet" | "adjustment";
+        /** @enum {string} */
+        AgentCommissionStatus: "pending" | "approved" | "paid" | "cancelled";
+        /** @enum {string} */
+        FuelVendorInvoiceStatus: "open" | "partially_paid" | "paid" | "cancelled";
+        DeliveryProof: {
+            id?: number;
+            proofNumber?: string;
+            booking?: {
+                id?: number;
+                bookingNumber?: string;
+                customerName?: string;
+            };
+            masterTrip?: {
+                id?: number;
+                tripNumber?: string;
+            } | null;
+            tripLeg?: {
+                id?: number;
+                routeName?: string;
+            } | null;
+            receiverName?: string;
+            receiverPhone?: string | null;
+            receiverCnic?: string | null;
+            goodsCondition?: components["schemas"]["DeliveryGoodsCondition"];
+            remarks?: string | null;
+            proofImageUrls?: string[];
+            /** Format: date-time */
+            deliveredAt?: string;
+            createdByUserId?: number | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        CreateDeliveryProofRequest: {
+            bookingId: number;
+            masterTripId?: number | null;
+            tripLegId?: number | null;
+            receiverName: string;
+            receiverPhone?: string | null;
+            receiverCnic?: string | null;
+            goodsCondition?: components["schemas"]["DeliveryGoodsCondition"];
+            remarks?: string | null;
+            proofImageUrls?: string[];
+            /** Format: date-time */
+            deliveredAt?: string | null;
+            createdByUserId?: number | null;
+        };
+        DeliveryProofResponse: {
+            data?: components["schemas"]["DeliveryProof"];
+            message?: string;
+        };
+        DeliveryProofsListResponse: {
+            data?: components["schemas"]["DeliveryProof"][];
+            pagination?: components["schemas"]["Pagination"];
+        };
+        CustomerInvoice: {
+            id?: number;
+            invoiceNumber?: string;
+            booking?: {
+                id?: number;
+                bookingNumber?: string;
+            };
+            customer?: {
+                id?: number;
+                name?: string;
+            };
+            /** Format: date */
+            invoiceDate?: string;
+            /** Format: date */
+            dueDate?: string | null;
+            subtotalAmount?: string;
+            taxAmount?: string;
+            totalAmount?: string;
+            paidAmount?: string;
+            balanceAmount?: string;
+            status?: components["schemas"]["CustomerInvoiceStatus"];
+            notes?: string | null;
+            /** Format: date-time */
+            issuedAt?: string | null;
+            createdByUserId?: number | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        CreateCustomerInvoiceRequest: {
+            bookingId: number;
+            /** Format: date */
+            invoiceDate?: string | null;
+            /** Format: date */
+            dueDate?: string | null;
+            notes?: string | null;
+            createdByUserId?: number | null;
+        };
+        CustomerInvoiceResponse: {
+            data?: components["schemas"]["CustomerInvoice"];
+            message?: string;
+        };
+        CustomerInvoicesListResponse: {
+            data?: components["schemas"]["CustomerInvoice"][];
+            pagination?: components["schemas"]["Pagination"];
+        };
+        CustomerPayment: {
+            id?: number;
+            paymentNumber?: string;
+            invoice?: {
+                id?: number;
+                invoiceNumber?: string;
+            };
+            customer?: {
+                id?: number;
+                name?: string;
+            };
+            amount?: string;
+            /** Format: date */
+            paymentDate?: string;
+            paymentMethod?: components["schemas"]["PaymentMethod"];
+            referenceNumber?: string | null;
+            notes?: string | null;
+            receivedByUserId?: number | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        ReceiveCustomerPaymentRequest: {
+            amount: number;
+            /** Format: date */
+            paymentDate?: string | null;
+            paymentMethod?: components["schemas"]["PaymentMethod"];
+            referenceNumber?: string | null;
+            notes?: string | null;
+            receivedByUserId?: number | null;
+        };
+        CustomerPaymentResponse: {
+            data?: components["schemas"]["CustomerPayment"];
+            message?: string;
+        };
+        CustomerPaymentsListResponse: {
+            data?: components["schemas"]["CustomerPayment"][];
+            pagination?: components["schemas"]["Pagination"];
+        };
+        AgentCommission: {
+            id?: number;
+            commissionNumber?: string;
+            booking?: {
+                id?: number;
+                bookingNumber?: string;
+            };
+            agent?: {
+                id?: number;
+                name?: string;
+            };
+            commissionType?: components["schemas"]["CommissionType"];
+            commissionValue?: string | null;
+            commissionAmount?: string;
+            status?: components["schemas"]["AgentCommissionStatus"];
+            /** @enum {string} */
+            payableAfter?: "delivery" | "customer_invoice" | "customer_payment";
+            /** Format: date-time */
+            approvedAt?: string | null;
+            approvedByUserId?: number | null;
+            /** Format: date-time */
+            paidAt?: string | null;
+            paidByUserId?: number | null;
+            cancelledReason?: string | null;
+            notes?: string | null;
+            createdByUserId?: number | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        CreateAgentCommissionRequest: {
+            bookingId: number;
+            /** @enum {string} */
+            payableAfter?: "delivery" | "customer_invoice" | "customer_payment";
+            notes?: string | null;
+            createdByUserId?: number | null;
+        };
+        AgentCommissionResponse: {
+            data?: components["schemas"]["AgentCommission"];
+            message?: string;
+        };
+        AgentCommissionsListResponse: {
+            data?: components["schemas"]["AgentCommission"][];
+            pagination?: components["schemas"]["Pagination"];
+        };
+        FuelVendorInvoice: {
+            id?: number;
+            invoiceNumber?: string;
+            vendor?: {
+                id?: number;
+                name?: string;
+            };
+            vendorInvoiceNumber?: string | null;
+            /** Format: date */
+            invoiceDate?: string;
+            /** Format: date */
+            dueDate?: string | null;
+            totalAmount?: string;
+            paidAmount?: string;
+            balanceAmount?: string;
+            status?: components["schemas"]["FuelVendorInvoiceStatus"];
+            notes?: string | null;
+            createdByUserId?: number | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        CreateFuelVendorInvoiceRequest: {
+            fuelVendorId: number;
+            slipIds: number[];
+            vendorInvoiceNumber?: string | null;
+            /** Format: date */
+            invoiceDate?: string | null;
+            /** Format: date */
+            dueDate?: string | null;
+            notes?: string | null;
+            createdByUserId?: number | null;
+        };
+        FuelVendorInvoiceResponse: {
+            data?: components["schemas"]["FuelVendorInvoice"];
+            message?: string;
+        };
+        FuelVendorInvoicesListResponse: {
+            data?: components["schemas"]["FuelVendorInvoice"][];
+            pagination?: components["schemas"]["Pagination"];
+        };
+        FuelVendorPayment: {
+            id?: number;
+            paymentNumber?: string;
+            invoice?: {
+                id?: number;
+                invoiceNumber?: string;
+            };
+            vendor?: {
+                id?: number;
+                name?: string;
+            };
+            amount?: string;
+            /** Format: date */
+            paymentDate?: string;
+            paymentMethod?: components["schemas"]["PaymentMethod"];
+            referenceNumber?: string | null;
+            notes?: string | null;
+            paidByUserId?: number | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        PayFuelVendorInvoiceRequest: {
+            amount: number;
+            /** Format: date */
+            paymentDate?: string | null;
+            paymentMethod?: components["schemas"]["PaymentMethod"];
+            referenceNumber?: string | null;
+            notes?: string | null;
+            paidByUserId?: number | null;
+        };
+        FuelVendorPaymentResponse: {
+            data?: components["schemas"]["FuelVendorPayment"];
+            message?: string;
+        };
+        FuelVendorPaymentsListResponse: {
+            data?: components["schemas"]["FuelVendorPayment"][];
+            pagination?: components["schemas"]["Pagination"];
+        };
+        ReportsDashboard: {
+            [key: string]: unknown;
+        };
+        ReportsDashboardResponse: {
+            data?: components["schemas"]["ReportsDashboard"];
+            message?: string;
         };
     };
     responses: never;
@@ -6587,6 +7130,476 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["FuelSlipResponse"];
+                };
+            };
+        };
+    };
+    getDeliveryProofs: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: string;
+                bookingId?: number;
+                tripLegId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Delivery proof list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryProofsListResponse"];
+                };
+            };
+        };
+    };
+    createDeliveryProof: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDeliveryProofRequest"];
+            };
+        };
+        responses: {
+            /** @description Delivery proof created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryProofResponse"];
+                };
+            };
+        };
+    };
+    getDeliveryProofById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                deliveryProofId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Delivery proof */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryProofResponse"];
+                };
+            };
+        };
+    };
+    getCustomerInvoices: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: string;
+                status?: components["schemas"]["CustomerInvoiceStatus"];
+                customerId?: number;
+                bookingId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Invoice list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerInvoicesListResponse"];
+                };
+            };
+        };
+    };
+    createCustomerInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCustomerInvoiceRequest"];
+            };
+        };
+        responses: {
+            /** @description Invoice created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerInvoiceResponse"];
+                };
+            };
+        };
+    };
+    getCustomerInvoiceById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerInvoiceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Invoice */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerInvoiceResponse"];
+                };
+            };
+        };
+    };
+    receiveCustomerPayment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerInvoiceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReceiveCustomerPaymentRequest"];
+            };
+        };
+        responses: {
+            /** @description Payment received */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerPaymentResponse"];
+                };
+            };
+        };
+    };
+    getCustomerPayments: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: string;
+                customerId?: number;
+                invoiceId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customer payments */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerPaymentsListResponse"];
+                };
+            };
+        };
+    };
+    getAgentCommissions: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: string;
+                status?: components["schemas"]["AgentCommissionStatus"];
+                agentId?: number;
+                bookingId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Commission list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentCommissionsListResponse"];
+                };
+            };
+        };
+    };
+    createAgentCommission: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateAgentCommissionRequest"];
+            };
+        };
+        responses: {
+            /** @description Commission created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentCommissionResponse"];
+                };
+            };
+        };
+    };
+    getAgentCommissionById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentCommissionId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Commission */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentCommissionResponse"];
+                };
+            };
+        };
+    };
+    approveAgentCommission: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentCommissionId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    approvedByUserId?: number | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Approved commission */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentCommissionResponse"];
+                };
+            };
+        };
+    };
+    payAgentCommission: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agentCommissionId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    paidByUserId?: number | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Paid commission */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentCommissionResponse"];
+                };
+            };
+        };
+    };
+    getFuelVendorInvoices: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: string;
+                status?: components["schemas"]["FuelVendorInvoiceStatus"];
+                vendorId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel vendor invoices */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorInvoicesListResponse"];
+                };
+            };
+        };
+    };
+    createFuelVendorInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFuelVendorInvoiceRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel vendor invoice created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorInvoiceResponse"];
+                };
+            };
+        };
+    };
+    getFuelVendorInvoiceById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelVendorInvoiceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel vendor invoice */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorInvoiceResponse"];
+                };
+            };
+        };
+    };
+    payFuelVendorInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelVendorInvoiceId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PayFuelVendorInvoiceRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel vendor payment */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorPaymentResponse"];
+                };
+            };
+        };
+    };
+    getFuelVendorPayments: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: string;
+                vendorId?: number;
+                invoiceId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel vendor payments */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorPaymentsListResponse"];
+                };
+            };
+        };
+    };
+    getReportsDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Dashboard report */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReportsDashboardResponse"];
                 };
             };
         };

@@ -14,6 +14,7 @@ import * as createBookingsBilty from './migrations/007_create_bookings_bilty';
 import * as createMasterTripsTripLegs from './migrations/008_create_master_trips_trip_legs';
 import * as createDriverAdvancesSettlements from './migrations/009_create_driver_advances_settlements';
 import * as createFuelVendorsSlips from './migrations/010_create_fuel_vendors_slips';
+import * as createRemainingFinancePodReports from './migrations/011_create_remaining_finance_pod_reports';
 config({
   path: path.resolve(process.cwd(), '../../.env'),
 });
@@ -30,6 +31,7 @@ class StaticMigrationProvider {
       '008_create_master_trips_trip_legs': createMasterTripsTripLegs,
       '009_create_driver_advances_settlements': createDriverAdvancesSettlements,
       '010_create_fuel_vendors_slips': createFuelVendorsSlips,
+      '011_create_remaining_finance_pod_reports': createRemainingFinancePodReports,
     };
   }
 }

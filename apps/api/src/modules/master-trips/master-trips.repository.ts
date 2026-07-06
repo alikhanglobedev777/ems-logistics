@@ -123,21 +123,32 @@ export class MasterTripsRepository {
   }
 
   async create(input: MasterTripCreateInput) {
-    const created = await this.db
-      .insertInto('master_trips')
-      .values({
-        trip_number: input.tripNumber,
-        vehicle_id: input.vehicleId,
-        driver_id: input.driverId,
-        start_station_id: input.startStationId,
-        current_station_id: input.currentStationId,
-        status: input.status,
-        planned_start_at: input.plannedStartAt,
-        created_by_user_id: input.createdByUserId,
-      })
-      .returning('id')
-      .executeTakeFirstOrThrow();
-    return this.findById(created.id);
+    const createdId = await this.db.transaction().execute(async (trx) => {
+      const created = await trx
+        .insertInto('master_trips')
+        .values({
+          trip_number: input.tripNumber,
+          vehicle_id: input.vehicleId,
+          driver_id: input.driverId,
+          start_station_id: input.startStationId,
+          current_station_id: input.currentStationId,
+          status: input.status,
+          planned_start_at: input.plannedStartAt,
+          created_by_user_id: input.createdByUserId,
+        })
+        .returning('id')
+        .executeTakeFirstOrThrow();
+
+      await trx
+        .updateTable('vehicles')
+        .set({ status: 'assigned', updated_at: new Date() })
+        .where('id', '=', input.vehicleId)
+        .executeTakeFirst();
+
+      return created.id;
+    });
+
+    return this.findById(createdId);
   }
 
   async update(masterTripId: number, input: { status?: string; currentStationId?: number; actualStartAt?: Date | null; completedAt?: Date | null }) {

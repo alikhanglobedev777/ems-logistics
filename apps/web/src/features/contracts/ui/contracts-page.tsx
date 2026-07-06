@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { ContractRateModel, ContractStatus } from '@ems/shared';
 import { z } from 'zod';
+import { useGetCustomers } from '../../customers/api/customers.api';
 import { MasterDataPage, type FormValues } from '../../master-data';
 import {
   useCreateContract,
@@ -13,11 +14,16 @@ import {
 export function ContractsPage({ mode, id }: { mode: 'list' | 'create' | 'edit' | 'detail'; id?: string }) {
   const navigate = useNavigate();
   const list = useGetContracts({ page: 1, limit: 50 });
+  const customers = useGetCustomers({ page: 1, limit: 200 });
   const detail = useGetContractById(Number(id ?? 0), { query: { enabled: Boolean(id) } });
   const create = useCreateContract();
   const update = useUpdateContract();
   const rows: CustomerContract[] = list.data?.status === 200 ? list.data.data.data : [];
   const item = detail.data?.status === 200 ? detail.data.data.data : undefined;
+  const customerOptions = (customers.data?.status === 200 ? customers.data.data.data : []).map((entry) => ({
+    label: entry.name,
+    value: String(entry.id),
+  }));
 
   const initial = item
     ? {
@@ -60,7 +66,7 @@ export function ContractsPage({ mode, id }: { mode: 'list' | 'create' | 'edit' |
       mode={mode}
       rows={rows}
       detail={item}
-      loading={list.isLoading || detail.isLoading}
+      loading={list.isLoading || detail.isLoading || customers.isLoading}
       columns={[
         { header: 'Contract #', render: (row) => row.contractNumber },
         { header: 'Customer', render: (row) => row.customer.name },
@@ -68,7 +74,7 @@ export function ContractsPage({ mode, id }: { mode: 'list' | 'create' | 'edit' |
         { header: 'Status', render: (row) => row.status },
       ]}
       fields={[
-        { name: 'customerId', label: 'Customer ID', type: 'number' },
+        { name: 'customerId', label: 'Customer', options: customerOptions },
         { name: 'contractNumber', label: 'Contract number' },
         { name: 'title', label: 'Title' },
         { name: 'startDate', label: 'Start date', type: 'date' },

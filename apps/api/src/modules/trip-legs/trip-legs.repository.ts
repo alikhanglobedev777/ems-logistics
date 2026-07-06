@@ -78,10 +78,17 @@ export class TripLegsRepository {
   }
 
   async assignBooking(tripLegId: number, bookingId: number, allocatedWeightTons: string | null) {
-    await this.db
-      .insertInto('trip_leg_bookings')
-      .values({ trip_leg_id: tripLegId, booking_id: bookingId, allocated_weight_tons: allocatedWeightTons })
-      .execute();
+    await this.db.transaction().execute(async (trx) => {
+      await trx
+        .insertInto('trip_leg_bookings')
+        .values({ trip_leg_id: tripLegId, booking_id: bookingId, allocated_weight_tons: allocatedWeightTons })
+        .execute();
+      await trx
+        .updateTable('bookings')
+        .set({ status: 'assigned', updated_at: new Date() })
+        .where('id', '=', bookingId)
+        .executeTakeFirst();
+    });
     return this.findById(tripLegId);
   }
 

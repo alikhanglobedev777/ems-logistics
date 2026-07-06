@@ -1,8 +1,6 @@
 node_modules
 dist
 build
-.env
-.env.local
 .DS_Store
 *.log
 logs/
@@ -11,10 +9,10 @@ coverage
 .vite
 
 # EMS local/generated files
-.env.*
 !.env.example
 *.tsbuildinfo
 apps/**/dist
 packages/**/dist
 apps/**/coverage
 packages/**/coverage
+config.bat

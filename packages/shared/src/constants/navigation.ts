@@ -27,5 +27,11 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: 'Driver Settlements', path: '/driver-settlements', permission: Permission.DRIVER_SETTLEMENT_VIEW },
   { label: 'Fuel Vendors', path: '/fuel-vendors', permission: Permission.FUEL_MANAGE_VENDOR },
   { label: 'Fuel Slips', path: '/fuel-slips', permission: Permission.FUEL_VIEW },
+  { label: 'Fuel Vendor Invoices', path: '/fuel-vendor-invoices', permission: Permission.FUEL_VENDOR_INVOICE_VIEW },
+  { label: 'Fuel Vendor Payments', path: '/fuel-vendor-payments', permission: Permission.FUEL_VENDOR_PAYMENT_VIEW },
+  { label: 'Delivery Proofs / POD', path: '/delivery-proofs', permission: Permission.DELIVERY_PROOF_VIEW },
+  { label: 'Customer Invoices', path: '/customer-invoices', permission: Permission.CUSTOMER_INVOICE_VIEW },
+  { label: 'Customer Payments', path: '/customer-payments', permission: Permission.CUSTOMER_PAYMENT_VIEW },
+  { label: 'Agent Commissions', path: '/agent-commissions', permission: Permission.AGENT_COMMISSION_VIEW },
   { label: 'Reports', path: '/reports', permission: Permission.REPORT_VIEW },
 ];

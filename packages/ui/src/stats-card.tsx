@@ -1,11 +1,27 @@
 import type { ReactNode } from 'react';
 
-export function StatsCard({ label, value, icon }: { label: string; value: ReactNode; icon?: ReactNode }) {
+export function StatsCard({
+  label,
+  value,
+  icon,
+  helper,
+  trend,
+}: {
+  label: string;
+  value: ReactNode;
+  icon?: ReactNode;
+  helper?: ReactNode;
+  trend?: ReactNode;
+}) {
   return (
     <div className="stat-card">
-      <span>{label}</span>
+      <div className="stat-card-top">
+        <span>{label}</span>
+        {icon ? <div className="stat-card-icon">{icon}</div> : null}
+      </div>
       <strong>{value}</strong>
-      {icon ? <div className="stat-card-icon">{icon}</div> : null}
+      {helper ? <p className="stat-card-helper">{helper}</p> : null}
+      {trend ? <div className="stat-card-trend">{trend}</div> : null}
     </div>
   );
 }

@@ -143,3 +143,54 @@ export const ContractStatus = {
 } as const;
 
 export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus];
+
+export const DeliveryGoodsCondition = {
+  GOOD: 'good',
+  DAMAGED: 'damaged',
+  PARTIAL_DAMAGE: 'partial_damage',
+  SHORT_QUANTITY: 'short_quantity',
+} as const;
+
+export type DeliveryGoodsCondition =
+  (typeof DeliveryGoodsCondition)[keyof typeof DeliveryGoodsCondition];
+
+export const CustomerInvoiceStatus = {
+  DRAFT: 'draft',
+  ISSUED: 'issued',
+  PARTIALLY_PAID: 'partially_paid',
+  PAID: 'paid',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type CustomerInvoiceStatus =
+  (typeof CustomerInvoiceStatus)[keyof typeof CustomerInvoiceStatus];
+
+export const PaymentMethod = {
+  CASH: 'cash',
+  BANK_TRANSFER: 'bank_transfer',
+  CHEQUE: 'cheque',
+  MOBILE_WALLET: 'mobile_wallet',
+  ADJUSTMENT: 'adjustment',
+} as const;
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod];
+
+export const AgentCommissionStatus = {
+  PENDING: 'pending',
+  APPROVED: 'approved',
+  PAID: 'paid',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type AgentCommissionStatus =
+  (typeof AgentCommissionStatus)[keyof typeof AgentCommissionStatus];
+
+export const FuelVendorInvoiceStatus = {
+  OPEN: 'open',
+  PARTIALLY_PAID: 'partially_paid',
+  PAID: 'paid',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type FuelVendorInvoiceStatus =
+  (typeof FuelVendorInvoiceStatus)[keyof typeof FuelVendorInvoiceStatus];

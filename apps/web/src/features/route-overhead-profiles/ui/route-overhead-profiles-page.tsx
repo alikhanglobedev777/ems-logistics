@@ -1,6 +1,8 @@
 import { useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 import { MasterDataPage, type FormValues } from '../../master-data';
+import { useGetRoutes } from '../../routes/api/routes.api';
+import { useGetVehicleTypes } from '../../vehicle-types/api/vehicle-types.api';
 import {
   useCreateRouteOverheadProfile,
   useGetRouteOverheadProfileById,
@@ -23,11 +25,21 @@ const costFields = [
 export function RouteOverheadProfilesPage({ mode, id }: { mode: 'list' | 'create' | 'edit' | 'detail'; id?: string }) {
   const navigate = useNavigate();
   const list = useGetRouteOverheadProfiles({ page: 1, limit: 50 });
+  const routes = useGetRoutes({ page: 1, limit: 200 });
+  const vehicleTypes = useGetVehicleTypes({ page: 1, limit: 200 });
   const detail = useGetRouteOverheadProfileById(Number(id ?? 0), { query: { enabled: Boolean(id) } });
   const create = useCreateRouteOverheadProfile();
   const update = useUpdateRouteOverheadProfile();
   const rows: RouteOverheadProfile[] = list.data?.status === 200 ? list.data.data.data : [];
   const item = detail.data?.status === 200 ? detail.data.data.data : undefined;
+  const routeOptions = (routes.data?.status === 200 ? routes.data.data.data : []).map((entry) => ({
+    label: entry.name,
+    value: String(entry.id),
+  }));
+  const vehicleTypeOptions = (vehicleTypes.data?.status === 200 ? vehicleTypes.data.data.data : []).map((entry) => ({
+    label: entry.name,
+    value: String(entry.id),
+  }));
   const initial = item
     ? Object.fromEntries([
         ['routeId', String(item.route.id)],
@@ -63,7 +75,7 @@ export function RouteOverheadProfilesPage({ mode, id }: { mode: 'list' | 'create
       mode={mode}
       rows={rows}
       detail={item}
-      loading={list.isLoading || detail.isLoading}
+      loading={list.isLoading || detail.isLoading || routes.isLoading || vehicleTypes.isLoading}
       columns={[
         { header: 'Route', render: (row) => row.route.name },
         { header: 'Vehicle type', render: (row) => row.vehicleType.name },
@@ -71,8 +83,8 @@ export function RouteOverheadProfilesPage({ mode, id }: { mode: 'list' | 'create
         { header: 'Active', render: (row) => (row.isActive ? 'Yes' : 'No') },
       ]}
       fields={[
-        { name: 'routeId', label: 'Route ID', type: 'number' },
-        { name: 'vehicleTypeId', label: 'Vehicle type ID', type: 'number' },
+        { name: 'routeId', label: 'Route', options: routeOptions },
+        { name: 'vehicleTypeId', label: 'Vehicle type', options: vehicleTypeOptions },
         ...costFields.map(([name, label]) => ({ name, label, type: 'number' })),
         {
           name: 'isActive',

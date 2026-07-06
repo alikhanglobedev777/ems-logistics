@@ -3,14 +3,20 @@ import { VehicleStatus } from '@ems/shared';
 import { z } from 'zod';
 import { useCreateVehicle, useGetVehicleById, useGetVehicles, useUpdateVehicle, type Vehicle } from '../api/vehicles.api';
 import { MasterDataPage, type FormValues } from '../../master-data';
+import { useGetStations } from '../../stations/api/stations.api';
+import { useGetVehicleTypes } from '../../vehicle-types/api/vehicle-types.api';
 
 export function VehiclesPage({ mode, id }: { mode: 'list' | 'create' | 'edit' | 'detail'; id?: string }) {
   const navigate = useNavigate();
   const list = useGetVehicles({ page: 1, limit: 50 });
+  const vehicleTypes = useGetVehicleTypes({ page: 1, limit: 100 });
+  const stations = useGetStations({ isActive: true });
   const detail = useGetVehicleById(Number(id ?? 0), { query: { enabled: Boolean(id) } });
   const create = useCreateVehicle();
   const update = useUpdateVehicle();
   const rows: Vehicle[] = list.data?.status === 200 ? list.data.data.data : [];
+  const vehicleTypeRows = vehicleTypes.data?.status === 200 ? vehicleTypes.data.data.data : [];
+  const stationRows = stations.data?.status === 200 ? stations.data.data.data : [];
   const item = detail.data?.status === 200 ? detail.data.data.data : undefined;
   const initial = item
     ? {
@@ -50,7 +56,7 @@ export function VehiclesPage({ mode, id }: { mode: 'list' | 'create' | 'edit' | 
       mode={mode}
       rows={rows}
       detail={item}
-      loading={list.isLoading || detail.isLoading}
+      loading={list.isLoading || vehicleTypes.isLoading || stations.isLoading || detail.isLoading}
       columns={[
         { header: 'Vehicle', render: (row) => row.vehicleNumber },
         { header: 'Type', render: (row) => row.vehicleType.name },
@@ -59,8 +65,22 @@ export function VehiclesPage({ mode, id }: { mode: 'list' | 'create' | 'edit' | 
       ]}
       fields={[
         { name: 'vehicleNumber', label: 'Vehicle number' },
-        { name: 'vehicleTypeId', label: 'Vehicle type ID', type: 'number' },
-        { name: 'currentStationId', label: 'Current station ID', type: 'number' },
+        {
+          name: 'vehicleTypeId',
+          label: 'Vehicle type',
+          options: vehicleTypeRows.map((vehicleType) => ({
+            label: `${vehicleType.code} - ${vehicleType.name}`,
+            value: String(vehicleType.id),
+          })),
+        },
+        {
+          name: 'currentStationId',
+          label: 'Current station',
+          options: stationRows.map((station) => ({
+            label: station.code ? `${station.code} - ${station.name}` : station.name,
+            value: String(station.id),
+          })),
+        },
         {
           name: 'status',
           label: 'Status',

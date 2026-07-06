@@ -12,20 +12,28 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VehiclesRouteImport } from './routes/vehicles'
 import { Route as VehicleTypesRouteImport } from './routes/vehicle-types'
 import { Route as TripsRouteImport } from './routes/trips'
+import { Route as StationsRouteImport } from './routes/stations'
 import { Route as RoutesRouteImport } from './routes/routes'
 import { Route as RouteOverheadProfilesRouteImport } from './routes/route-overhead-profiles'
 import { Route as RouteFuelProfilesRouteImport } from './routes/route-fuel-profiles'
+import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as FuelVendorsRouteImport } from './routes/fuel-vendors'
+import { Route as FuelVendorPaymentsRouteImport } from './routes/fuel-vendor-payments'
+import { Route as FuelVendorInvoicesRouteImport } from './routes/fuel-vendor-invoices'
 import { Route as FuelSlipsRouteImport } from './routes/fuel-slips'
 import { Route as FuelPricesRouteImport } from './routes/fuel-prices'
 import { Route as DriversRouteImport } from './routes/drivers'
 import { Route as DriverSettlementsRouteImport } from './routes/driver-settlements'
 import { Route as DriverAdvancesRouteImport } from './routes/driver-advances'
+import { Route as DeliveryProofsRouteImport } from './routes/delivery-proofs'
 import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as CustomerPaymentsRouteImport } from './routes/customer-payments'
+import { Route as CustomerInvoicesRouteImport } from './routes/customer-invoices'
 import { Route as ContractsRouteImport } from './routes/contracts'
 import { Route as ContractRatesRouteImport } from './routes/contract-rates'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as AgentsRouteImport } from './routes/agents'
+import { Route as AgentCommissionsRouteImport } from './routes/agent-commissions'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VehiclesNewRouteImport } from './routes/vehicles.new'
 import { Route as VehiclesIdRouteImport } from './routes/vehicles.$id'
@@ -33,6 +41,8 @@ import { Route as VehicleTypesNewRouteImport } from './routes/vehicle-types.new'
 import { Route as VehicleTypesIdRouteImport } from './routes/vehicle-types.$id'
 import { Route as TripsNewRouteImport } from './routes/trips.new'
 import { Route as TripsIdRouteImport } from './routes/trips.$id'
+import { Route as StationsNewRouteImport } from './routes/stations.new'
+import { Route as StationsIdRouteImport } from './routes/stations.$id'
 import { Route as RoutesNewRouteImport } from './routes/routes.new'
 import { Route as RoutesIdRouteImport } from './routes/routes.$id'
 import { Route as RouteOverheadProfilesNewRouteImport } from './routes/route-overhead-profiles.new'
@@ -42,6 +52,10 @@ import { Route as RouteFuelProfilesIdRouteImport } from './routes/route-fuel-pro
 import { Route as PricingRouteEstimateRouteImport } from './routes/pricing.route-estimate'
 import { Route as FuelVendorsNewRouteImport } from './routes/fuel-vendors.new'
 import { Route as FuelVendorsIdRouteImport } from './routes/fuel-vendors.$id'
+import { Route as FuelVendorPaymentsNewRouteImport } from './routes/fuel-vendor-payments.new'
+import { Route as FuelVendorPaymentsIdRouteImport } from './routes/fuel-vendor-payments.$id'
+import { Route as FuelVendorInvoicesNewRouteImport } from './routes/fuel-vendor-invoices.new'
+import { Route as FuelVendorInvoicesIdRouteImport } from './routes/fuel-vendor-invoices.$id'
 import { Route as FuelSlipsNewRouteImport } from './routes/fuel-slips.new'
 import { Route as FuelSlipsIdRouteImport } from './routes/fuel-slips.$id'
 import { Route as FuelPricesNewRouteImport } from './routes/fuel-prices.new'
@@ -52,8 +66,14 @@ import { Route as DriverSettlementsNewRouteImport } from './routes/driver-settle
 import { Route as DriverSettlementsIdRouteImport } from './routes/driver-settlements.$id'
 import { Route as DriverAdvancesNewRouteImport } from './routes/driver-advances.new'
 import { Route as DriverAdvancesIdRouteImport } from './routes/driver-advances.$id'
+import { Route as DeliveryProofsNewRouteImport } from './routes/delivery-proofs.new'
+import { Route as DeliveryProofsIdRouteImport } from './routes/delivery-proofs.$id'
 import { Route as CustomersNewRouteImport } from './routes/customers.new'
 import { Route as CustomersIdRouteImport } from './routes/customers.$id'
+import { Route as CustomerPaymentsNewRouteImport } from './routes/customer-payments.new'
+import { Route as CustomerPaymentsIdRouteImport } from './routes/customer-payments.$id'
+import { Route as CustomerInvoicesNewRouteImport } from './routes/customer-invoices.new'
+import { Route as CustomerInvoicesIdRouteImport } from './routes/customer-invoices.$id'
 import { Route as ContractsNewRouteImport } from './routes/contracts.new'
 import { Route as ContractsIdRouteImport } from './routes/contracts.$id'
 import { Route as ContractRatesNewRouteImport } from './routes/contract-rates.new'
@@ -62,23 +82,32 @@ import { Route as BookingsNewRouteImport } from './routes/bookings.new'
 import { Route as BookingsIdRouteImport } from './routes/bookings.$id'
 import { Route as AgentsNewRouteImport } from './routes/agents.new'
 import { Route as AgentsIdRouteImport } from './routes/agents.$id'
+import { Route as AgentCommissionsNewRouteImport } from './routes/agent-commissions.new'
+import { Route as AgentCommissionsIdRouteImport } from './routes/agent-commissions.$id'
 import { Route as VehiclesIdEditRouteImport } from './routes/vehicles.$id.edit'
 import { Route as VehicleTypesIdEditRouteImport } from './routes/vehicle-types.$id.edit'
 import { Route as TripsIdEditRouteImport } from './routes/trips.$id.edit'
+import { Route as StationsIdEditRouteImport } from './routes/stations.$id.edit'
 import { Route as RoutesIdEditRouteImport } from './routes/routes.$id.edit'
 import { Route as RouteOverheadProfilesIdEditRouteImport } from './routes/route-overhead-profiles.$id.edit'
 import { Route as RouteFuelProfilesIdEditRouteImport } from './routes/route-fuel-profiles.$id.edit'
 import { Route as FuelVendorsIdEditRouteImport } from './routes/fuel-vendors.$id.edit'
+import { Route as FuelVendorPaymentsIdEditRouteImport } from './routes/fuel-vendor-payments.$id.edit'
+import { Route as FuelVendorInvoicesIdEditRouteImport } from './routes/fuel-vendor-invoices.$id.edit'
 import { Route as FuelSlipsIdEditRouteImport } from './routes/fuel-slips.$id.edit'
 import { Route as FuelPricesIdEditRouteImport } from './routes/fuel-prices.$id.edit'
 import { Route as DriversIdEditRouteImport } from './routes/drivers.$id.edit'
 import { Route as DriverSettlementsIdEditRouteImport } from './routes/driver-settlements.$id.edit'
 import { Route as DriverAdvancesIdEditRouteImport } from './routes/driver-advances.$id.edit'
+import { Route as DeliveryProofsIdEditRouteImport } from './routes/delivery-proofs.$id.edit'
 import { Route as CustomersIdEditRouteImport } from './routes/customers.$id.edit'
+import { Route as CustomerPaymentsIdEditRouteImport } from './routes/customer-payments.$id.edit'
+import { Route as CustomerInvoicesIdEditRouteImport } from './routes/customer-invoices.$id.edit'
 import { Route as ContractsIdEditRouteImport } from './routes/contracts.$id.edit'
 import { Route as ContractRatesIdEditRouteImport } from './routes/contract-rates.$id.edit'
 import { Route as BookingsIdEditRouteImport } from './routes/bookings.$id.edit'
 import { Route as AgentsIdEditRouteImport } from './routes/agents.$id.edit'
+import { Route as AgentCommissionsIdEditRouteImport } from './routes/agent-commissions.$id.edit'
 
 const VehiclesRoute = VehiclesRouteImport.update({
   id: '/vehicles',
@@ -93,6 +122,11 @@ const VehicleTypesRoute = VehicleTypesRouteImport.update({
 const TripsRoute = TripsRouteImport.update({
   id: '/trips',
   path: '/trips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StationsRoute = StationsRouteImport.update({
+  id: '/stations',
+  path: '/stations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RoutesRoute = RoutesRouteImport.update({
@@ -110,9 +144,24 @@ const RouteFuelProfilesRoute = RouteFuelProfilesRouteImport.update({
   path: '/route-fuel-profiles',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FuelVendorsRoute = FuelVendorsRouteImport.update({
   id: '/fuel-vendors',
   path: '/fuel-vendors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuelVendorPaymentsRoute = FuelVendorPaymentsRouteImport.update({
+  id: '/fuel-vendor-payments',
+  path: '/fuel-vendor-payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuelVendorInvoicesRoute = FuelVendorInvoicesRouteImport.update({
+  id: '/fuel-vendor-invoices',
+  path: '/fuel-vendor-invoices',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FuelSlipsRoute = FuelSlipsRouteImport.update({
@@ -140,9 +189,24 @@ const DriverAdvancesRoute = DriverAdvancesRouteImport.update({
   path: '/driver-advances',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DeliveryProofsRoute = DeliveryProofsRouteImport.update({
+  id: '/delivery-proofs',
+  path: '/delivery-proofs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CustomersRoute = CustomersRouteImport.update({
   id: '/customers',
   path: '/customers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerPaymentsRoute = CustomerPaymentsRouteImport.update({
+  id: '/customer-payments',
+  path: '/customer-payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerInvoicesRoute = CustomerInvoicesRouteImport.update({
+  id: '/customer-invoices',
+  path: '/customer-invoices',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContractsRoute = ContractsRouteImport.update({
@@ -163,6 +227,11 @@ const BookingsRoute = BookingsRouteImport.update({
 const AgentsRoute = AgentsRouteImport.update({
   id: '/agents',
   path: '/agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentCommissionsRoute = AgentCommissionsRouteImport.update({
+  id: '/agent-commissions',
+  path: '/agent-commissions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -199,6 +268,16 @@ const TripsIdRoute = TripsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => TripsRoute,
+} as any)
+const StationsNewRoute = StationsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => StationsRoute,
+} as any)
+const StationsIdRoute = StationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => StationsRoute,
 } as any)
 const RoutesNewRoute = RoutesNewRouteImport.update({
   id: '/new',
@@ -245,6 +324,26 @@ const FuelVendorsIdRoute = FuelVendorsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => FuelVendorsRoute,
+} as any)
+const FuelVendorPaymentsNewRoute = FuelVendorPaymentsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => FuelVendorPaymentsRoute,
+} as any)
+const FuelVendorPaymentsIdRoute = FuelVendorPaymentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => FuelVendorPaymentsRoute,
+} as any)
+const FuelVendorInvoicesNewRoute = FuelVendorInvoicesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => FuelVendorInvoicesRoute,
+} as any)
+const FuelVendorInvoicesIdRoute = FuelVendorInvoicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => FuelVendorInvoicesRoute,
 } as any)
 const FuelSlipsNewRoute = FuelSlipsNewRouteImport.update({
   id: '/new',
@@ -296,6 +395,16 @@ const DriverAdvancesIdRoute = DriverAdvancesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => DriverAdvancesRoute,
 } as any)
+const DeliveryProofsNewRoute = DeliveryProofsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => DeliveryProofsRoute,
+} as any)
+const DeliveryProofsIdRoute = DeliveryProofsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => DeliveryProofsRoute,
+} as any)
 const CustomersNewRoute = CustomersNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -305,6 +414,26 @@ const CustomersIdRoute = CustomersIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => CustomersRoute,
+} as any)
+const CustomerPaymentsNewRoute = CustomerPaymentsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CustomerPaymentsRoute,
+} as any)
+const CustomerPaymentsIdRoute = CustomerPaymentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CustomerPaymentsRoute,
+} as any)
+const CustomerInvoicesNewRoute = CustomerInvoicesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CustomerInvoicesRoute,
+} as any)
+const CustomerInvoicesIdRoute = CustomerInvoicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CustomerInvoicesRoute,
 } as any)
 const ContractsNewRoute = ContractsNewRouteImport.update({
   id: '/new',
@@ -346,6 +475,16 @@ const AgentsIdRoute = AgentsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AgentsRoute,
 } as any)
+const AgentCommissionsNewRoute = AgentCommissionsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AgentCommissionsRoute,
+} as any)
+const AgentCommissionsIdRoute = AgentCommissionsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AgentCommissionsRoute,
+} as any)
 const VehiclesIdEditRoute = VehiclesIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -360,6 +499,11 @@ const TripsIdEditRoute = TripsIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
   getParentRoute: () => TripsIdRoute,
+} as any)
+const StationsIdEditRoute = StationsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => StationsIdRoute,
 } as any)
 const RoutesIdEditRoute = RoutesIdEditRouteImport.update({
   id: '/edit',
@@ -382,6 +526,18 @@ const FuelVendorsIdEditRoute = FuelVendorsIdEditRouteImport.update({
   path: '/edit',
   getParentRoute: () => FuelVendorsIdRoute,
 } as any)
+const FuelVendorPaymentsIdEditRoute =
+  FuelVendorPaymentsIdEditRouteImport.update({
+    id: '/edit',
+    path: '/edit',
+    getParentRoute: () => FuelVendorPaymentsIdRoute,
+  } as any)
+const FuelVendorInvoicesIdEditRoute =
+  FuelVendorInvoicesIdEditRouteImport.update({
+    id: '/edit',
+    path: '/edit',
+    getParentRoute: () => FuelVendorInvoicesIdRoute,
+  } as any)
 const FuelSlipsIdEditRoute = FuelSlipsIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -407,10 +563,25 @@ const DriverAdvancesIdEditRoute = DriverAdvancesIdEditRouteImport.update({
   path: '/edit',
   getParentRoute: () => DriverAdvancesIdRoute,
 } as any)
+const DeliveryProofsIdEditRoute = DeliveryProofsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => DeliveryProofsIdRoute,
+} as any)
 const CustomersIdEditRoute = CustomersIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
   getParentRoute: () => CustomersIdRoute,
+} as any)
+const CustomerPaymentsIdEditRoute = CustomerPaymentsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => CustomerPaymentsIdRoute,
+} as any)
+const CustomerInvoicesIdEditRoute = CustomerInvoicesIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => CustomerInvoicesIdRoute,
 } as any)
 const ContractsIdEditRoute = ContractsIdEditRouteImport.update({
   id: '/edit',
@@ -432,26 +603,41 @@ const AgentsIdEditRoute = AgentsIdEditRouteImport.update({
   path: '/edit',
   getParentRoute: () => AgentsIdRoute,
 } as any)
+const AgentCommissionsIdEditRoute = AgentCommissionsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => AgentCommissionsIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agent-commissions': typeof AgentCommissionsRouteWithChildren
   '/agents': typeof AgentsRouteWithChildren
   '/bookings': typeof BookingsRouteWithChildren
   '/contract-rates': typeof ContractRatesRouteWithChildren
   '/contracts': typeof ContractsRouteWithChildren
+  '/customer-invoices': typeof CustomerInvoicesRouteWithChildren
+  '/customer-payments': typeof CustomerPaymentsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
+  '/delivery-proofs': typeof DeliveryProofsRouteWithChildren
   '/driver-advances': typeof DriverAdvancesRouteWithChildren
   '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/fuel-slips': typeof FuelSlipsRouteWithChildren
+  '/fuel-vendor-invoices': typeof FuelVendorInvoicesRouteWithChildren
+  '/fuel-vendor-payments': typeof FuelVendorPaymentsRouteWithChildren
   '/fuel-vendors': typeof FuelVendorsRouteWithChildren
+  '/reports': typeof ReportsRoute
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
+  '/stations': typeof StationsRouteWithChildren
   '/trips': typeof TripsRouteWithChildren
   '/vehicle-types': typeof VehicleTypesRouteWithChildren
   '/vehicles': typeof VehiclesRouteWithChildren
+  '/agent-commissions/$id': typeof AgentCommissionsIdRouteWithChildren
+  '/agent-commissions/new': typeof AgentCommissionsNewRoute
   '/agents/$id': typeof AgentsIdRouteWithChildren
   '/agents/new': typeof AgentsNewRoute
   '/bookings/$id': typeof BookingsIdRouteWithChildren
@@ -460,8 +646,14 @@ export interface FileRoutesByFullPath {
   '/contract-rates/new': typeof ContractRatesNewRoute
   '/contracts/$id': typeof ContractsIdRouteWithChildren
   '/contracts/new': typeof ContractsNewRoute
+  '/customer-invoices/$id': typeof CustomerInvoicesIdRouteWithChildren
+  '/customer-invoices/new': typeof CustomerInvoicesNewRoute
+  '/customer-payments/$id': typeof CustomerPaymentsIdRouteWithChildren
+  '/customer-payments/new': typeof CustomerPaymentsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
+  '/delivery-proofs/$id': typeof DeliveryProofsIdRouteWithChildren
+  '/delivery-proofs/new': typeof DeliveryProofsNewRoute
   '/driver-advances/$id': typeof DriverAdvancesIdRouteWithChildren
   '/driver-advances/new': typeof DriverAdvancesNewRoute
   '/driver-settlements/$id': typeof DriverSettlementsIdRouteWithChildren
@@ -472,6 +664,10 @@ export interface FileRoutesByFullPath {
   '/fuel-prices/new': typeof FuelPricesNewRoute
   '/fuel-slips/$id': typeof FuelSlipsIdRouteWithChildren
   '/fuel-slips/new': typeof FuelSlipsNewRoute
+  '/fuel-vendor-invoices/$id': typeof FuelVendorInvoicesIdRouteWithChildren
+  '/fuel-vendor-invoices/new': typeof FuelVendorInvoicesNewRoute
+  '/fuel-vendor-payments/$id': typeof FuelVendorPaymentsIdRouteWithChildren
+  '/fuel-vendor-payments/new': typeof FuelVendorPaymentsNewRoute
   '/fuel-vendors/$id': typeof FuelVendorsIdRouteWithChildren
   '/fuel-vendors/new': typeof FuelVendorsNewRoute
   '/pricing/route-estimate': typeof PricingRouteEstimateRoute
@@ -481,49 +677,68 @@ export interface FileRoutesByFullPath {
   '/route-overhead-profiles/new': typeof RouteOverheadProfilesNewRoute
   '/routes/$id': typeof RoutesIdRouteWithChildren
   '/routes/new': typeof RoutesNewRoute
+  '/stations/$id': typeof StationsIdRouteWithChildren
+  '/stations/new': typeof StationsNewRoute
   '/trips/$id': typeof TripsIdRouteWithChildren
   '/trips/new': typeof TripsNewRoute
   '/vehicle-types/$id': typeof VehicleTypesIdRouteWithChildren
   '/vehicle-types/new': typeof VehicleTypesNewRoute
   '/vehicles/$id': typeof VehiclesIdRouteWithChildren
   '/vehicles/new': typeof VehiclesNewRoute
+  '/agent-commissions/$id/edit': typeof AgentCommissionsIdEditRoute
   '/agents/$id/edit': typeof AgentsIdEditRoute
   '/bookings/$id/edit': typeof BookingsIdEditRoute
   '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
   '/contracts/$id/edit': typeof ContractsIdEditRoute
+  '/customer-invoices/$id/edit': typeof CustomerInvoicesIdEditRoute
+  '/customer-payments/$id/edit': typeof CustomerPaymentsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
+  '/delivery-proofs/$id/edit': typeof DeliveryProofsIdEditRoute
   '/driver-advances/$id/edit': typeof DriverAdvancesIdEditRoute
   '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/fuel-slips/$id/edit': typeof FuelSlipsIdEditRoute
+  '/fuel-vendor-invoices/$id/edit': typeof FuelVendorInvoicesIdEditRoute
+  '/fuel-vendor-payments/$id/edit': typeof FuelVendorPaymentsIdEditRoute
   '/fuel-vendors/$id/edit': typeof FuelVendorsIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
+  '/stations/$id/edit': typeof StationsIdEditRoute
   '/trips/$id/edit': typeof TripsIdEditRoute
   '/vehicle-types/$id/edit': typeof VehicleTypesIdEditRoute
   '/vehicles/$id/edit': typeof VehiclesIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agent-commissions': typeof AgentCommissionsRouteWithChildren
   '/agents': typeof AgentsRouteWithChildren
   '/bookings': typeof BookingsRouteWithChildren
   '/contract-rates': typeof ContractRatesRouteWithChildren
   '/contracts': typeof ContractsRouteWithChildren
+  '/customer-invoices': typeof CustomerInvoicesRouteWithChildren
+  '/customer-payments': typeof CustomerPaymentsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
+  '/delivery-proofs': typeof DeliveryProofsRouteWithChildren
   '/driver-advances': typeof DriverAdvancesRouteWithChildren
   '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/fuel-slips': typeof FuelSlipsRouteWithChildren
+  '/fuel-vendor-invoices': typeof FuelVendorInvoicesRouteWithChildren
+  '/fuel-vendor-payments': typeof FuelVendorPaymentsRouteWithChildren
   '/fuel-vendors': typeof FuelVendorsRouteWithChildren
+  '/reports': typeof ReportsRoute
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
+  '/stations': typeof StationsRouteWithChildren
   '/trips': typeof TripsRouteWithChildren
   '/vehicle-types': typeof VehicleTypesRouteWithChildren
   '/vehicles': typeof VehiclesRouteWithChildren
+  '/agent-commissions/$id': typeof AgentCommissionsIdRouteWithChildren
+  '/agent-commissions/new': typeof AgentCommissionsNewRoute
   '/agents/$id': typeof AgentsIdRouteWithChildren
   '/agents/new': typeof AgentsNewRoute
   '/bookings/$id': typeof BookingsIdRouteWithChildren
@@ -532,8 +747,14 @@ export interface FileRoutesByTo {
   '/contract-rates/new': typeof ContractRatesNewRoute
   '/contracts/$id': typeof ContractsIdRouteWithChildren
   '/contracts/new': typeof ContractsNewRoute
+  '/customer-invoices/$id': typeof CustomerInvoicesIdRouteWithChildren
+  '/customer-invoices/new': typeof CustomerInvoicesNewRoute
+  '/customer-payments/$id': typeof CustomerPaymentsIdRouteWithChildren
+  '/customer-payments/new': typeof CustomerPaymentsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
+  '/delivery-proofs/$id': typeof DeliveryProofsIdRouteWithChildren
+  '/delivery-proofs/new': typeof DeliveryProofsNewRoute
   '/driver-advances/$id': typeof DriverAdvancesIdRouteWithChildren
   '/driver-advances/new': typeof DriverAdvancesNewRoute
   '/driver-settlements/$id': typeof DriverSettlementsIdRouteWithChildren
@@ -544,6 +765,10 @@ export interface FileRoutesByTo {
   '/fuel-prices/new': typeof FuelPricesNewRoute
   '/fuel-slips/$id': typeof FuelSlipsIdRouteWithChildren
   '/fuel-slips/new': typeof FuelSlipsNewRoute
+  '/fuel-vendor-invoices/$id': typeof FuelVendorInvoicesIdRouteWithChildren
+  '/fuel-vendor-invoices/new': typeof FuelVendorInvoicesNewRoute
+  '/fuel-vendor-payments/$id': typeof FuelVendorPaymentsIdRouteWithChildren
+  '/fuel-vendor-payments/new': typeof FuelVendorPaymentsNewRoute
   '/fuel-vendors/$id': typeof FuelVendorsIdRouteWithChildren
   '/fuel-vendors/new': typeof FuelVendorsNewRoute
   '/pricing/route-estimate': typeof PricingRouteEstimateRoute
@@ -553,26 +778,35 @@ export interface FileRoutesByTo {
   '/route-overhead-profiles/new': typeof RouteOverheadProfilesNewRoute
   '/routes/$id': typeof RoutesIdRouteWithChildren
   '/routes/new': typeof RoutesNewRoute
+  '/stations/$id': typeof StationsIdRouteWithChildren
+  '/stations/new': typeof StationsNewRoute
   '/trips/$id': typeof TripsIdRouteWithChildren
   '/trips/new': typeof TripsNewRoute
   '/vehicle-types/$id': typeof VehicleTypesIdRouteWithChildren
   '/vehicle-types/new': typeof VehicleTypesNewRoute
   '/vehicles/$id': typeof VehiclesIdRouteWithChildren
   '/vehicles/new': typeof VehiclesNewRoute
+  '/agent-commissions/$id/edit': typeof AgentCommissionsIdEditRoute
   '/agents/$id/edit': typeof AgentsIdEditRoute
   '/bookings/$id/edit': typeof BookingsIdEditRoute
   '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
   '/contracts/$id/edit': typeof ContractsIdEditRoute
+  '/customer-invoices/$id/edit': typeof CustomerInvoicesIdEditRoute
+  '/customer-payments/$id/edit': typeof CustomerPaymentsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
+  '/delivery-proofs/$id/edit': typeof DeliveryProofsIdEditRoute
   '/driver-advances/$id/edit': typeof DriverAdvancesIdEditRoute
   '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/fuel-slips/$id/edit': typeof FuelSlipsIdEditRoute
+  '/fuel-vendor-invoices/$id/edit': typeof FuelVendorInvoicesIdEditRoute
+  '/fuel-vendor-payments/$id/edit': typeof FuelVendorPaymentsIdEditRoute
   '/fuel-vendors/$id/edit': typeof FuelVendorsIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
+  '/stations/$id/edit': typeof StationsIdEditRoute
   '/trips/$id/edit': typeof TripsIdEditRoute
   '/vehicle-types/$id/edit': typeof VehicleTypesIdEditRoute
   '/vehicles/$id/edit': typeof VehiclesIdEditRoute
@@ -580,23 +814,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agent-commissions': typeof AgentCommissionsRouteWithChildren
   '/agents': typeof AgentsRouteWithChildren
   '/bookings': typeof BookingsRouteWithChildren
   '/contract-rates': typeof ContractRatesRouteWithChildren
   '/contracts': typeof ContractsRouteWithChildren
+  '/customer-invoices': typeof CustomerInvoicesRouteWithChildren
+  '/customer-payments': typeof CustomerPaymentsRouteWithChildren
   '/customers': typeof CustomersRouteWithChildren
+  '/delivery-proofs': typeof DeliveryProofsRouteWithChildren
   '/driver-advances': typeof DriverAdvancesRouteWithChildren
   '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
   '/fuel-slips': typeof FuelSlipsRouteWithChildren
+  '/fuel-vendor-invoices': typeof FuelVendorInvoicesRouteWithChildren
+  '/fuel-vendor-payments': typeof FuelVendorPaymentsRouteWithChildren
   '/fuel-vendors': typeof FuelVendorsRouteWithChildren
+  '/reports': typeof ReportsRoute
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
+  '/stations': typeof StationsRouteWithChildren
   '/trips': typeof TripsRouteWithChildren
   '/vehicle-types': typeof VehicleTypesRouteWithChildren
   '/vehicles': typeof VehiclesRouteWithChildren
+  '/agent-commissions/$id': typeof AgentCommissionsIdRouteWithChildren
+  '/agent-commissions/new': typeof AgentCommissionsNewRoute
   '/agents/$id': typeof AgentsIdRouteWithChildren
   '/agents/new': typeof AgentsNewRoute
   '/bookings/$id': typeof BookingsIdRouteWithChildren
@@ -605,8 +849,14 @@ export interface FileRoutesById {
   '/contract-rates/new': typeof ContractRatesNewRoute
   '/contracts/$id': typeof ContractsIdRouteWithChildren
   '/contracts/new': typeof ContractsNewRoute
+  '/customer-invoices/$id': typeof CustomerInvoicesIdRouteWithChildren
+  '/customer-invoices/new': typeof CustomerInvoicesNewRoute
+  '/customer-payments/$id': typeof CustomerPaymentsIdRouteWithChildren
+  '/customer-payments/new': typeof CustomerPaymentsNewRoute
   '/customers/$id': typeof CustomersIdRouteWithChildren
   '/customers/new': typeof CustomersNewRoute
+  '/delivery-proofs/$id': typeof DeliveryProofsIdRouteWithChildren
+  '/delivery-proofs/new': typeof DeliveryProofsNewRoute
   '/driver-advances/$id': typeof DriverAdvancesIdRouteWithChildren
   '/driver-advances/new': typeof DriverAdvancesNewRoute
   '/driver-settlements/$id': typeof DriverSettlementsIdRouteWithChildren
@@ -617,6 +867,10 @@ export interface FileRoutesById {
   '/fuel-prices/new': typeof FuelPricesNewRoute
   '/fuel-slips/$id': typeof FuelSlipsIdRouteWithChildren
   '/fuel-slips/new': typeof FuelSlipsNewRoute
+  '/fuel-vendor-invoices/$id': typeof FuelVendorInvoicesIdRouteWithChildren
+  '/fuel-vendor-invoices/new': typeof FuelVendorInvoicesNewRoute
+  '/fuel-vendor-payments/$id': typeof FuelVendorPaymentsIdRouteWithChildren
+  '/fuel-vendor-payments/new': typeof FuelVendorPaymentsNewRoute
   '/fuel-vendors/$id': typeof FuelVendorsIdRouteWithChildren
   '/fuel-vendors/new': typeof FuelVendorsNewRoute
   '/pricing/route-estimate': typeof PricingRouteEstimateRoute
@@ -626,26 +880,35 @@ export interface FileRoutesById {
   '/route-overhead-profiles/new': typeof RouteOverheadProfilesNewRoute
   '/routes/$id': typeof RoutesIdRouteWithChildren
   '/routes/new': typeof RoutesNewRoute
+  '/stations/$id': typeof StationsIdRouteWithChildren
+  '/stations/new': typeof StationsNewRoute
   '/trips/$id': typeof TripsIdRouteWithChildren
   '/trips/new': typeof TripsNewRoute
   '/vehicle-types/$id': typeof VehicleTypesIdRouteWithChildren
   '/vehicle-types/new': typeof VehicleTypesNewRoute
   '/vehicles/$id': typeof VehiclesIdRouteWithChildren
   '/vehicles/new': typeof VehiclesNewRoute
+  '/agent-commissions/$id/edit': typeof AgentCommissionsIdEditRoute
   '/agents/$id/edit': typeof AgentsIdEditRoute
   '/bookings/$id/edit': typeof BookingsIdEditRoute
   '/contract-rates/$id/edit': typeof ContractRatesIdEditRoute
   '/contracts/$id/edit': typeof ContractsIdEditRoute
+  '/customer-invoices/$id/edit': typeof CustomerInvoicesIdEditRoute
+  '/customer-payments/$id/edit': typeof CustomerPaymentsIdEditRoute
   '/customers/$id/edit': typeof CustomersIdEditRoute
+  '/delivery-proofs/$id/edit': typeof DeliveryProofsIdEditRoute
   '/driver-advances/$id/edit': typeof DriverAdvancesIdEditRoute
   '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
   '/fuel-slips/$id/edit': typeof FuelSlipsIdEditRoute
+  '/fuel-vendor-invoices/$id/edit': typeof FuelVendorInvoicesIdEditRoute
+  '/fuel-vendor-payments/$id/edit': typeof FuelVendorPaymentsIdEditRoute
   '/fuel-vendors/$id/edit': typeof FuelVendorsIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
+  '/stations/$id/edit': typeof StationsIdEditRoute
   '/trips/$id/edit': typeof TripsIdEditRoute
   '/vehicle-types/$id/edit': typeof VehicleTypesIdEditRoute
   '/vehicles/$id/edit': typeof VehiclesIdEditRoute
@@ -654,23 +917,33 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/agent-commissions'
     | '/agents'
     | '/bookings'
     | '/contract-rates'
     | '/contracts'
+    | '/customer-invoices'
+    | '/customer-payments'
     | '/customers'
+    | '/delivery-proofs'
     | '/driver-advances'
     | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
     | '/fuel-slips'
+    | '/fuel-vendor-invoices'
+    | '/fuel-vendor-payments'
     | '/fuel-vendors'
+    | '/reports'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
+    | '/stations'
     | '/trips'
     | '/vehicle-types'
     | '/vehicles'
+    | '/agent-commissions/$id'
+    | '/agent-commissions/new'
     | '/agents/$id'
     | '/agents/new'
     | '/bookings/$id'
@@ -679,8 +952,14 @@ export interface FileRouteTypes {
     | '/contract-rates/new'
     | '/contracts/$id'
     | '/contracts/new'
+    | '/customer-invoices/$id'
+    | '/customer-invoices/new'
+    | '/customer-payments/$id'
+    | '/customer-payments/new'
     | '/customers/$id'
     | '/customers/new'
+    | '/delivery-proofs/$id'
+    | '/delivery-proofs/new'
     | '/driver-advances/$id'
     | '/driver-advances/new'
     | '/driver-settlements/$id'
@@ -691,6 +970,10 @@ export interface FileRouteTypes {
     | '/fuel-prices/new'
     | '/fuel-slips/$id'
     | '/fuel-slips/new'
+    | '/fuel-vendor-invoices/$id'
+    | '/fuel-vendor-invoices/new'
+    | '/fuel-vendor-payments/$id'
+    | '/fuel-vendor-payments/new'
     | '/fuel-vendors/$id'
     | '/fuel-vendors/new'
     | '/pricing/route-estimate'
@@ -700,49 +983,68 @@ export interface FileRouteTypes {
     | '/route-overhead-profiles/new'
     | '/routes/$id'
     | '/routes/new'
+    | '/stations/$id'
+    | '/stations/new'
     | '/trips/$id'
     | '/trips/new'
     | '/vehicle-types/$id'
     | '/vehicle-types/new'
     | '/vehicles/$id'
     | '/vehicles/new'
+    | '/agent-commissions/$id/edit'
     | '/agents/$id/edit'
     | '/bookings/$id/edit'
     | '/contract-rates/$id/edit'
     | '/contracts/$id/edit'
+    | '/customer-invoices/$id/edit'
+    | '/customer-payments/$id/edit'
     | '/customers/$id/edit'
+    | '/delivery-proofs/$id/edit'
     | '/driver-advances/$id/edit'
     | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/fuel-slips/$id/edit'
+    | '/fuel-vendor-invoices/$id/edit'
+    | '/fuel-vendor-payments/$id/edit'
     | '/fuel-vendors/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
+    | '/stations/$id/edit'
     | '/trips/$id/edit'
     | '/vehicle-types/$id/edit'
     | '/vehicles/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/agent-commissions'
     | '/agents'
     | '/bookings'
     | '/contract-rates'
     | '/contracts'
+    | '/customer-invoices'
+    | '/customer-payments'
     | '/customers'
+    | '/delivery-proofs'
     | '/driver-advances'
     | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
     | '/fuel-slips'
+    | '/fuel-vendor-invoices'
+    | '/fuel-vendor-payments'
     | '/fuel-vendors'
+    | '/reports'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
+    | '/stations'
     | '/trips'
     | '/vehicle-types'
     | '/vehicles'
+    | '/agent-commissions/$id'
+    | '/agent-commissions/new'
     | '/agents/$id'
     | '/agents/new'
     | '/bookings/$id'
@@ -751,8 +1053,14 @@ export interface FileRouteTypes {
     | '/contract-rates/new'
     | '/contracts/$id'
     | '/contracts/new'
+    | '/customer-invoices/$id'
+    | '/customer-invoices/new'
+    | '/customer-payments/$id'
+    | '/customer-payments/new'
     | '/customers/$id'
     | '/customers/new'
+    | '/delivery-proofs/$id'
+    | '/delivery-proofs/new'
     | '/driver-advances/$id'
     | '/driver-advances/new'
     | '/driver-settlements/$id'
@@ -763,6 +1071,10 @@ export interface FileRouteTypes {
     | '/fuel-prices/new'
     | '/fuel-slips/$id'
     | '/fuel-slips/new'
+    | '/fuel-vendor-invoices/$id'
+    | '/fuel-vendor-invoices/new'
+    | '/fuel-vendor-payments/$id'
+    | '/fuel-vendor-payments/new'
     | '/fuel-vendors/$id'
     | '/fuel-vendors/new'
     | '/pricing/route-estimate'
@@ -772,49 +1084,68 @@ export interface FileRouteTypes {
     | '/route-overhead-profiles/new'
     | '/routes/$id'
     | '/routes/new'
+    | '/stations/$id'
+    | '/stations/new'
     | '/trips/$id'
     | '/trips/new'
     | '/vehicle-types/$id'
     | '/vehicle-types/new'
     | '/vehicles/$id'
     | '/vehicles/new'
+    | '/agent-commissions/$id/edit'
     | '/agents/$id/edit'
     | '/bookings/$id/edit'
     | '/contract-rates/$id/edit'
     | '/contracts/$id/edit'
+    | '/customer-invoices/$id/edit'
+    | '/customer-payments/$id/edit'
     | '/customers/$id/edit'
+    | '/delivery-proofs/$id/edit'
     | '/driver-advances/$id/edit'
     | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/fuel-slips/$id/edit'
+    | '/fuel-vendor-invoices/$id/edit'
+    | '/fuel-vendor-payments/$id/edit'
     | '/fuel-vendors/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
+    | '/stations/$id/edit'
     | '/trips/$id/edit'
     | '/vehicle-types/$id/edit'
     | '/vehicles/$id/edit'
   id:
     | '__root__'
     | '/'
+    | '/agent-commissions'
     | '/agents'
     | '/bookings'
     | '/contract-rates'
     | '/contracts'
+    | '/customer-invoices'
+    | '/customer-payments'
     | '/customers'
+    | '/delivery-proofs'
     | '/driver-advances'
     | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
     | '/fuel-slips'
+    | '/fuel-vendor-invoices'
+    | '/fuel-vendor-payments'
     | '/fuel-vendors'
+    | '/reports'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
+    | '/stations'
     | '/trips'
     | '/vehicle-types'
     | '/vehicles'
+    | '/agent-commissions/$id'
+    | '/agent-commissions/new'
     | '/agents/$id'
     | '/agents/new'
     | '/bookings/$id'
@@ -823,8 +1154,14 @@ export interface FileRouteTypes {
     | '/contract-rates/new'
     | '/contracts/$id'
     | '/contracts/new'
+    | '/customer-invoices/$id'
+    | '/customer-invoices/new'
+    | '/customer-payments/$id'
+    | '/customer-payments/new'
     | '/customers/$id'
     | '/customers/new'
+    | '/delivery-proofs/$id'
+    | '/delivery-proofs/new'
     | '/driver-advances/$id'
     | '/driver-advances/new'
     | '/driver-settlements/$id'
@@ -835,6 +1172,10 @@ export interface FileRouteTypes {
     | '/fuel-prices/new'
     | '/fuel-slips/$id'
     | '/fuel-slips/new'
+    | '/fuel-vendor-invoices/$id'
+    | '/fuel-vendor-invoices/new'
+    | '/fuel-vendor-payments/$id'
+    | '/fuel-vendor-payments/new'
     | '/fuel-vendors/$id'
     | '/fuel-vendors/new'
     | '/pricing/route-estimate'
@@ -844,26 +1185,35 @@ export interface FileRouteTypes {
     | '/route-overhead-profiles/new'
     | '/routes/$id'
     | '/routes/new'
+    | '/stations/$id'
+    | '/stations/new'
     | '/trips/$id'
     | '/trips/new'
     | '/vehicle-types/$id'
     | '/vehicle-types/new'
     | '/vehicles/$id'
     | '/vehicles/new'
+    | '/agent-commissions/$id/edit'
     | '/agents/$id/edit'
     | '/bookings/$id/edit'
     | '/contract-rates/$id/edit'
     | '/contracts/$id/edit'
+    | '/customer-invoices/$id/edit'
+    | '/customer-payments/$id/edit'
     | '/customers/$id/edit'
+    | '/delivery-proofs/$id/edit'
     | '/driver-advances/$id/edit'
     | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
     | '/fuel-slips/$id/edit'
+    | '/fuel-vendor-invoices/$id/edit'
+    | '/fuel-vendor-payments/$id/edit'
     | '/fuel-vendors/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
+    | '/stations/$id/edit'
     | '/trips/$id/edit'
     | '/vehicle-types/$id/edit'
     | '/vehicles/$id/edit'
@@ -871,20 +1221,28 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgentCommissionsRoute: typeof AgentCommissionsRouteWithChildren
   AgentsRoute: typeof AgentsRouteWithChildren
   BookingsRoute: typeof BookingsRouteWithChildren
   ContractRatesRoute: typeof ContractRatesRouteWithChildren
   ContractsRoute: typeof ContractsRouteWithChildren
+  CustomerInvoicesRoute: typeof CustomerInvoicesRouteWithChildren
+  CustomerPaymentsRoute: typeof CustomerPaymentsRouteWithChildren
   CustomersRoute: typeof CustomersRouteWithChildren
+  DeliveryProofsRoute: typeof DeliveryProofsRouteWithChildren
   DriverAdvancesRoute: typeof DriverAdvancesRouteWithChildren
   DriverSettlementsRoute: typeof DriverSettlementsRouteWithChildren
   DriversRoute: typeof DriversRouteWithChildren
   FuelPricesRoute: typeof FuelPricesRouteWithChildren
   FuelSlipsRoute: typeof FuelSlipsRouteWithChildren
+  FuelVendorInvoicesRoute: typeof FuelVendorInvoicesRouteWithChildren
+  FuelVendorPaymentsRoute: typeof FuelVendorPaymentsRouteWithChildren
   FuelVendorsRoute: typeof FuelVendorsRouteWithChildren
+  ReportsRoute: typeof ReportsRoute
   RouteFuelProfilesRoute: typeof RouteFuelProfilesRouteWithChildren
   RouteOverheadProfilesRoute: typeof RouteOverheadProfilesRouteWithChildren
   RoutesRoute: typeof RoutesRouteWithChildren
+  StationsRoute: typeof StationsRouteWithChildren
   TripsRoute: typeof TripsRouteWithChildren
   VehicleTypesRoute: typeof VehicleTypesRouteWithChildren
   VehiclesRoute: typeof VehiclesRouteWithChildren
@@ -914,6 +1272,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TripsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stations': {
+      id: '/stations'
+      path: '/stations'
+      fullPath: '/stations'
+      preLoaderRoute: typeof StationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/routes': {
       id: '/routes'
       path: '/routes'
@@ -935,11 +1300,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RouteFuelProfilesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fuel-vendors': {
       id: '/fuel-vendors'
       path: '/fuel-vendors'
       fullPath: '/fuel-vendors'
       preLoaderRoute: typeof FuelVendorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fuel-vendor-payments': {
+      id: '/fuel-vendor-payments'
+      path: '/fuel-vendor-payments'
+      fullPath: '/fuel-vendor-payments'
+      preLoaderRoute: typeof FuelVendorPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fuel-vendor-invoices': {
+      id: '/fuel-vendor-invoices'
+      path: '/fuel-vendor-invoices'
+      fullPath: '/fuel-vendor-invoices'
+      preLoaderRoute: typeof FuelVendorInvoicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fuel-slips': {
@@ -977,11 +1363,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DriverAdvancesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/delivery-proofs': {
+      id: '/delivery-proofs'
+      path: '/delivery-proofs'
+      fullPath: '/delivery-proofs'
+      preLoaderRoute: typeof DeliveryProofsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/customers': {
       id: '/customers'
       path: '/customers'
       fullPath: '/customers'
       preLoaderRoute: typeof CustomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer-payments': {
+      id: '/customer-payments'
+      path: '/customer-payments'
+      fullPath: '/customer-payments'
+      preLoaderRoute: typeof CustomerPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer-invoices': {
+      id: '/customer-invoices'
+      path: '/customer-invoices'
+      fullPath: '/customer-invoices'
+      preLoaderRoute: typeof CustomerInvoicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contracts': {
@@ -1010,6 +1417,13 @@ declare module '@tanstack/react-router' {
       path: '/agents'
       fullPath: '/agents'
       preLoaderRoute: typeof AgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agent-commissions': {
+      id: '/agent-commissions'
+      path: '/agent-commissions'
+      fullPath: '/agent-commissions'
+      preLoaderRoute: typeof AgentCommissionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -1060,6 +1474,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/trips/$id'
       preLoaderRoute: typeof TripsIdRouteImport
       parentRoute: typeof TripsRoute
+    }
+    '/stations/new': {
+      id: '/stations/new'
+      path: '/new'
+      fullPath: '/stations/new'
+      preLoaderRoute: typeof StationsNewRouteImport
+      parentRoute: typeof StationsRoute
+    }
+    '/stations/$id': {
+      id: '/stations/$id'
+      path: '/$id'
+      fullPath: '/stations/$id'
+      preLoaderRoute: typeof StationsIdRouteImport
+      parentRoute: typeof StationsRoute
     }
     '/routes/new': {
       id: '/routes/new'
@@ -1123,6 +1551,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/fuel-vendors/$id'
       preLoaderRoute: typeof FuelVendorsIdRouteImport
       parentRoute: typeof FuelVendorsRoute
+    }
+    '/fuel-vendor-payments/new': {
+      id: '/fuel-vendor-payments/new'
+      path: '/new'
+      fullPath: '/fuel-vendor-payments/new'
+      preLoaderRoute: typeof FuelVendorPaymentsNewRouteImport
+      parentRoute: typeof FuelVendorPaymentsRoute
+    }
+    '/fuel-vendor-payments/$id': {
+      id: '/fuel-vendor-payments/$id'
+      path: '/$id'
+      fullPath: '/fuel-vendor-payments/$id'
+      preLoaderRoute: typeof FuelVendorPaymentsIdRouteImport
+      parentRoute: typeof FuelVendorPaymentsRoute
+    }
+    '/fuel-vendor-invoices/new': {
+      id: '/fuel-vendor-invoices/new'
+      path: '/new'
+      fullPath: '/fuel-vendor-invoices/new'
+      preLoaderRoute: typeof FuelVendorInvoicesNewRouteImport
+      parentRoute: typeof FuelVendorInvoicesRoute
+    }
+    '/fuel-vendor-invoices/$id': {
+      id: '/fuel-vendor-invoices/$id'
+      path: '/$id'
+      fullPath: '/fuel-vendor-invoices/$id'
+      preLoaderRoute: typeof FuelVendorInvoicesIdRouteImport
+      parentRoute: typeof FuelVendorInvoicesRoute
     }
     '/fuel-slips/new': {
       id: '/fuel-slips/new'
@@ -1194,6 +1650,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DriverAdvancesIdRouteImport
       parentRoute: typeof DriverAdvancesRoute
     }
+    '/delivery-proofs/new': {
+      id: '/delivery-proofs/new'
+      path: '/new'
+      fullPath: '/delivery-proofs/new'
+      preLoaderRoute: typeof DeliveryProofsNewRouteImport
+      parentRoute: typeof DeliveryProofsRoute
+    }
+    '/delivery-proofs/$id': {
+      id: '/delivery-proofs/$id'
+      path: '/$id'
+      fullPath: '/delivery-proofs/$id'
+      preLoaderRoute: typeof DeliveryProofsIdRouteImport
+      parentRoute: typeof DeliveryProofsRoute
+    }
     '/customers/new': {
       id: '/customers/new'
       path: '/new'
@@ -1207,6 +1677,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/customers/$id'
       preLoaderRoute: typeof CustomersIdRouteImport
       parentRoute: typeof CustomersRoute
+    }
+    '/customer-payments/new': {
+      id: '/customer-payments/new'
+      path: '/new'
+      fullPath: '/customer-payments/new'
+      preLoaderRoute: typeof CustomerPaymentsNewRouteImport
+      parentRoute: typeof CustomerPaymentsRoute
+    }
+    '/customer-payments/$id': {
+      id: '/customer-payments/$id'
+      path: '/$id'
+      fullPath: '/customer-payments/$id'
+      preLoaderRoute: typeof CustomerPaymentsIdRouteImport
+      parentRoute: typeof CustomerPaymentsRoute
+    }
+    '/customer-invoices/new': {
+      id: '/customer-invoices/new'
+      path: '/new'
+      fullPath: '/customer-invoices/new'
+      preLoaderRoute: typeof CustomerInvoicesNewRouteImport
+      parentRoute: typeof CustomerInvoicesRoute
+    }
+    '/customer-invoices/$id': {
+      id: '/customer-invoices/$id'
+      path: '/$id'
+      fullPath: '/customer-invoices/$id'
+      preLoaderRoute: typeof CustomerInvoicesIdRouteImport
+      parentRoute: typeof CustomerInvoicesRoute
     }
     '/contracts/new': {
       id: '/contracts/new'
@@ -1264,6 +1762,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgentsIdRouteImport
       parentRoute: typeof AgentsRoute
     }
+    '/agent-commissions/new': {
+      id: '/agent-commissions/new'
+      path: '/new'
+      fullPath: '/agent-commissions/new'
+      preLoaderRoute: typeof AgentCommissionsNewRouteImport
+      parentRoute: typeof AgentCommissionsRoute
+    }
+    '/agent-commissions/$id': {
+      id: '/agent-commissions/$id'
+      path: '/$id'
+      fullPath: '/agent-commissions/$id'
+      preLoaderRoute: typeof AgentCommissionsIdRouteImport
+      parentRoute: typeof AgentCommissionsRoute
+    }
     '/vehicles/$id/edit': {
       id: '/vehicles/$id/edit'
       path: '/edit'
@@ -1284,6 +1796,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trips/$id/edit'
       preLoaderRoute: typeof TripsIdEditRouteImport
       parentRoute: typeof TripsIdRoute
+    }
+    '/stations/$id/edit': {
+      id: '/stations/$id/edit'
+      path: '/edit'
+      fullPath: '/stations/$id/edit'
+      preLoaderRoute: typeof StationsIdEditRouteImport
+      parentRoute: typeof StationsIdRoute
     }
     '/routes/$id/edit': {
       id: '/routes/$id/edit'
@@ -1312,6 +1831,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/fuel-vendors/$id/edit'
       preLoaderRoute: typeof FuelVendorsIdEditRouteImport
       parentRoute: typeof FuelVendorsIdRoute
+    }
+    '/fuel-vendor-payments/$id/edit': {
+      id: '/fuel-vendor-payments/$id/edit'
+      path: '/edit'
+      fullPath: '/fuel-vendor-payments/$id/edit'
+      preLoaderRoute: typeof FuelVendorPaymentsIdEditRouteImport
+      parentRoute: typeof FuelVendorPaymentsIdRoute
+    }
+    '/fuel-vendor-invoices/$id/edit': {
+      id: '/fuel-vendor-invoices/$id/edit'
+      path: '/edit'
+      fullPath: '/fuel-vendor-invoices/$id/edit'
+      preLoaderRoute: typeof FuelVendorInvoicesIdEditRouteImport
+      parentRoute: typeof FuelVendorInvoicesIdRoute
     }
     '/fuel-slips/$id/edit': {
       id: '/fuel-slips/$id/edit'
@@ -1348,12 +1881,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DriverAdvancesIdEditRouteImport
       parentRoute: typeof DriverAdvancesIdRoute
     }
+    '/delivery-proofs/$id/edit': {
+      id: '/delivery-proofs/$id/edit'
+      path: '/edit'
+      fullPath: '/delivery-proofs/$id/edit'
+      preLoaderRoute: typeof DeliveryProofsIdEditRouteImport
+      parentRoute: typeof DeliveryProofsIdRoute
+    }
     '/customers/$id/edit': {
       id: '/customers/$id/edit'
       path: '/edit'
       fullPath: '/customers/$id/edit'
       preLoaderRoute: typeof CustomersIdEditRouteImport
       parentRoute: typeof CustomersIdRoute
+    }
+    '/customer-payments/$id/edit': {
+      id: '/customer-payments/$id/edit'
+      path: '/edit'
+      fullPath: '/customer-payments/$id/edit'
+      preLoaderRoute: typeof CustomerPaymentsIdEditRouteImport
+      parentRoute: typeof CustomerPaymentsIdRoute
+    }
+    '/customer-invoices/$id/edit': {
+      id: '/customer-invoices/$id/edit'
+      path: '/edit'
+      fullPath: '/customer-invoices/$id/edit'
+      preLoaderRoute: typeof CustomerInvoicesIdEditRouteImport
+      parentRoute: typeof CustomerInvoicesIdRoute
     }
     '/contracts/$id/edit': {
       id: '/contracts/$id/edit'
@@ -1383,8 +1937,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgentsIdEditRouteImport
       parentRoute: typeof AgentsIdRoute
     }
+    '/agent-commissions/$id/edit': {
+      id: '/agent-commissions/$id/edit'
+      path: '/edit'
+      fullPath: '/agent-commissions/$id/edit'
+      preLoaderRoute: typeof AgentCommissionsIdEditRouteImport
+      parentRoute: typeof AgentCommissionsIdRoute
+    }
   }
 }
+
+interface AgentCommissionsIdRouteChildren {
+  AgentCommissionsIdEditRoute: typeof AgentCommissionsIdEditRoute
+}
+
+const AgentCommissionsIdRouteChildren: AgentCommissionsIdRouteChildren = {
+  AgentCommissionsIdEditRoute: AgentCommissionsIdEditRoute,
+}
+
+const AgentCommissionsIdRouteWithChildren =
+  AgentCommissionsIdRoute._addFileChildren(AgentCommissionsIdRouteChildren)
+
+interface AgentCommissionsRouteChildren {
+  AgentCommissionsIdRoute: typeof AgentCommissionsIdRouteWithChildren
+  AgentCommissionsNewRoute: typeof AgentCommissionsNewRoute
+}
+
+const AgentCommissionsRouteChildren: AgentCommissionsRouteChildren = {
+  AgentCommissionsIdRoute: AgentCommissionsIdRouteWithChildren,
+  AgentCommissionsNewRoute: AgentCommissionsNewRoute,
+}
+
+const AgentCommissionsRouteWithChildren =
+  AgentCommissionsRoute._addFileChildren(AgentCommissionsRouteChildren)
 
 interface AgentsIdRouteChildren {
   AgentsIdEditRoute: typeof AgentsIdEditRoute
@@ -1489,6 +2074,54 @@ const ContractsRouteWithChildren = ContractsRoute._addFileChildren(
   ContractsRouteChildren,
 )
 
+interface CustomerInvoicesIdRouteChildren {
+  CustomerInvoicesIdEditRoute: typeof CustomerInvoicesIdEditRoute
+}
+
+const CustomerInvoicesIdRouteChildren: CustomerInvoicesIdRouteChildren = {
+  CustomerInvoicesIdEditRoute: CustomerInvoicesIdEditRoute,
+}
+
+const CustomerInvoicesIdRouteWithChildren =
+  CustomerInvoicesIdRoute._addFileChildren(CustomerInvoicesIdRouteChildren)
+
+interface CustomerInvoicesRouteChildren {
+  CustomerInvoicesIdRoute: typeof CustomerInvoicesIdRouteWithChildren
+  CustomerInvoicesNewRoute: typeof CustomerInvoicesNewRoute
+}
+
+const CustomerInvoicesRouteChildren: CustomerInvoicesRouteChildren = {
+  CustomerInvoicesIdRoute: CustomerInvoicesIdRouteWithChildren,
+  CustomerInvoicesNewRoute: CustomerInvoicesNewRoute,
+}
+
+const CustomerInvoicesRouteWithChildren =
+  CustomerInvoicesRoute._addFileChildren(CustomerInvoicesRouteChildren)
+
+interface CustomerPaymentsIdRouteChildren {
+  CustomerPaymentsIdEditRoute: typeof CustomerPaymentsIdEditRoute
+}
+
+const CustomerPaymentsIdRouteChildren: CustomerPaymentsIdRouteChildren = {
+  CustomerPaymentsIdEditRoute: CustomerPaymentsIdEditRoute,
+}
+
+const CustomerPaymentsIdRouteWithChildren =
+  CustomerPaymentsIdRoute._addFileChildren(CustomerPaymentsIdRouteChildren)
+
+interface CustomerPaymentsRouteChildren {
+  CustomerPaymentsIdRoute: typeof CustomerPaymentsIdRouteWithChildren
+  CustomerPaymentsNewRoute: typeof CustomerPaymentsNewRoute
+}
+
+const CustomerPaymentsRouteChildren: CustomerPaymentsRouteChildren = {
+  CustomerPaymentsIdRoute: CustomerPaymentsIdRouteWithChildren,
+  CustomerPaymentsNewRoute: CustomerPaymentsNewRoute,
+}
+
+const CustomerPaymentsRouteWithChildren =
+  CustomerPaymentsRoute._addFileChildren(CustomerPaymentsRouteChildren)
+
 interface CustomersIdRouteChildren {
   CustomersIdEditRoute: typeof CustomersIdEditRoute
 }
@@ -1513,6 +2146,31 @@ const CustomersRouteChildren: CustomersRouteChildren = {
 
 const CustomersRouteWithChildren = CustomersRoute._addFileChildren(
   CustomersRouteChildren,
+)
+
+interface DeliveryProofsIdRouteChildren {
+  DeliveryProofsIdEditRoute: typeof DeliveryProofsIdEditRoute
+}
+
+const DeliveryProofsIdRouteChildren: DeliveryProofsIdRouteChildren = {
+  DeliveryProofsIdEditRoute: DeliveryProofsIdEditRoute,
+}
+
+const DeliveryProofsIdRouteWithChildren =
+  DeliveryProofsIdRoute._addFileChildren(DeliveryProofsIdRouteChildren)
+
+interface DeliveryProofsRouteChildren {
+  DeliveryProofsIdRoute: typeof DeliveryProofsIdRouteWithChildren
+  DeliveryProofsNewRoute: typeof DeliveryProofsNewRoute
+}
+
+const DeliveryProofsRouteChildren: DeliveryProofsRouteChildren = {
+  DeliveryProofsIdRoute: DeliveryProofsIdRouteWithChildren,
+  DeliveryProofsNewRoute: DeliveryProofsNewRoute,
+}
+
+const DeliveryProofsRouteWithChildren = DeliveryProofsRoute._addFileChildren(
+  DeliveryProofsRouteChildren,
 )
 
 interface DriverAdvancesIdRouteChildren {
@@ -1641,6 +2299,54 @@ const FuelSlipsRouteWithChildren = FuelSlipsRoute._addFileChildren(
   FuelSlipsRouteChildren,
 )
 
+interface FuelVendorInvoicesIdRouteChildren {
+  FuelVendorInvoicesIdEditRoute: typeof FuelVendorInvoicesIdEditRoute
+}
+
+const FuelVendorInvoicesIdRouteChildren: FuelVendorInvoicesIdRouteChildren = {
+  FuelVendorInvoicesIdEditRoute: FuelVendorInvoicesIdEditRoute,
+}
+
+const FuelVendorInvoicesIdRouteWithChildren =
+  FuelVendorInvoicesIdRoute._addFileChildren(FuelVendorInvoicesIdRouteChildren)
+
+interface FuelVendorInvoicesRouteChildren {
+  FuelVendorInvoicesIdRoute: typeof FuelVendorInvoicesIdRouteWithChildren
+  FuelVendorInvoicesNewRoute: typeof FuelVendorInvoicesNewRoute
+}
+
+const FuelVendorInvoicesRouteChildren: FuelVendorInvoicesRouteChildren = {
+  FuelVendorInvoicesIdRoute: FuelVendorInvoicesIdRouteWithChildren,
+  FuelVendorInvoicesNewRoute: FuelVendorInvoicesNewRoute,
+}
+
+const FuelVendorInvoicesRouteWithChildren =
+  FuelVendorInvoicesRoute._addFileChildren(FuelVendorInvoicesRouteChildren)
+
+interface FuelVendorPaymentsIdRouteChildren {
+  FuelVendorPaymentsIdEditRoute: typeof FuelVendorPaymentsIdEditRoute
+}
+
+const FuelVendorPaymentsIdRouteChildren: FuelVendorPaymentsIdRouteChildren = {
+  FuelVendorPaymentsIdEditRoute: FuelVendorPaymentsIdEditRoute,
+}
+
+const FuelVendorPaymentsIdRouteWithChildren =
+  FuelVendorPaymentsIdRoute._addFileChildren(FuelVendorPaymentsIdRouteChildren)
+
+interface FuelVendorPaymentsRouteChildren {
+  FuelVendorPaymentsIdRoute: typeof FuelVendorPaymentsIdRouteWithChildren
+  FuelVendorPaymentsNewRoute: typeof FuelVendorPaymentsNewRoute
+}
+
+const FuelVendorPaymentsRouteChildren: FuelVendorPaymentsRouteChildren = {
+  FuelVendorPaymentsIdRoute: FuelVendorPaymentsIdRouteWithChildren,
+  FuelVendorPaymentsNewRoute: FuelVendorPaymentsNewRoute,
+}
+
+const FuelVendorPaymentsRouteWithChildren =
+  FuelVendorPaymentsRoute._addFileChildren(FuelVendorPaymentsRouteChildren)
+
 interface FuelVendorsIdRouteChildren {
   FuelVendorsIdEditRoute: typeof FuelVendorsIdEditRoute
 }
@@ -1745,6 +2451,32 @@ const RoutesRouteChildren: RoutesRouteChildren = {
 const RoutesRouteWithChildren =
   RoutesRoute._addFileChildren(RoutesRouteChildren)
 
+interface StationsIdRouteChildren {
+  StationsIdEditRoute: typeof StationsIdEditRoute
+}
+
+const StationsIdRouteChildren: StationsIdRouteChildren = {
+  StationsIdEditRoute: StationsIdEditRoute,
+}
+
+const StationsIdRouteWithChildren = StationsIdRoute._addFileChildren(
+  StationsIdRouteChildren,
+)
+
+interface StationsRouteChildren {
+  StationsIdRoute: typeof StationsIdRouteWithChildren
+  StationsNewRoute: typeof StationsNewRoute
+}
+
+const StationsRouteChildren: StationsRouteChildren = {
+  StationsIdRoute: StationsIdRouteWithChildren,
+  StationsNewRoute: StationsNewRoute,
+}
+
+const StationsRouteWithChildren = StationsRoute._addFileChildren(
+  StationsRouteChildren,
+)
+
 interface TripsIdRouteChildren {
   TripsIdEditRoute: typeof TripsIdEditRoute
 }
@@ -1822,20 +2554,28 @@ const VehiclesRouteWithChildren = VehiclesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgentCommissionsRoute: AgentCommissionsRouteWithChildren,
   AgentsRoute: AgentsRouteWithChildren,
   BookingsRoute: BookingsRouteWithChildren,
   ContractRatesRoute: ContractRatesRouteWithChildren,
   ContractsRoute: ContractsRouteWithChildren,
+  CustomerInvoicesRoute: CustomerInvoicesRouteWithChildren,
+  CustomerPaymentsRoute: CustomerPaymentsRouteWithChildren,
   CustomersRoute: CustomersRouteWithChildren,
+  DeliveryProofsRoute: DeliveryProofsRouteWithChildren,
   DriverAdvancesRoute: DriverAdvancesRouteWithChildren,
   DriverSettlementsRoute: DriverSettlementsRouteWithChildren,
   DriversRoute: DriversRouteWithChildren,
   FuelPricesRoute: FuelPricesRouteWithChildren,
   FuelSlipsRoute: FuelSlipsRouteWithChildren,
+  FuelVendorInvoicesRoute: FuelVendorInvoicesRouteWithChildren,
+  FuelVendorPaymentsRoute: FuelVendorPaymentsRouteWithChildren,
   FuelVendorsRoute: FuelVendorsRouteWithChildren,
+  ReportsRoute: ReportsRoute,
   RouteFuelProfilesRoute: RouteFuelProfilesRouteWithChildren,
   RouteOverheadProfilesRoute: RouteOverheadProfilesRouteWithChildren,
   RoutesRoute: RoutesRouteWithChildren,
+  StationsRoute: StationsRouteWithChildren,
   TripsRoute: TripsRouteWithChildren,
   VehicleTypesRoute: VehicleTypesRouteWithChildren,
   VehiclesRoute: VehiclesRouteWithChildren,

@@ -61,6 +61,16 @@ tags:
     description: Driver cash advance workflow excluding fuel
   - name: DriverSettlements
     description: Driver expense and settlement workflow
+  - name: Delivery Proofs
+    description: POD and delivery proof workflow
+  - name: Customer Finance
+    description: Customer invoices and payments
+  - name: Agent Commissions
+    description: Agent commission workflow
+  - name: Fuel Vendor Finance
+    description: Fuel vendor invoices and payments
+  - name: Reports
+    description: Reporting and profitability dashboard
 
 paths:
   /auth/register:
@@ -1889,6 +1899,210 @@ paths:
       requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/RejectFuelSlipRequest" } } } }
       responses:
         "200": { description: Fuel slip rejected, content: { application/json: { schema: { $ref: "#/components/schemas/FuelSlipResponse" } } } }
+
+  /delivery-proofs:
+    get:
+      tags: [Delivery Proofs]
+      operationId: getDeliveryProofs
+      summary: List delivery proofs / PODs
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - { name: search, in: query, required: false, schema: { type: string } }
+        - { name: bookingId, in: query, required: false, schema: { type: integer } }
+        - { name: tripLegId, in: query, required: false, schema: { type: integer } }
+      responses:
+        "200": { description: Delivery proof list, content: { application/json: { schema: { $ref: "#/components/schemas/DeliveryProofsListResponse" } } } }
+    post:
+      tags: [Delivery Proofs]
+      operationId: createDeliveryProof
+      summary: Upload delivery proof and mark booking POD uploaded
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/CreateDeliveryProofRequest" } } }
+      responses:
+        "201": { description: Delivery proof created, content: { application/json: { schema: { $ref: "#/components/schemas/DeliveryProofResponse" } } } }
+  /delivery-proofs/{deliveryProofId}:
+    get:
+      tags: [Delivery Proofs]
+      operationId: getDeliveryProofById
+      summary: Get delivery proof
+      parameters: [ { name: deliveryProofId, in: path, required: true, schema: { type: integer } } ]
+      responses:
+        "200": { description: Delivery proof, content: { application/json: { schema: { $ref: "#/components/schemas/DeliveryProofResponse" } } } }
+
+  /customer-invoices:
+    get:
+      tags: [Customer Finance]
+      operationId: getCustomerInvoices
+      summary: List customer invoices
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - { name: search, in: query, required: false, schema: { type: string } }
+        - { name: status, in: query, required: false, schema: { $ref: "#/components/schemas/CustomerInvoiceStatus" } }
+        - { name: customerId, in: query, required: false, schema: { type: integer } }
+        - { name: bookingId, in: query, required: false, schema: { type: integer } }
+      responses:
+        "200": { description: Invoice list, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerInvoicesListResponse" } } } }
+    post:
+      tags: [Customer Finance]
+      operationId: createCustomerInvoice
+      summary: Create customer invoice from POD uploaded booking
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/CreateCustomerInvoiceRequest" } } }
+      responses:
+        "201": { description: Invoice created, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerInvoiceResponse" } } } }
+  /customer-invoices/{customerInvoiceId}:
+    get:
+      tags: [Customer Finance]
+      operationId: getCustomerInvoiceById
+      summary: Get customer invoice
+      parameters: [ { name: customerInvoiceId, in: path, required: true, schema: { type: integer } } ]
+      responses:
+        "200": { description: Invoice, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerInvoiceResponse" } } } }
+  /customer-invoices/{customerInvoiceId}/payments:
+    post:
+      tags: [Customer Finance]
+      operationId: receiveCustomerPayment
+      summary: Receive customer payment against invoice
+      parameters: [ { name: customerInvoiceId, in: path, required: true, schema: { type: integer } } ]
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/ReceiveCustomerPaymentRequest" } } }
+      responses:
+        "201": { description: Payment received, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerPaymentResponse" } } } }
+  /customer-payments:
+    get:
+      tags: [Customer Finance]
+      operationId: getCustomerPayments
+      summary: List customer payments
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - { name: search, in: query, required: false, schema: { type: string } }
+        - { name: customerId, in: query, required: false, schema: { type: integer } }
+        - { name: invoiceId, in: query, required: false, schema: { type: integer } }
+      responses:
+        "200": { description: Customer payments, content: { application/json: { schema: { $ref: "#/components/schemas/CustomerPaymentsListResponse" } } } }
+
+  /agent-commissions:
+    get:
+      tags: [Agent Commissions]
+      operationId: getAgentCommissions
+      summary: List agent commissions
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - { name: search, in: query, required: false, schema: { type: string } }
+        - { name: status, in: query, required: false, schema: { $ref: "#/components/schemas/AgentCommissionStatus" } }
+        - { name: agentId, in: query, required: false, schema: { type: integer } }
+        - { name: bookingId, in: query, required: false, schema: { type: integer } }
+      responses:
+        "200": { description: Commission list, content: { application/json: { schema: { $ref: "#/components/schemas/AgentCommissionsListResponse" } } } }
+    post:
+      tags: [Agent Commissions]
+      operationId: createAgentCommission
+      summary: Create agent commission from booking
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/CreateAgentCommissionRequest" } } }
+      responses:
+        "201": { description: Commission created, content: { application/json: { schema: { $ref: "#/components/schemas/AgentCommissionResponse" } } } }
+  /agent-commissions/{agentCommissionId}:
+    get:
+      tags: [Agent Commissions]
+      operationId: getAgentCommissionById
+      summary: Get agent commission
+      parameters: [ { name: agentCommissionId, in: path, required: true, schema: { type: integer } } ]
+      responses:
+        "200": { description: Commission, content: { application/json: { schema: { $ref: "#/components/schemas/AgentCommissionResponse" } } } }
+  /agent-commissions/{agentCommissionId}/approve:
+    post:
+      tags: [Agent Commissions]
+      operationId: approveAgentCommission
+      summary: Approve agent commission
+      parameters: [ { name: agentCommissionId, in: path, required: true, schema: { type: integer } } ]
+      requestBody:
+        required: false
+        content: { application/json: { schema: { type: object, properties: { approvedByUserId: { type: integer, nullable: true } } } } }
+      responses:
+        "200": { description: Approved commission, content: { application/json: { schema: { $ref: "#/components/schemas/AgentCommissionResponse" } } } }
+  /agent-commissions/{agentCommissionId}/pay:
+    post:
+      tags: [Agent Commissions]
+      operationId: payAgentCommission
+      summary: Mark agent commission paid
+      parameters: [ { name: agentCommissionId, in: path, required: true, schema: { type: integer } } ]
+      requestBody:
+        required: false
+        content: { application/json: { schema: { type: object, properties: { paidByUserId: { type: integer, nullable: true } } } } }
+      responses:
+        "200": { description: Paid commission, content: { application/json: { schema: { $ref: "#/components/schemas/AgentCommissionResponse" } } } }
+
+  /fuel-vendor-invoices:
+    get:
+      tags: [Fuel Vendor Finance]
+      operationId: getFuelVendorInvoices
+      summary: List fuel vendor invoices
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - { name: search, in: query, required: false, schema: { type: string } }
+        - { name: status, in: query, required: false, schema: { $ref: "#/components/schemas/FuelVendorInvoiceStatus" } }
+        - { name: vendorId, in: query, required: false, schema: { type: integer } }
+      responses:
+        "200": { description: Fuel vendor invoices, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorInvoicesListResponse" } } } }
+    post:
+      tags: [Fuel Vendor Finance]
+      operationId: createFuelVendorInvoice
+      summary: Create fuel vendor invoice from verified fuel slips
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/CreateFuelVendorInvoiceRequest" } } }
+      responses:
+        "201": { description: Fuel vendor invoice created, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorInvoiceResponse" } } } }
+  /fuel-vendor-invoices/{fuelVendorInvoiceId}:
+    get:
+      tags: [Fuel Vendor Finance]
+      operationId: getFuelVendorInvoiceById
+      summary: Get fuel vendor invoice
+      parameters: [ { name: fuelVendorInvoiceId, in: path, required: true, schema: { type: integer } } ]
+      responses:
+        "200": { description: Fuel vendor invoice, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorInvoiceResponse" } } } }
+  /fuel-vendor-invoices/{fuelVendorInvoiceId}/payments:
+    post:
+      tags: [Fuel Vendor Finance]
+      operationId: payFuelVendorInvoice
+      summary: Pay fuel vendor invoice
+      parameters: [ { name: fuelVendorInvoiceId, in: path, required: true, schema: { type: integer } } ]
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/PayFuelVendorInvoiceRequest" } } }
+      responses:
+        "201": { description: Fuel vendor payment, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorPaymentResponse" } } } }
+  /fuel-vendor-payments:
+    get:
+      tags: [Fuel Vendor Finance]
+      operationId: getFuelVendorPayments
+      summary: List fuel vendor payments
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - { name: search, in: query, required: false, schema: { type: string } }
+        - { name: vendorId, in: query, required: false, schema: { type: integer } }
+        - { name: invoiceId, in: query, required: false, schema: { type: integer } }
+      responses:
+        "200": { description: Fuel vendor payments, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorPaymentsListResponse" } } } }
+
+  /reports/dashboard:
+    get:
+      tags: [Reports]
+      operationId: getReportsDashboard
+      summary: Get operations and finance dashboard report
+      responses:
+        "200": { description: Dashboard report, content: { application/json: { schema: { $ref: "#/components/schemas/ReportsDashboardResponse" } } } }
 
 components:
   securitySchemes:
@@ -3763,6 +3977,238 @@ components:
       type: object
       required: [data, pagination]
       properties: { data: { type: array, items: { $ref: "#/components/schemas/FuelSlip" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    DeliveryGoodsCondition:
+      type: string
+      enum: [good, damaged, partial_damage, short_quantity]
+    CustomerInvoiceStatus:
+      type: string
+      enum: [draft, issued, partially_paid, paid, cancelled]
+    PaymentMethod:
+      type: string
+      enum: [cash, bank_transfer, cheque, mobile_wallet, adjustment]
+    AgentCommissionStatus:
+      type: string
+      enum: [pending, approved, paid, cancelled]
+    FuelVendorInvoiceStatus:
+      type: string
+      enum: [open, partially_paid, paid, cancelled]
+
+    DeliveryProof:
+      type: object
+      properties:
+        id: { type: integer }
+        proofNumber: { type: string }
+        booking: { type: object, properties: { id: { type: integer }, bookingNumber: { type: string }, customerName: { type: string } } }
+        masterTrip: { type: object, nullable: true, properties: { id: { type: integer }, tripNumber: { type: string } } }
+        tripLeg: { type: object, nullable: true, properties: { id: { type: integer }, routeName: { type: string } } }
+        receiverName: { type: string }
+        receiverPhone: { type: string, nullable: true }
+        receiverCnic: { type: string, nullable: true }
+        goodsCondition: { $ref: "#/components/schemas/DeliveryGoodsCondition" }
+        remarks: { type: string, nullable: true }
+        proofImageUrls: { type: array, items: { type: string } }
+        deliveredAt: { type: string, format: date-time }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateDeliveryProofRequest:
+      type: object
+      required: [bookingId, receiverName]
+      properties:
+        bookingId: { type: integer }
+        masterTripId: { type: integer, nullable: true }
+        tripLegId: { type: integer, nullable: true }
+        receiverName: { type: string }
+        receiverPhone: { type: string, nullable: true }
+        receiverCnic: { type: string, nullable: true }
+        goodsCondition: { $ref: "#/components/schemas/DeliveryGoodsCondition" }
+        remarks: { type: string, nullable: true }
+        proofImageUrls: { type: array, items: { type: string } }
+        deliveredAt: { type: string, format: date-time, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+    DeliveryProofResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/DeliveryProof" }, message: { type: string } }
+    DeliveryProofsListResponse:
+      type: object
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/DeliveryProof" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    CustomerInvoice:
+      type: object
+      properties:
+        id: { type: integer }
+        invoiceNumber: { type: string }
+        booking: { type: object, properties: { id: { type: integer }, bookingNumber: { type: string } } }
+        customer: { type: object, properties: { id: { type: integer }, name: { type: string } } }
+        invoiceDate: { type: string, format: date }
+        dueDate: { type: string, format: date, nullable: true }
+        subtotalAmount: { type: string }
+        taxAmount: { type: string }
+        totalAmount: { type: string }
+        paidAmount: { type: string }
+        balanceAmount: { type: string }
+        status: { $ref: "#/components/schemas/CustomerInvoiceStatus" }
+        notes: { type: string, nullable: true }
+        issuedAt: { type: string, format: date-time, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateCustomerInvoiceRequest:
+      type: object
+      required: [bookingId]
+      properties:
+        bookingId: { type: integer }
+        invoiceDate: { type: string, format: date, nullable: true }
+        dueDate: { type: string, format: date, nullable: true }
+        notes: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+    CustomerInvoiceResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/CustomerInvoice" }, message: { type: string } }
+    CustomerInvoicesListResponse:
+      type: object
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/CustomerInvoice" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+    CustomerPayment:
+      type: object
+      properties:
+        id: { type: integer }
+        paymentNumber: { type: string }
+        invoice: { type: object, properties: { id: { type: integer }, invoiceNumber: { type: string } } }
+        customer: { type: object, properties: { id: { type: integer }, name: { type: string } } }
+        amount: { type: string }
+        paymentDate: { type: string, format: date }
+        paymentMethod: { $ref: "#/components/schemas/PaymentMethod" }
+        referenceNumber: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+        receivedByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    ReceiveCustomerPaymentRequest:
+      type: object
+      required: [amount]
+      properties:
+        amount: { type: number }
+        paymentDate: { type: string, format: date, nullable: true }
+        paymentMethod: { $ref: "#/components/schemas/PaymentMethod" }
+        referenceNumber: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+        receivedByUserId: { type: integer, nullable: true }
+    CustomerPaymentResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/CustomerPayment" }, message: { type: string } }
+    CustomerPaymentsListResponse:
+      type: object
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/CustomerPayment" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    AgentCommission:
+      type: object
+      properties:
+        id: { type: integer }
+        commissionNumber: { type: string }
+        booking: { type: object, properties: { id: { type: integer }, bookingNumber: { type: string } } }
+        agent: { type: object, properties: { id: { type: integer }, name: { type: string } } }
+        commissionType: { $ref: "#/components/schemas/CommissionType" }
+        commissionValue: { type: string, nullable: true }
+        commissionAmount: { type: string }
+        status: { $ref: "#/components/schemas/AgentCommissionStatus" }
+        payableAfter: { type: string, enum: [delivery, customer_invoice, customer_payment] }
+        approvedAt: { type: string, format: date-time, nullable: true }
+        approvedByUserId: { type: integer, nullable: true }
+        paidAt: { type: string, format: date-time, nullable: true }
+        paidByUserId: { type: integer, nullable: true }
+        cancelledReason: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateAgentCommissionRequest:
+      type: object
+      required: [bookingId]
+      properties:
+        bookingId: { type: integer }
+        payableAfter: { type: string, enum: [delivery, customer_invoice, customer_payment] }
+        notes: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+    AgentCommissionResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/AgentCommission" }, message: { type: string } }
+    AgentCommissionsListResponse:
+      type: object
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/AgentCommission" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    FuelVendorInvoice:
+      type: object
+      properties:
+        id: { type: integer }
+        invoiceNumber: { type: string }
+        vendor: { type: object, properties: { id: { type: integer }, name: { type: string } } }
+        vendorInvoiceNumber: { type: string, nullable: true }
+        invoiceDate: { type: string, format: date }
+        dueDate: { type: string, format: date, nullable: true }
+        totalAmount: { type: string }
+        paidAmount: { type: string }
+        balanceAmount: { type: string }
+        status: { $ref: "#/components/schemas/FuelVendorInvoiceStatus" }
+        notes: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CreateFuelVendorInvoiceRequest:
+      type: object
+      required: [fuelVendorId, slipIds]
+      properties:
+        fuelVendorId: { type: integer }
+        slipIds: { type: array, items: { type: integer } }
+        vendorInvoiceNumber: { type: string, nullable: true }
+        invoiceDate: { type: string, format: date, nullable: true }
+        dueDate: { type: string, format: date, nullable: true }
+        notes: { type: string, nullable: true }
+        createdByUserId: { type: integer, nullable: true }
+    FuelVendorInvoiceResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/FuelVendorInvoice" }, message: { type: string } }
+    FuelVendorInvoicesListResponse:
+      type: object
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/FuelVendorInvoice" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+    FuelVendorPayment:
+      type: object
+      properties:
+        id: { type: integer }
+        paymentNumber: { type: string }
+        invoice: { type: object, properties: { id: { type: integer }, invoiceNumber: { type: string } } }
+        vendor: { type: object, properties: { id: { type: integer }, name: { type: string } } }
+        amount: { type: string }
+        paymentDate: { type: string, format: date }
+        paymentMethod: { $ref: "#/components/schemas/PaymentMethod" }
+        referenceNumber: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+        paidByUserId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    PayFuelVendorInvoiceRequest:
+      type: object
+      required: [amount]
+      properties:
+        amount: { type: number }
+        paymentDate: { type: string, format: date, nullable: true }
+        paymentMethod: { $ref: "#/components/schemas/PaymentMethod" }
+        referenceNumber: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+        paidByUserId: { type: integer, nullable: true }
+    FuelVendorPaymentResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/FuelVendorPayment" }, message: { type: string } }
+    FuelVendorPaymentsListResponse:
+      type: object
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/FuelVendorPayment" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    ReportsDashboard:
+      type: object
+      additionalProperties: true
+    ReportsDashboardResponse:
+      type: object
+      properties: { data: { $ref: "#/components/schemas/ReportsDashboard" }, message: { type: string } }
 
 security:
   - bearerAuth: []
