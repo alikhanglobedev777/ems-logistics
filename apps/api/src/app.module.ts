@@ -27,6 +27,8 @@ import { MasterTripsModule } from './modules/master-trips/master-trips.module';
 import { TripLegsModule } from './modules/trip-legs/trip-legs.module';
 import { DriverAdvancesModule } from './modules/driver-advances/driver-advances.module';
 import { DriverSettlementsModule } from './modules/driver-settlements/driver-settlements.module';
+import { FuelVendorsModule } from './modules/fuel-vendors/fuel-vendors.module';
+import { FuelSlipsModule } from './modules/fuel-slips/fuel-slips.module';
 
 @Module({
   imports: [
@@ -59,6 +61,8 @@ import { DriverSettlementsModule } from './modules/driver-settlements/driver-set
     MasterTripsModule,
     DriverAdvancesModule,
     DriverSettlementsModule,
+    FuelVendorsModule,
+    FuelSlipsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

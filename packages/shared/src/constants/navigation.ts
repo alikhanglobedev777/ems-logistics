@@ -25,6 +25,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: 'Trips', path: '/trips', permission: Permission.TRIP_VIEW },
   { label: 'Driver Advances', path: '/driver-advances', permission: Permission.DRIVER_ADVANCE_VIEW },
   { label: 'Driver Settlements', path: '/driver-settlements', permission: Permission.DRIVER_SETTLEMENT_VIEW },
-  { label: 'Fuel', path: '/fuel', permission: Permission.FUEL_VIEW },
+  { label: 'Fuel Vendors', path: '/fuel-vendors', permission: Permission.FUEL_MANAGE_VENDOR },
+  { label: 'Fuel Slips', path: '/fuel-slips', permission: Permission.FUEL_VIEW },
   { label: 'Reports', path: '/reports', permission: Permission.REPORT_VIEW },
 ];

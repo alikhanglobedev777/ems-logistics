@@ -13,6 +13,14 @@ const enabledPaths = new Set([
   '/route-fuel-profiles',
   '/route-overhead-profiles',
   '/pricing/route-estimate',
+  '/contracts',
+  '/contract-rates',
+  '/bookings',
+  '/trips',
+  '/driver-advances',
+  '/driver-settlements',
+  '/fuel-vendors',
+  '/fuel-slips',
 ]);
 
 const navItems = SIDEBAR_ITEMS.filter((item) => enabledPaths.has(item.path));

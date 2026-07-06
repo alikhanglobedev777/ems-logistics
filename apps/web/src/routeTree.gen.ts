@@ -15,6 +15,8 @@ import { Route as TripsRouteImport } from './routes/trips'
 import { Route as RoutesRouteImport } from './routes/routes'
 import { Route as RouteOverheadProfilesRouteImport } from './routes/route-overhead-profiles'
 import { Route as RouteFuelProfilesRouteImport } from './routes/route-fuel-profiles'
+import { Route as FuelVendorsRouteImport } from './routes/fuel-vendors'
+import { Route as FuelSlipsRouteImport } from './routes/fuel-slips'
 import { Route as FuelPricesRouteImport } from './routes/fuel-prices'
 import { Route as DriversRouteImport } from './routes/drivers'
 import { Route as DriverSettlementsRouteImport } from './routes/driver-settlements'
@@ -38,6 +40,10 @@ import { Route as RouteOverheadProfilesIdRouteImport } from './routes/route-over
 import { Route as RouteFuelProfilesNewRouteImport } from './routes/route-fuel-profiles.new'
 import { Route as RouteFuelProfilesIdRouteImport } from './routes/route-fuel-profiles.$id'
 import { Route as PricingRouteEstimateRouteImport } from './routes/pricing.route-estimate'
+import { Route as FuelVendorsNewRouteImport } from './routes/fuel-vendors.new'
+import { Route as FuelVendorsIdRouteImport } from './routes/fuel-vendors.$id'
+import { Route as FuelSlipsNewRouteImport } from './routes/fuel-slips.new'
+import { Route as FuelSlipsIdRouteImport } from './routes/fuel-slips.$id'
 import { Route as FuelPricesNewRouteImport } from './routes/fuel-prices.new'
 import { Route as FuelPricesIdRouteImport } from './routes/fuel-prices.$id'
 import { Route as DriversNewRouteImport } from './routes/drivers.new'
@@ -62,6 +68,8 @@ import { Route as TripsIdEditRouteImport } from './routes/trips.$id.edit'
 import { Route as RoutesIdEditRouteImport } from './routes/routes.$id.edit'
 import { Route as RouteOverheadProfilesIdEditRouteImport } from './routes/route-overhead-profiles.$id.edit'
 import { Route as RouteFuelProfilesIdEditRouteImport } from './routes/route-fuel-profiles.$id.edit'
+import { Route as FuelVendorsIdEditRouteImport } from './routes/fuel-vendors.$id.edit'
+import { Route as FuelSlipsIdEditRouteImport } from './routes/fuel-slips.$id.edit'
 import { Route as FuelPricesIdEditRouteImport } from './routes/fuel-prices.$id.edit'
 import { Route as DriversIdEditRouteImport } from './routes/drivers.$id.edit'
 import { Route as DriverSettlementsIdEditRouteImport } from './routes/driver-settlements.$id.edit'
@@ -100,6 +108,16 @@ const RouteOverheadProfilesRoute = RouteOverheadProfilesRouteImport.update({
 const RouteFuelProfilesRoute = RouteFuelProfilesRouteImport.update({
   id: '/route-fuel-profiles',
   path: '/route-fuel-profiles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuelVendorsRoute = FuelVendorsRouteImport.update({
+  id: '/fuel-vendors',
+  path: '/fuel-vendors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuelSlipsRoute = FuelSlipsRouteImport.update({
+  id: '/fuel-slips',
+  path: '/fuel-slips',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FuelPricesRoute = FuelPricesRouteImport.update({
@@ -217,6 +235,26 @@ const PricingRouteEstimateRoute = PricingRouteEstimateRouteImport.update({
   id: '/pricing/route-estimate',
   path: '/pricing/route-estimate',
   getParentRoute: () => rootRouteImport,
+} as any)
+const FuelVendorsNewRoute = FuelVendorsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => FuelVendorsRoute,
+} as any)
+const FuelVendorsIdRoute = FuelVendorsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => FuelVendorsRoute,
+} as any)
+const FuelSlipsNewRoute = FuelSlipsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => FuelSlipsRoute,
+} as any)
+const FuelSlipsIdRoute = FuelSlipsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => FuelSlipsRoute,
 } as any)
 const FuelPricesNewRoute = FuelPricesNewRouteImport.update({
   id: '/new',
@@ -339,6 +377,16 @@ const RouteFuelProfilesIdEditRoute = RouteFuelProfilesIdEditRouteImport.update({
   path: '/edit',
   getParentRoute: () => RouteFuelProfilesIdRoute,
 } as any)
+const FuelVendorsIdEditRoute = FuelVendorsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => FuelVendorsIdRoute,
+} as any)
+const FuelSlipsIdEditRoute = FuelSlipsIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => FuelSlipsIdRoute,
+} as any)
 const FuelPricesIdEditRoute = FuelPricesIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -396,6 +444,8 @@ export interface FileRoutesByFullPath {
   '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
+  '/fuel-slips': typeof FuelSlipsRouteWithChildren
+  '/fuel-vendors': typeof FuelVendorsRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
@@ -420,6 +470,10 @@ export interface FileRoutesByFullPath {
   '/drivers/new': typeof DriversNewRoute
   '/fuel-prices/$id': typeof FuelPricesIdRouteWithChildren
   '/fuel-prices/new': typeof FuelPricesNewRoute
+  '/fuel-slips/$id': typeof FuelSlipsIdRouteWithChildren
+  '/fuel-slips/new': typeof FuelSlipsNewRoute
+  '/fuel-vendors/$id': typeof FuelVendorsIdRouteWithChildren
+  '/fuel-vendors/new': typeof FuelVendorsNewRoute
   '/pricing/route-estimate': typeof PricingRouteEstimateRoute
   '/route-fuel-profiles/$id': typeof RouteFuelProfilesIdRouteWithChildren
   '/route-fuel-profiles/new': typeof RouteFuelProfilesNewRoute
@@ -442,6 +496,8 @@ export interface FileRoutesByFullPath {
   '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
+  '/fuel-slips/$id/edit': typeof FuelSlipsIdEditRoute
+  '/fuel-vendors/$id/edit': typeof FuelVendorsIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
@@ -460,6 +516,8 @@ export interface FileRoutesByTo {
   '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
+  '/fuel-slips': typeof FuelSlipsRouteWithChildren
+  '/fuel-vendors': typeof FuelVendorsRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
@@ -484,6 +542,10 @@ export interface FileRoutesByTo {
   '/drivers/new': typeof DriversNewRoute
   '/fuel-prices/$id': typeof FuelPricesIdRouteWithChildren
   '/fuel-prices/new': typeof FuelPricesNewRoute
+  '/fuel-slips/$id': typeof FuelSlipsIdRouteWithChildren
+  '/fuel-slips/new': typeof FuelSlipsNewRoute
+  '/fuel-vendors/$id': typeof FuelVendorsIdRouteWithChildren
+  '/fuel-vendors/new': typeof FuelVendorsNewRoute
   '/pricing/route-estimate': typeof PricingRouteEstimateRoute
   '/route-fuel-profiles/$id': typeof RouteFuelProfilesIdRouteWithChildren
   '/route-fuel-profiles/new': typeof RouteFuelProfilesNewRoute
@@ -506,6 +568,8 @@ export interface FileRoutesByTo {
   '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
+  '/fuel-slips/$id/edit': typeof FuelSlipsIdEditRoute
+  '/fuel-vendors/$id/edit': typeof FuelVendorsIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
@@ -525,6 +589,8 @@ export interface FileRoutesById {
   '/driver-settlements': typeof DriverSettlementsRouteWithChildren
   '/drivers': typeof DriversRouteWithChildren
   '/fuel-prices': typeof FuelPricesRouteWithChildren
+  '/fuel-slips': typeof FuelSlipsRouteWithChildren
+  '/fuel-vendors': typeof FuelVendorsRouteWithChildren
   '/route-fuel-profiles': typeof RouteFuelProfilesRouteWithChildren
   '/route-overhead-profiles': typeof RouteOverheadProfilesRouteWithChildren
   '/routes': typeof RoutesRouteWithChildren
@@ -549,6 +615,10 @@ export interface FileRoutesById {
   '/drivers/new': typeof DriversNewRoute
   '/fuel-prices/$id': typeof FuelPricesIdRouteWithChildren
   '/fuel-prices/new': typeof FuelPricesNewRoute
+  '/fuel-slips/$id': typeof FuelSlipsIdRouteWithChildren
+  '/fuel-slips/new': typeof FuelSlipsNewRoute
+  '/fuel-vendors/$id': typeof FuelVendorsIdRouteWithChildren
+  '/fuel-vendors/new': typeof FuelVendorsNewRoute
   '/pricing/route-estimate': typeof PricingRouteEstimateRoute
   '/route-fuel-profiles/$id': typeof RouteFuelProfilesIdRouteWithChildren
   '/route-fuel-profiles/new': typeof RouteFuelProfilesNewRoute
@@ -571,6 +641,8 @@ export interface FileRoutesById {
   '/driver-settlements/$id/edit': typeof DriverSettlementsIdEditRoute
   '/drivers/$id/edit': typeof DriversIdEditRoute
   '/fuel-prices/$id/edit': typeof FuelPricesIdEditRoute
+  '/fuel-slips/$id/edit': typeof FuelSlipsIdEditRoute
+  '/fuel-vendors/$id/edit': typeof FuelVendorsIdEditRoute
   '/route-fuel-profiles/$id/edit': typeof RouteFuelProfilesIdEditRoute
   '/route-overhead-profiles/$id/edit': typeof RouteOverheadProfilesIdEditRoute
   '/routes/$id/edit': typeof RoutesIdEditRoute
@@ -591,6 +663,8 @@ export interface FileRouteTypes {
     | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
+    | '/fuel-slips'
+    | '/fuel-vendors'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
@@ -615,6 +689,10 @@ export interface FileRouteTypes {
     | '/drivers/new'
     | '/fuel-prices/$id'
     | '/fuel-prices/new'
+    | '/fuel-slips/$id'
+    | '/fuel-slips/new'
+    | '/fuel-vendors/$id'
+    | '/fuel-vendors/new'
     | '/pricing/route-estimate'
     | '/route-fuel-profiles/$id'
     | '/route-fuel-profiles/new'
@@ -637,6 +715,8 @@ export interface FileRouteTypes {
     | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
+    | '/fuel-slips/$id/edit'
+    | '/fuel-vendors/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
@@ -655,6 +735,8 @@ export interface FileRouteTypes {
     | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
+    | '/fuel-slips'
+    | '/fuel-vendors'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
@@ -679,6 +761,10 @@ export interface FileRouteTypes {
     | '/drivers/new'
     | '/fuel-prices/$id'
     | '/fuel-prices/new'
+    | '/fuel-slips/$id'
+    | '/fuel-slips/new'
+    | '/fuel-vendors/$id'
+    | '/fuel-vendors/new'
     | '/pricing/route-estimate'
     | '/route-fuel-profiles/$id'
     | '/route-fuel-profiles/new'
@@ -701,6 +787,8 @@ export interface FileRouteTypes {
     | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
+    | '/fuel-slips/$id/edit'
+    | '/fuel-vendors/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
@@ -719,6 +807,8 @@ export interface FileRouteTypes {
     | '/driver-settlements'
     | '/drivers'
     | '/fuel-prices'
+    | '/fuel-slips'
+    | '/fuel-vendors'
     | '/route-fuel-profiles'
     | '/route-overhead-profiles'
     | '/routes'
@@ -743,6 +833,10 @@ export interface FileRouteTypes {
     | '/drivers/new'
     | '/fuel-prices/$id'
     | '/fuel-prices/new'
+    | '/fuel-slips/$id'
+    | '/fuel-slips/new'
+    | '/fuel-vendors/$id'
+    | '/fuel-vendors/new'
     | '/pricing/route-estimate'
     | '/route-fuel-profiles/$id'
     | '/route-fuel-profiles/new'
@@ -765,6 +859,8 @@ export interface FileRouteTypes {
     | '/driver-settlements/$id/edit'
     | '/drivers/$id/edit'
     | '/fuel-prices/$id/edit'
+    | '/fuel-slips/$id/edit'
+    | '/fuel-vendors/$id/edit'
     | '/route-fuel-profiles/$id/edit'
     | '/route-overhead-profiles/$id/edit'
     | '/routes/$id/edit'
@@ -784,6 +880,8 @@ export interface RootRouteChildren {
   DriverSettlementsRoute: typeof DriverSettlementsRouteWithChildren
   DriversRoute: typeof DriversRouteWithChildren
   FuelPricesRoute: typeof FuelPricesRouteWithChildren
+  FuelSlipsRoute: typeof FuelSlipsRouteWithChildren
+  FuelVendorsRoute: typeof FuelVendorsRouteWithChildren
   RouteFuelProfilesRoute: typeof RouteFuelProfilesRouteWithChildren
   RouteOverheadProfilesRoute: typeof RouteOverheadProfilesRouteWithChildren
   RoutesRoute: typeof RoutesRouteWithChildren
@@ -835,6 +933,20 @@ declare module '@tanstack/react-router' {
       path: '/route-fuel-profiles'
       fullPath: '/route-fuel-profiles'
       preLoaderRoute: typeof RouteFuelProfilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fuel-vendors': {
+      id: '/fuel-vendors'
+      path: '/fuel-vendors'
+      fullPath: '/fuel-vendors'
+      preLoaderRoute: typeof FuelVendorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fuel-slips': {
+      id: '/fuel-slips'
+      path: '/fuel-slips'
+      fullPath: '/fuel-slips'
+      preLoaderRoute: typeof FuelSlipsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fuel-prices': {
@@ -997,6 +1109,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/pricing/route-estimate'
       preLoaderRoute: typeof PricingRouteEstimateRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/fuel-vendors/new': {
+      id: '/fuel-vendors/new'
+      path: '/new'
+      fullPath: '/fuel-vendors/new'
+      preLoaderRoute: typeof FuelVendorsNewRouteImport
+      parentRoute: typeof FuelVendorsRoute
+    }
+    '/fuel-vendors/$id': {
+      id: '/fuel-vendors/$id'
+      path: '/$id'
+      fullPath: '/fuel-vendors/$id'
+      preLoaderRoute: typeof FuelVendorsIdRouteImport
+      parentRoute: typeof FuelVendorsRoute
+    }
+    '/fuel-slips/new': {
+      id: '/fuel-slips/new'
+      path: '/new'
+      fullPath: '/fuel-slips/new'
+      preLoaderRoute: typeof FuelSlipsNewRouteImport
+      parentRoute: typeof FuelSlipsRoute
+    }
+    '/fuel-slips/$id': {
+      id: '/fuel-slips/$id'
+      path: '/$id'
+      fullPath: '/fuel-slips/$id'
+      preLoaderRoute: typeof FuelSlipsIdRouteImport
+      parentRoute: typeof FuelSlipsRoute
     }
     '/fuel-prices/new': {
       id: '/fuel-prices/new'
@@ -1165,6 +1305,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/route-fuel-profiles/$id/edit'
       preLoaderRoute: typeof RouteFuelProfilesIdEditRouteImport
       parentRoute: typeof RouteFuelProfilesIdRoute
+    }
+    '/fuel-vendors/$id/edit': {
+      id: '/fuel-vendors/$id/edit'
+      path: '/edit'
+      fullPath: '/fuel-vendors/$id/edit'
+      preLoaderRoute: typeof FuelVendorsIdEditRouteImport
+      parentRoute: typeof FuelVendorsIdRoute
+    }
+    '/fuel-slips/$id/edit': {
+      id: '/fuel-slips/$id/edit'
+      path: '/edit'
+      fullPath: '/fuel-slips/$id/edit'
+      preLoaderRoute: typeof FuelSlipsIdEditRouteImport
+      parentRoute: typeof FuelSlipsIdRoute
     }
     '/fuel-prices/$id/edit': {
       id: '/fuel-prices/$id/edit'
@@ -1461,6 +1615,58 @@ const FuelPricesRouteWithChildren = FuelPricesRoute._addFileChildren(
   FuelPricesRouteChildren,
 )
 
+interface FuelSlipsIdRouteChildren {
+  FuelSlipsIdEditRoute: typeof FuelSlipsIdEditRoute
+}
+
+const FuelSlipsIdRouteChildren: FuelSlipsIdRouteChildren = {
+  FuelSlipsIdEditRoute: FuelSlipsIdEditRoute,
+}
+
+const FuelSlipsIdRouteWithChildren = FuelSlipsIdRoute._addFileChildren(
+  FuelSlipsIdRouteChildren,
+)
+
+interface FuelSlipsRouteChildren {
+  FuelSlipsIdRoute: typeof FuelSlipsIdRouteWithChildren
+  FuelSlipsNewRoute: typeof FuelSlipsNewRoute
+}
+
+const FuelSlipsRouteChildren: FuelSlipsRouteChildren = {
+  FuelSlipsIdRoute: FuelSlipsIdRouteWithChildren,
+  FuelSlipsNewRoute: FuelSlipsNewRoute,
+}
+
+const FuelSlipsRouteWithChildren = FuelSlipsRoute._addFileChildren(
+  FuelSlipsRouteChildren,
+)
+
+interface FuelVendorsIdRouteChildren {
+  FuelVendorsIdEditRoute: typeof FuelVendorsIdEditRoute
+}
+
+const FuelVendorsIdRouteChildren: FuelVendorsIdRouteChildren = {
+  FuelVendorsIdEditRoute: FuelVendorsIdEditRoute,
+}
+
+const FuelVendorsIdRouteWithChildren = FuelVendorsIdRoute._addFileChildren(
+  FuelVendorsIdRouteChildren,
+)
+
+interface FuelVendorsRouteChildren {
+  FuelVendorsIdRoute: typeof FuelVendorsIdRouteWithChildren
+  FuelVendorsNewRoute: typeof FuelVendorsNewRoute
+}
+
+const FuelVendorsRouteChildren: FuelVendorsRouteChildren = {
+  FuelVendorsIdRoute: FuelVendorsIdRouteWithChildren,
+  FuelVendorsNewRoute: FuelVendorsNewRoute,
+}
+
+const FuelVendorsRouteWithChildren = FuelVendorsRoute._addFileChildren(
+  FuelVendorsRouteChildren,
+)
+
 interface RouteFuelProfilesIdRouteChildren {
   RouteFuelProfilesIdEditRoute: typeof RouteFuelProfilesIdEditRoute
 }
@@ -1625,6 +1831,8 @@ const rootRouteChildren: RootRouteChildren = {
   DriverSettlementsRoute: DriverSettlementsRouteWithChildren,
   DriversRoute: DriversRouteWithChildren,
   FuelPricesRoute: FuelPricesRouteWithChildren,
+  FuelSlipsRoute: FuelSlipsRouteWithChildren,
+  FuelVendorsRoute: FuelVendorsRouteWithChildren,
   RouteFuelProfilesRoute: RouteFuelProfilesRouteWithChildren,
   RouteOverheadProfilesRoute: RouteOverheadProfilesRouteWithChildren,
   RoutesRoute: RoutesRouteWithChildren,

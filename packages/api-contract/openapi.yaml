@@ -1772,6 +1772,124 @@ paths:
       responses:
         "200": { description: Driver expense rejected, content: { application/json: { schema: { $ref: "#/components/schemas/DriverExpenseResponse" } } } }
 
+
+  /fuel-vendors:
+    get:
+      tags: [FuelVendors]
+      operationId: getFuelVendors
+      summary: List fuel vendors
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: isActive
+          in: query
+          schema: { type: boolean }
+      responses:
+        "200": { description: Fuel vendors, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorsListResponse" } } } }
+    post:
+      tags: [FuelVendors]
+      operationId: createFuelVendor
+      summary: Create fuel vendor
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateFuelVendorRequest" } } } }
+      responses:
+        "201": { description: Fuel vendor created, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorResponse" } } } }
+
+  /fuel-vendors/{fuelVendorId}:
+    parameters:
+      - name: fuelVendorId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [FuelVendors]
+      operationId: getFuelVendorById
+      summary: Get fuel vendor
+      responses:
+        "200": { description: Fuel vendor, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorResponse" } } } }
+    patch:
+      tags: [FuelVendors]
+      operationId: updateFuelVendor
+      summary: Update fuel vendor
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/UpdateFuelVendorRequest" } } } }
+      responses:
+        "200": { description: Fuel vendor updated, content: { application/json: { schema: { $ref: "#/components/schemas/FuelVendorResponse" } } } }
+
+  /fuel-slips:
+    get:
+      tags: [FuelSlips]
+      operationId: getFuelSlips
+      summary: List fuel slips
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/FuelSlipStatus" }
+        - name: vendorId
+          in: query
+          schema: { type: integer }
+        - name: masterTripId
+          in: query
+          schema: { type: integer }
+        - name: vehicleId
+          in: query
+          schema: { type: integer }
+        - name: driverId
+          in: query
+          schema: { type: integer }
+      responses:
+        "200": { description: Fuel slips, content: { application/json: { schema: { $ref: "#/components/schemas/FuelSlipsListResponse" } } } }
+    post:
+      tags: [FuelSlips]
+      operationId: createFuelSlip
+      summary: Create fuel slip payable to vendor
+      description: Fuel slips are vendor payables and are intentionally excluded from driver advances.
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/CreateFuelSlipRequest" } } } }
+      responses:
+        "201": { description: Fuel slip created, content: { application/json: { schema: { $ref: "#/components/schemas/FuelSlipResponse" } } } }
+
+  /fuel-slips/{fuelSlipId}:
+    parameters:
+      - name: fuelSlipId
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      tags: [FuelSlips]
+      operationId: getFuelSlipById
+      summary: Get fuel slip
+      responses:
+        "200": { description: Fuel slip, content: { application/json: { schema: { $ref: "#/components/schemas/FuelSlipResponse" } } } }
+
+  /fuel-slips/{fuelSlipId}/verify:
+    parameters:
+      - name: fuelSlipId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [FuelSlips]
+      operationId: verifyFuelSlip
+      summary: Verify fuel slip
+      responses:
+        "200": { description: Fuel slip verified, content: { application/json: { schema: { $ref: "#/components/schemas/FuelSlipResponse" } } } }
+
+  /fuel-slips/{fuelSlipId}/reject:
+    parameters:
+      - name: fuelSlipId
+        in: path
+        required: true
+        schema: { type: integer }
+    post:
+      tags: [FuelSlips]
+      operationId: rejectFuelSlip
+      summary: Reject fuel slip
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/RejectFuelSlipRequest" } } } }
+      responses:
+        "200": { description: Fuel slip rejected, content: { application/json: { schema: { $ref: "#/components/schemas/FuelSlipResponse" } } } }
+
 components:
   securitySchemes:
     bearerAuth:
@@ -3512,6 +3630,139 @@ components:
       type: object
       required: [data, pagination]
       properties: { data: { type: array, items: { $ref: "#/components/schemas/DriverSettlement" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+
+    FuelSlipStatus:
+      type: string
+      enum: [pending, verified, rejected, invoiced, paid]
+
+    FuelVendor:
+      type: object
+      required: [id, name, contactPerson, phone, email, address, city, ntn, paymentTermsDays, isActive, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        contactPerson: { type: string, nullable: true }
+        phone: { type: string, nullable: true }
+        email: { type: string, nullable: true }
+        address: { type: string, nullable: true }
+        city: { type: string, nullable: true }
+        ntn: { type: string, nullable: true }
+        paymentTermsDays: { type: integer }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CreateFuelVendorRequest:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        contactPerson: { type: string, nullable: true }
+        phone: { type: string, nullable: true }
+        email: { type: string, nullable: true }
+        address: { type: string, nullable: true }
+        city: { type: string, nullable: true }
+        ntn: { type: string, nullable: true }
+        paymentTermsDays: { type: integer, nullable: true }
+        isActive: { type: boolean, nullable: true }
+
+    UpdateFuelVendorRequest:
+      type: object
+      properties:
+        name: { type: string }
+        contactPerson: { type: string, nullable: true }
+        phone: { type: string, nullable: true }
+        email: { type: string, nullable: true }
+        address: { type: string, nullable: true }
+        city: { type: string, nullable: true }
+        ntn: { type: string, nullable: true }
+        paymentTermsDays: { type: integer }
+        isActive: { type: boolean }
+
+    FuelVendorResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/FuelVendor" }, message: { type: string } }
+    FuelVendorsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/FuelVendor" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
+
+    FuelSlip:
+      type: object
+      required: [id, slipNumber, vendor, masterTrip, tripLeg, vehicle, driver, fuelType, liters, pricePerLiter, totalAmount, slipDate, odometerReading, stationName, status, verifiedByUserId, verifiedAt, rejectedReason, notes, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        slipNumber: { type: string }
+        vendor:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        masterTrip:
+          nullable: true
+          type: object
+          required: [id, tripNumber]
+          properties: { id: { type: integer }, tripNumber: { type: string } }
+        tripLeg:
+          nullable: true
+          type: object
+          required: [id, routeName]
+          properties: { id: { type: integer }, routeName: { type: string } }
+        vehicle:
+          type: object
+          required: [id, registrationNumber]
+          properties: { id: { type: integer }, registrationNumber: { type: string } }
+        driver:
+          type: object
+          required: [id, name]
+          properties: { id: { type: integer }, name: { type: string } }
+        fuelType: { $ref: "#/components/schemas/FuelType" }
+        liters: { type: string }
+        pricePerLiter: { type: string }
+        totalAmount: { type: string }
+        slipDate: { type: string, format: date }
+        odometerReading: { type: string, nullable: true }
+        stationName: { type: string, nullable: true }
+        status: { $ref: "#/components/schemas/FuelSlipStatus" }
+        verifiedByUserId: { type: integer, nullable: true }
+        verifiedAt: { type: string, format: date-time, nullable: true }
+        rejectedReason: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CreateFuelSlipRequest:
+      type: object
+      required: [fuelVendorId, liters, pricePerLiter]
+      properties:
+        fuelVendorId: { type: integer }
+        masterTripId: { type: integer, nullable: true }
+        tripLegId: { type: integer, nullable: true }
+        vehicleId: { type: integer, nullable: true }
+        driverId: { type: integer, nullable: true }
+        fuelType: { $ref: "#/components/schemas/FuelType" }
+        liters: { type: number }
+        pricePerLiter: { type: number }
+        slipDate: { type: string, format: date, nullable: true }
+        odometerReading: { type: number, nullable: true }
+        stationName: { type: string, nullable: true }
+        notes: { type: string, nullable: true }
+
+    RejectFuelSlipRequest:
+      type: object
+      required: [reason]
+      properties:
+        reason: { type: string }
+
+    FuelSlipResponse:
+      type: object
+      required: [data, message]
+      properties: { data: { $ref: "#/components/schemas/FuelSlip" }, message: { type: string } }
+    FuelSlipsListResponse:
+      type: object
+      required: [data, pagination]
+      properties: { data: { type: array, items: { $ref: "#/components/schemas/FuelSlip" } }, pagination: { $ref: "#/components/schemas/Pagination" } }
 
 security:
   - bearerAuth: []

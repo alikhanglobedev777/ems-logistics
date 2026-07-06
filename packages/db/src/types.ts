@@ -225,6 +225,45 @@ export interface FuelPriceSnapshots {
   source: Generated<string>;
 }
 
+export interface FuelSlips {
+  created_at: Generated<Timestamp>;
+  driver_id: number;
+  fuel_type: string;
+  fuel_vendor_id: number;
+  id: Generated<number>;
+  liters: Numeric;
+  master_trip_id: number | null;
+  notes: string | null;
+  odometer_reading: Numeric | null;
+  price_per_liter: Numeric;
+  rejected_reason: string | null;
+  slip_date: Generated<Timestamp>;
+  slip_number: string;
+  station_name: string | null;
+  status: Generated<string>;
+  total_amount: Numeric;
+  trip_leg_id: number | null;
+  updated_at: Generated<Timestamp>;
+  vehicle_id: number;
+  verified_at: Timestamp | null;
+  verified_by_user_id: number | null;
+}
+
+export interface FuelVendors {
+  address: string | null;
+  city: string | null;
+  contact_person: string | null;
+  created_at: Generated<Timestamp>;
+  email: string | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  name: string;
+  ntn: string | null;
+  payment_terms_days: Generated<number>;
+  phone: string | null;
+  updated_at: Generated<Timestamp>;
+}
+
 export interface MasterTrips {
   actual_start_at: Timestamp | null;
   completed_at: Timestamp | null;
@@ -420,6 +459,8 @@ export interface DB {
   driver_vehicle_assignments: DriverVehicleAssignments;
   drivers: Drivers;
   fuel_price_snapshots: FuelPriceSnapshots;
+  fuel_slips: FuelSlips;
+  fuel_vendors: FuelVendors;
   master_trips: MasterTrips;
   permissions: Permissions;
   role_permissions: RolePermissions;

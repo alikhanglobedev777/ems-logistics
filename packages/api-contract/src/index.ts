@@ -169,3 +169,15 @@ export type CreateDriverSettlementRequest = Schemas['CreateDriverSettlementReque
 export type DriverSettlementResponse = Schemas['DriverSettlementResponse'];
 export type DriverSettlementsListResponse = Schemas['DriverSettlementsListResponse'];
 export type CancelDriverSettlementRequest = Schemas['CancelDriverSettlementRequest'];
+
+export type FuelSlipStatus = Schemas['FuelSlipStatus'];
+export type FuelVendor = Schemas['FuelVendor'];
+export type CreateFuelVendorRequest = Schemas['CreateFuelVendorRequest'];
+export type UpdateFuelVendorRequest = Schemas['UpdateFuelVendorRequest'];
+export type FuelVendorResponse = Schemas['FuelVendorResponse'];
+export type FuelVendorsListResponse = Schemas['FuelVendorsListResponse'];
+export type FuelSlip = Schemas['FuelSlip'];
+export type CreateFuelSlipRequest = Schemas['CreateFuelSlipRequest'];
+export type RejectFuelSlipRequest = Schemas['RejectFuelSlipRequest'];
+export type FuelSlipResponse = Schemas['FuelSlipResponse'];
+export type FuelSlipsListResponse = Schemas['FuelSlipsListResponse'];

@@ -22,5 +22,7 @@ export * from "./generated/bookings/bookings";
 export * from "./generated/trips/trips";
 export * from "./generated/driver-advances/driver-advances";
 export * from "./generated/driver-settlements/driver-settlements";
+export * from "./generated/fuel-vendors/fuel-vendors";
+export * from "./generated/fuel-slips/fuel-slips";
 export * from "./generated/models";
 export * from "./http-client";

@@ -1390,6 +1390,122 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/fuel-vendors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List fuel vendors */
+        get: operations["getFuelVendors"];
+        put?: never;
+        /** Create fuel vendor */
+        post: operations["createFuelVendor"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-vendors/{fuelVendorId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelVendorId: number;
+            };
+            cookie?: never;
+        };
+        /** Get fuel vendor */
+        get: operations["getFuelVendorById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update fuel vendor */
+        patch: operations["updateFuelVendor"];
+        trace?: never;
+    };
+    "/fuel-slips": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List fuel slips */
+        get: operations["getFuelSlips"];
+        put?: never;
+        /**
+         * Create fuel slip payable to vendor
+         * @description Fuel slips are vendor payables and are intentionally excluded from driver advances.
+         */
+        post: operations["createFuelSlip"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-slips/{fuelSlipId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelSlipId: number;
+            };
+            cookie?: never;
+        };
+        /** Get fuel slip */
+        get: operations["getFuelSlipById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-slips/{fuelSlipId}/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelSlipId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Verify fuel slip */
+        post: operations["verifyFuelSlip"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fuel-slips/{fuelSlipId}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelSlipId: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reject fuel slip */
+        post: operations["rejectFuelSlip"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2626,6 +2742,122 @@ export interface components {
         };
         DriverSettlementsListResponse: {
             data: components["schemas"]["DriverSettlement"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        /** @enum {string} */
+        FuelSlipStatus: "pending" | "verified" | "rejected" | "invoiced" | "paid";
+        FuelVendor: {
+            id: number;
+            name: string;
+            contactPerson: string | null;
+            phone: string | null;
+            email: string | null;
+            address: string | null;
+            city: string | null;
+            ntn: string | null;
+            paymentTermsDays: number;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateFuelVendorRequest: {
+            name: string;
+            contactPerson?: string | null;
+            phone?: string | null;
+            email?: string | null;
+            address?: string | null;
+            city?: string | null;
+            ntn?: string | null;
+            paymentTermsDays?: number | null;
+            isActive?: boolean | null;
+        };
+        UpdateFuelVendorRequest: {
+            name?: string;
+            contactPerson?: string | null;
+            phone?: string | null;
+            email?: string | null;
+            address?: string | null;
+            city?: string | null;
+            ntn?: string | null;
+            paymentTermsDays?: number;
+            isActive?: boolean;
+        };
+        FuelVendorResponse: {
+            data: components["schemas"]["FuelVendor"];
+            message: string;
+        };
+        FuelVendorsListResponse: {
+            data: components["schemas"]["FuelVendor"][];
+            pagination: components["schemas"]["Pagination"];
+        };
+        FuelSlip: {
+            id: number;
+            slipNumber: string;
+            vendor: {
+                id: number;
+                name: string;
+            };
+            masterTrip: {
+                id: number;
+                tripNumber: string;
+            } | null;
+            tripLeg: {
+                id: number;
+                routeName: string;
+            } | null;
+            vehicle: {
+                id: number;
+                registrationNumber: string;
+            };
+            driver: {
+                id: number;
+                name: string;
+            };
+            fuelType: components["schemas"]["FuelType"];
+            liters: string;
+            pricePerLiter: string;
+            totalAmount: string;
+            /** Format: date */
+            slipDate: string;
+            odometerReading: string | null;
+            stationName: string | null;
+            status: components["schemas"]["FuelSlipStatus"];
+            verifiedByUserId: number | null;
+            /** Format: date-time */
+            verifiedAt: string | null;
+            rejectedReason: string | null;
+            notes: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CreateFuelSlipRequest: {
+            fuelVendorId: number;
+            masterTripId?: number | null;
+            tripLegId?: number | null;
+            vehicleId?: number | null;
+            driverId?: number | null;
+            fuelType?: components["schemas"]["FuelType"];
+            liters: number;
+            pricePerLiter: number;
+            /** Format: date */
+            slipDate?: string | null;
+            odometerReading?: number | null;
+            stationName?: string | null;
+            notes?: string | null;
+        };
+        RejectFuelSlipRequest: {
+            reason: string;
+        };
+        FuelSlipResponse: {
+            data: components["schemas"]["FuelSlip"];
+            message: string;
+        };
+        FuelSlipsListResponse: {
+            data: components["schemas"]["FuelSlip"][];
             pagination: components["schemas"]["Pagination"];
         };
     };
@@ -6135,6 +6367,226 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DriverExpenseResponse"];
+                };
+            };
+        };
+    };
+    getFuelVendors: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                isActive?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel vendors */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorsListResponse"];
+                };
+            };
+        };
+    };
+    createFuelVendor: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFuelVendorRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel vendor created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorResponse"];
+                };
+            };
+        };
+    };
+    getFuelVendorById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelVendorId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel vendor */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorResponse"];
+                };
+            };
+        };
+    };
+    updateFuelVendor: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelVendorId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateFuelVendorRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel vendor updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelVendorResponse"];
+                };
+            };
+        };
+    };
+    getFuelSlips: {
+        parameters: {
+            query?: {
+                page?: components["parameters"]["Page"];
+                limit?: components["parameters"]["Limit"];
+                search?: components["parameters"]["Search"];
+                status?: components["schemas"]["FuelSlipStatus"];
+                vendorId?: number;
+                masterTripId?: number;
+                vehicleId?: number;
+                driverId?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel slips */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelSlipsListResponse"];
+                };
+            };
+        };
+    };
+    createFuelSlip: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFuelSlipRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel slip created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelSlipResponse"];
+                };
+            };
+        };
+    };
+    getFuelSlipById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelSlipId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel slip */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelSlipResponse"];
+                };
+            };
+        };
+    };
+    verifyFuelSlip: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelSlipId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Fuel slip verified */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelSlipResponse"];
+                };
+            };
+        };
+    };
+    rejectFuelSlip: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fuelSlipId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RejectFuelSlipRequest"];
+            };
+        };
+        responses: {
+            /** @description Fuel slip rejected */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FuelSlipResponse"];
                 };
             };
         };
