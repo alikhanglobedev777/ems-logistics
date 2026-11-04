@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build.cjs.json && node scripts/write-cjs-package.cjs",
+    "build": "node init && tsc -p tsconfig.build.json && tsc -p tsconfig.build.cjs.json && node scripts/write-cjs-package.cjs",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
